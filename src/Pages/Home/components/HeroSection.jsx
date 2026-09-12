@@ -3,8 +3,14 @@ import hero from '../../../assets/image/Banner-board-800x420 2.png';
 import { BsPersonCircle } from "react-icons/bs";
 import Button from "../../../Components/ui/Button";
 import SecondButton from "../../../Components/ui/SecondButton";
+import { useNavigate } from "react-router";
 
 const HeroSection = () => {
+  const navigateTo = useNavigate()
+
+  const nandleButton = ()=>{
+    navigateTo('/login')
+  }
   return (
     <div>
       <Container className="p-3">
@@ -47,7 +53,7 @@ const HeroSection = () => {
                     <p className="mb-0 lh-sm">Hi, user <br /><small className="text-muted">let's get started</small></p>
                   </div>
                   <div className="mt-2">
-                    <Button value={"Join us"} className="w-100"/>
+                    <Button value={"Join us"} className="w-100" onClick={nandleButton}/>
                   </div>
                   <div>
                     <SecondButton value={"Log in"} />

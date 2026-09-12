@@ -5,6 +5,8 @@ import Layout from "../../Layouts/AuthLayout/Layout";
 import logo from "../../assets/logo/Simplification.png";
 
 import "./Auth.css";
+import { Nav } from "react-bootstrap";
+import { NavLink } from "react-router";
 
 const Login = () => {
     const handleSubmit = (e) => {
@@ -65,6 +67,9 @@ const Login = () => {
                             >
                                 Log in
                             </button>
+                            <div className="text-center mt-3 custom-nav-link">
+                                <Nav.Link as={NavLink} to={'/register'}>Sign up</Nav.Link>
+                            </div>
                         </form>
                     </div>
                 </>

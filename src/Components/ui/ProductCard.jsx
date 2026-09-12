@@ -95,7 +95,7 @@ const ProductCard = ({ product, view }) => {
                 <p className="text-secondary mb-2">{product.description}</p>
 
                 <a
-                    href={`/product/${product.id}`}
+                    href={`/products/product-details`}
                     className="text-danger text-decoration-none fw-semibold"
                 >
                     View details

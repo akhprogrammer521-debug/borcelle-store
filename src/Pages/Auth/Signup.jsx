@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Nav } from "react-bootstrap";
 import {
   BsPersonCircle,
   BsEnvelope,
@@ -11,6 +11,7 @@ import Layout from "../../Layouts/AuthLayout/Layout";
 import logo from "../../assets/logo/Simplification.png";
 
 import "./Auth.css";
+import { NavLink } from "react-router";
 
 const Signup = () => {
   const [photo, setPhoto] = useState(null);
@@ -148,6 +149,9 @@ const Signup = () => {
           Save
         </Button>
       </Form>
+      <div className="text-center mt-3 custom-nav-link">
+            <Nav.Link as={NavLink} to={'/login'}>Login</Nav.Link>
+      </div>
     </div>
   );
 
