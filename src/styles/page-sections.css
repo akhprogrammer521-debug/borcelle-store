@@ -1,0 +1,116 @@
+.user-bg{
+  background: var(--color-user-bg);
+}
+
+.user-bg-cus {
+  background: rgba(145, 177, 231, 1);
+}
+
+.hero-orange-bg{
+  background: rgba(243, 131, 50, 1);
+}
+
+.hero-pink-bg{
+  background: rgba(240, 114, 141, 1);
+}
+
+.position-absolute-cus{
+  position: absolute;
+  top: 30%;
+}
+
+/* Hero Banner Desktop Positioning */
+.hero-banner-container {
+  min-height: 360px;
+}
+
+.position-absolute-cus {
+  z-index: 2;
+}
+
+.hero-banner-img {
+  object-fit: cover;
+  object-position: right center;
+}
+
+/* Hero Banner Mobile View */
+.mobile-hero-wrapper {
+  height: 180px;
+}
+
+.mobile-banner-img {
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.mobile-hero-overlay {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.date-bg{
+  background: rgba(96, 96, 96, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.price-bg{
+  background: rgba(255, 227, 227, 1);
+}
+
+.image-bg{
+  background-image: url('../assets/image/image\ 102.png');
+}
+
+.blur-color{
+  background-image: linear-gradient(90deg,rgba(240, 114, 141, 1),rgba(240, 114, 141, 0.5));
+}
+
+.sub-bg{
+  background: rgba(239, 242, 244, 1);
+}
+
+.hero-link{
+  transition: ease-out all .2s;
+}
+.hero-link:hover {
+  background: rgba(229, 241, 255, 1);
+  border-radius: 8px;
+}
+
+.bg-orange {
+  background: rgba(255, 144, 23, 1);
+}
+
+.bg-cus{
+  background: linear-gradient(
+    105deg,
+    #d64563 0%,
+    #d64563 60%,
+    #9c2742 60.1%,
+    #9c2742 100%
+  );
+}
+
+.bg-light-cus {
+  background: rgba(255, 240, 223, 1);
+}
+
+.city-item{
+  width: 15%;
+}
+
+.line-height {
+  line-height: 5px;
+  font-size: smaller;
+}
+
+/* prifle page  */
+
+.header-profile{
+  background-image: linear-gradient(90deg , rgba(240, 52, 93, 1), rgba(221, 163, 176, 1));
+  height: 70px;
+}
+
+.icon-cus {
+  color: rgba(234, 8, 139, 1);
+}

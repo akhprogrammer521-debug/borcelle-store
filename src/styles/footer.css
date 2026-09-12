@@ -1,0 +1,12 @@
+.copy-custom-bg{
+  background-color: var(--color-bg-copyright);
+}
+
+.btn-cus-app {
+  background-color: #1c1c1c;
+  color: var(--bs-btn-color);
+}
+
+.btn-cus-app:hover{
+  background: var(--brand-gradient-start);
+}

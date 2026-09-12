@@ -1,0 +1,293 @@
+.auth-left-bg {
+  background-image: url("../../assets/image/Rectangle 311.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-left-overlay {
+  background: rgba(68, 22, 22, 0.75);
+}
+
+.auth-main-title {
+  font-size: 46px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.auth-description {
+  max-width: 600px;
+  font-size: 25px;
+  line-height: 1.45;
+}
+
+.auth-form-content {
+  max-width: 510px;
+}
+
+.auth-phone-input {
+  height: 66px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.auth-phone-input:focus {
+  border-color: #f53061;
+  box-shadow:
+    0 0 0 0.15rem rgba(245, 48, 97, 0.08);
+}
+
+.auth-phone-icon {
+  color: #f53061;
+  font-size: 24px;
+}
+
+.auth-primary-btn {
+  height: 56px;
+  background-color: #f53061;
+  color: white;
+  border-radius: 7px;
+  font-size: 20px;
+}
+
+
+.auth-primary-btn:hover,
+.auth-primary-btn:focus {
+  background-color: #e72b59;
+  color: white;
+}
+
+.auth-pink {
+  color: #f53061 !important;
+}
+
+.verification-input {
+  height: 98px;
+  font-size: 22px;
+  border-radius: 9px;
+}
+
+.verification-input:focus {
+  border-color: #f53061;
+  box-shadow:
+    0 0 0 0.15rem rgba(245, 48, 97, 0.08);
+}
+
+.auth-outline-btn {
+  height: 66px;
+  border: 1px solid #f53061;
+  border-radius: 8px;
+}
+
+input[type="radio" i] {
+    background-color: #f53061;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    padding: initial;
+    border: initial;
+    margin: 3px 3px 0px 5px;
+}
+
+.auth-outline-btn:hover {
+  background-color: #f53061;
+  color: white;
+}
+
+.mobile-auth-bg {
+  background-color: #f2f5f9;
+}
+
+
+.mobile-top-image {
+  height: 44vh;
+  background-image:
+    linear-gradient(
+      rgba(62, 27, 27, 0.38),
+      rgba(62, 27, 27, 0.38)
+    ),
+    url("../../assets/image/Rectangle 311.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.mobile-auth-card {
+  max-width: 430px;
+
+  min-height: calc(100vh - 55px);
+}
+
+/* =========================================
+   PROFILE INFORMATION
+========================================= */
+
+.profile-photo-box {
+  width: 150px;
+  height: 150px;
+
+  border: 1px solid #d5d5d5;
+  border-radius: 4px;
+
+  background: transparent;
+
+  overflow: hidden;
+
+  cursor: pointer;
+}
+
+
+.profile-photo-icon {
+  color: #f53061;
+
+  font-size: 45px;
+}
+
+
+.auth-profile-input {
+  height: 66px;
+
+  padding-left: 25px;
+
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+
+  background: transparent;
+
+  font-size: 18px;
+}
+
+
+.auth-profile-input::placeholder {
+  color: #bdbdbd;
+}
+
+
+.auth-profile-input:focus {
+  border-color: #f53061;
+
+  box-shadow:
+    0 0 0 0.15rem rgba(245, 48, 97, 0.08);
+}
+
+
+.auth-field-icon {
+  color: #f53061;
+
+  font-size: 25px;
+
+  pointer-events: none;
+}
+
+
+/* Mobile overrides */
+
+@media (max-width: 991px) {
+
+  .mobile-auth-card .auth-logo {
+    width: 135px;
+  }
+
+
+  .mobile-auth-card .auth-main-title {
+    color: #555 !important;
+
+    font-size: 26px;
+
+    letter-spacing: 0;
+  }
+
+
+  .mobile-auth-card .auth-description {
+    color: #777 !important;
+
+    font-size: 14px;
+
+    max-width: 310px;
+  }
+
+
+  .mobile-auth-card .auth-heading {
+    border-top: 1px solid #ddd;
+
+    padding-top: 20px;
+
+    text-align: center;
+  }
+
+
+  .mobile-auth-card .auth-phone-input {
+    height: 54px;
+
+    font-size: 15px;
+  }
+
+
+  .mobile-auth-card .auth-primary-btn {
+    height: 50px;
+
+    font-size: 16px;
+  }
+
+
+  .mobile-auth-card .verification-input {
+    height: 65px;
+
+    font-size: 18px;
+  }
+
+
+  .mobile-auth-card .auth-outline-btn {
+    height: 50px;
+
+    font-size: 16px;
+  }
+
+}
+
+
+@media (max-width: 390px) {
+
+  .mobile-auth-card .verification-input {
+    height: 58px;
+  }
+
+
+  .mobile-auth-card .auth-main-title {
+    font-size: 23px;
+  }
+
+
+  .mobile-auth-card .auth-description {
+    font-size: 13px;
+  }
+
+}
+
+@media (max-width: 991px) {
+
+  .mobile-auth-card .profile-photo-box {
+    width: 120px;
+    height: 120px;
+  }
+
+
+  .mobile-auth-card .profile-photo-icon {
+    font-size: 35px;
+  }
+
+
+  .mobile-auth-card .auth-profile-input {
+    height: 54px;
+
+    font-size: 15px;
+  }
+
+
+  .mobile-auth-card .auth-field-icon {
+    font-size: 20px;
+  }
+}
