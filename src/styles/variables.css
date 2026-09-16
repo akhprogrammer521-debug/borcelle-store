@@ -1,0 +1,80 @@
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ========================================================================== */
+:root {
+  color-scheme: light;
+  /* Colors */
+  --brand-primary: hsla(347, 86%, 57%, 1);
+  --brand-primary-hover: hsla(340, 86%, 57%, 1);
+  --brand-gradient-start: rgba(240, 52, 93, 1);
+  --brand-gradient-end: rgba(211, 75, 105, 1);
+  --brand-gradient-hover: rgb(224, 45, 84);
+
+  --color-text-main: #1c1c1c;
+  --color-text-dark: #252525;
+  --color-text-muted: hsl(213, 13%, 59%);
+  --color-icon-muted: hsl(215, 13%, 60%);
+  --color-body-bg: rgba(229, 229, 229, 1);
+  --color-bg-copyright: hsla(204, 19%, 95%, 1);
+  --color-avatar: #9da7b6;
+  --color-user-bg: rgba(227, 240, 255, 1);
+
+  --color-border-light: #e3e8ee;
+  --color-bg-light: #f7f8f9;
+  --color-bg-alt: #eff2f4;
+  --color-white: #ffffff;
+  --color-surface: #ffffff;
+
+  /* Typography */
+  --font-size-xs: 13px;
+  --font-size-sm: 14px;
+  --font-size-base: 15px;
+  --font-size-lg: 16px;
+  --font-size-icon-sm: 16px;
+  --font-size-icon-md: 18px;
+  --font-size-avatar: 40px;
+
+  /* Spacing & Layout */
+  --radius-sm: 6px;
+  --radius-md: 7px;
+  --height-input: 40px;
+  --offcanvas-drawer-width: 280px;
+
+  /* Transitions */
+  --transition-fast: all 0.2s ease;
+  --transition-normal: box-shadow 0.3s ease;
+  --transition-interaction: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  --transition-elevation: transform 0.2s ease, box-shadow 0.2s ease;
+  --focus-ring: 0 0 0 3px rgba(240, 52, 93, 0.24);
+}
+
+:root[data-bs-theme='dark'] {
+  color-scheme: dark;
+  --color-text-main: #edf0f5;
+  --color-text-dark: #f7f8fc;
+  --color-text-muted: #a8b3c4;
+  --color-icon-muted: #a8b3c4;
+  --color-body-bg: #11151c;
+  --color-bg-copyright: #151b24;
+  --color-avatar: #a8b3c4;
+  --color-user-bg: #23334a;
+  --color-border-light: #354052;
+  --color-bg-light: #151b24;
+  --color-bg-alt: #252e3c;
+  --color-surface: #1d2531;
+
+  --bs-body-color: var(--color-text-main);
+  --bs-body-color-rgb: 237, 240, 245;
+  --bs-body-bg: var(--color-surface);
+  --bs-body-bg-rgb: 29, 37, 49;
+  --bs-emphasis-color: var(--color-text-dark);
+  --bs-emphasis-color-rgb: 247, 248, 252;
+  --bs-secondary-color: var(--color-text-muted);
+  --bs-secondary-color-rgb: 168, 179, 196;
+  --bs-secondary-bg: var(--color-bg-alt);
+  --bs-secondary-bg-rgb: 37, 46, 60;
+  --bs-tertiary-bg: var(--color-bg-light);
+  --bs-tertiary-bg-rgb: 21, 27, 36;
+  --bs-border-color: var(--color-border-light);
+  --bs-border-color-translucent: rgba(168, 179, 196, 0.2);
+}
