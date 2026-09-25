@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router';
 
 import HomePage from './Pages/Home/HomePage';
 import Verification from './Pages/Auth/Verification'
@@ -20,17 +20,17 @@ const App = () => {
         <>
             <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='login' element={<Login />}/>
+                <Route path='login' element={<Login />} />
                 <Route path='/verification' element={<Verification />} />
                 <Route path='/payment' element={<Payment />} />
                 <Route path='/register' element={<Signup />} />
 
                 <Route path='profile' element={<Profile />} />
-                <Route path='/profile/term&condition'element={<TermCondition />} />
+                <Route path='/profile/term&condition' element={<TermCondition />} />
                 <Route path='/profile/contact-us' element={<ContactUs />} />
 
                 <Route path='/products' element={<Products />} />
-                <Route path='/products/product-details' element={<ProductDetails />} />
+                <Route path="/products/:pID" element={<ProductDetails />} />
                 <Route path="/cart" element={<Cart />} />
             </Routes>
         </>

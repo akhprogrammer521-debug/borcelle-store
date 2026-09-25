@@ -1,12 +1,6 @@
 import { Accordion, Button, Col, Form, Row } from "react-bootstrap";
 import { BsStarFill } from "react-icons/bs";
-
-const categories = [
-    "Mobile accessory",
-    "Electronics",
-    "Smartphones",
-    "Modern tech",
-];
+import { useState } from "react";
 
 const brands = [
     "Samsung",
@@ -37,7 +31,12 @@ const FilterContent = ({
     setMinPrice,
     setMaxPrice,
     idPrefix,
+    categories,
+    selectedCategoryId,
+    onCategoryChange,
 }) => {
+    const [showAllCategories, setShowAllCategories] = useState(false);
+    const displayedCategories = showAllCategories ? categories : categories.slice(0, 4);
     return (
         <Accordion
             defaultActiveKey={["0", "1", "2", "3", "4", "5"]}
@@ -52,21 +51,29 @@ const FilterContent = ({
                 </Accordion.Header>
                 <Accordion.Body className="pt-2">
                     <div className="d-flex flex-column gap-3">
-                        {categories.map((category, index) => (
+                        {displayedCategories.map((category) => (
                             <button
-                                key={index}
+                                key={category.id}
                                 type="button"
-                                className="btn p-0 border-0 text-start text-secondary"
+                                className={`btn p-0 border-0 text-start ${selectedCategoryId === category.id
+                                    ? "text-danger fw-semibold"
+                                    : "text-secondary"
+                                    }`
+                                }
+                                onClick={() => { onCategoryChange(category.id) }}
                             >
-                                {category}
+                                {category.name}
                             </button>
                         ))}
-                        <button
-                            type="button"
-                            className="btn p-0 border-0 text-start text-danger"
-                        >
-                            See all
-                        </button>
+                        {categories.length > 4 && (
+                            <button
+                                type="button"
+                                onClick={() => setShowAllCategories(!showAllCategories)}
+                                className="btn p-0 border-0 text-start text-danger"
+                            >
+                                {showAllCategories ? "Show less" : "See all"}
+                            </button>
+                        )}
                     </div>
                 </Accordion.Body>
             </Accordion.Item>

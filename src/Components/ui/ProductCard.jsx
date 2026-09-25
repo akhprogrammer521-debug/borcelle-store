@@ -1,7 +1,44 @@
 import { FaRegHeart } from "react-icons/fa";
 import SecondButton from "./SecondButton";
-
+import { NavLink } from "react-router";
+import Button from "../ui/Button"
+import { CartApi } from "../../services/CartApi";
+import { useContext, useState } from "react";
+import { CartContext } from "../../Contexts/CartContext";
 const ProductCard = ({ product, view }) => {
+
+    const { setCart } = useContext(CartContext);
+    const [error, setError] = useState(null);
+    const [isSaving, setIsSaving] = useState(null)
+
+    const handleAddingCart = () => {
+        setError(false);
+        setIsSaving(true);
+
+        CartApi.AddCartService({
+            productId: product.id,
+            quantity: 1,
+        })
+            .then((response) => {
+                const addedCartItem = response.data;
+
+                setCart((previousCart) => {
+                    const updatedCart = [...previousCart, addedCartItem];
+
+                    sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
+
+                    return updatedCart;
+                });
+            })
+            .catch((err) => {
+                console.log(err)
+                setError(err.message)
+            })
+            .finally(() => {
+                setIsSaving(false)
+            })
+    }
+
     if (view === "grid") {
         return (
             <div className="ui-card border bg-white rounded-2 h-100 overflow-hidden">
@@ -11,7 +48,7 @@ const ProductCard = ({ product, view }) => {
                 >
                     <img
                         src={product.image}
-                        alt={product.title}
+                        alt={product.name}
                         className="img-fluid h-100 object-fit-contain"
                     />
                 </div>
@@ -44,7 +81,21 @@ const ProductCard = ({ product, view }) => {
                         </div>
                     </div>
 
-                    <p className="text-secondary mt-2 mb-0">{product.title}</p>
+                    <p className="text-secondary mt-2 mb-0">{product.name}</p>
+                    <Button
+                        value={isSaving ? "Added" : "Add to cart"}
+                        className="mt-3 my-2"
+                        onClick={handleAddingCart}
+                    />
+                    {error && (
+                        <div className="alert alert-danger">{error}</div>
+                    )}
+                    <NavLink
+                        to={`/products/${product.id}`}
+                        className="text-danger text-decoration-none fw-semibold"
+                    >
+                        View details
+                    </NavLink>
                 </div>
             </div>
         );
@@ -59,7 +110,7 @@ const ProductCard = ({ product, view }) => {
             <div className="flex-shrink-0">
                 <img
                     src={product.image}
-                    alt={product.title}
+                    alt={product.name}
                     width={150}
                     height={150}
                     className="object-fit-contain"
@@ -67,7 +118,7 @@ const ProductCard = ({ product, view }) => {
             </div>
 
             <div className="d-flex flex-column w-100 pe-5">
-                <p className="mb-2">{product.title}</p>
+                <p className="mb-2">{product.name}</p>
 
                 <div className="mb-2">
                     <span className="fw-bold fs-5">
@@ -94,12 +145,22 @@ const ProductCard = ({ product, view }) => {
 
                 <p className="text-secondary mb-2">{product.description}</p>
 
-                <a
-                    href={`/products/product-details`}
-                    className="text-danger text-decoration-none fw-semibold"
-                >
-                    View details
-                </a>
+                <div className="d-flex gap-4 align-items-center">
+                    <NavLink
+                        to={`/products/${product.id}`}
+                        className="text-danger text-decoration-none fw-semibold"
+                    >
+                        View details
+                    </NavLink>
+                    <Button
+                        value={isSaving ? "Added" : "Add to cart"}
+                        className="mt-3 my-2 w-auto"
+                        onClick={handleAddingCart}
+                    />
+                    {error && (
+                        <div className="alert alert-danger">{error}</div>
+                    )}
+                </div>
             </div>
         </div>
     );

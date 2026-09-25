@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -30,40 +30,13 @@ import {
 } from "react-icons/bs";
 
 import logo from '../../../assets/logo/logo.png';
-import Headphone from '../../../assets/products_tech/image 86.png';
-import Laptop from '../../../assets/products_tech/image 85.png';
-import Watch from '../../../assets/products_cloth/image 26.png';
+import { CartContext } from '../../../Contexts/CartContext';
 
 const TopNavbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
-
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      title: "Backed Bread",
-      subtitle: "Special GoPro cameras",
-      price: 600,
-      quantity: 2,
-      image: Watch,
-    },
-    {
-      id: 2,
-      title: "Greeze Face Wipe",
-      subtitle: "Special GoPro cameras",
-      price: 600,
-      quantity: 2,
-      image: Laptop,
-    },
-    {
-      id: 3,
-      title: "GoPro Cameras",
-      subtitle: "Special GoPro cameras",
-      price: 600,
-      quantity: 2,
-      image: Headphone,
-    },
-  ]);
+  const {cart, setCart} = useContext(CartContext);
+  console.log(cart);  
 
   const handleClose = () => setShowSidebar(false);
   const handleShow = () => setShowSidebar(true);
@@ -72,7 +45,7 @@ const TopNavbar = () => {
   const handleCartShow = () => setShowCart(true);
 
   const updateQuantity = (id, change) => {
-    setCartItems(prev =>
+    setCart(prev =>
       prev.map(item => {
         if (item.id === id) {
           const newQty = item.quantity + change;
@@ -84,10 +57,13 @@ const TopNavbar = () => {
   };
 
   const removeItem = (id) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+    setCart(prev => prev.filter(item => item.id !== id));
   };
 
-  const subTotal = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const cartCount = cart.reduce(
+  (total, item) => total + item.quantity,
+  0
+);
 
   const links = [
     { name: "Profile", to: "/profile", icon: <BsFillPersonFill size={20} /> },
@@ -152,8 +128,8 @@ const TopNavbar = () => {
                       <span className={isCart ? 'cart-icon-wrapper' : ''}>
                         {link.icon}
 
-                        {isCart && cartItems.length > 0 && (
-                          <span className="cart-badge">{cartItems.length}</span>
+                        {isCart && cart.length > 0 && (
+                          <span className="cart-badge">{cart.length}</span>
                         )}
                       </span>
 
@@ -181,8 +157,8 @@ const TopNavbar = () => {
               <ThemeToggle />
               <Nav.Link onClick={handleCartShow} className="p-0 text-dark position-relative">
                 <BsFillCartFill size={22} />
-                {cartItems.length > 0 && (
-                  <span className="cart-badge-mobile">{cartItems.length}</span>
+                {cart.length > 0 && (
+                  <span className="cart-badge-mobile">{cart.length}</span>
                 )}
               </Nav.Link>
               <Nav.Link as={NavLink} to={'/profile'} className="p-0 text-dark">
@@ -256,10 +232,10 @@ const TopNavbar = () => {
         </div>
 
         <div className="cart-body">
-          {cartItems.map((item) => (
+          {cart.map((item) => (
             <div className="cart-item-row" key={item.id}>
               <div className="cart-item-image-container">
-                <img src={item.image} alt={item.title} className="cart-item-image" />
+                <img src={item.product.image} alt={item.title} className="cart-item-image" />
                 <span className="cart-item-qty-badge">{item.quantity}</span>
               </div>
 
@@ -284,7 +260,7 @@ const TopNavbar = () => {
             </div>
           ))}
 
-          {cartItems.length === 0 && (
+          {cart.length === 0 && (
             <div className="text-center py-5 text-muted">
               Your shopping bag is empty
             </div>
@@ -292,7 +268,7 @@ const TopNavbar = () => {
 
           <div className="cart-subtotal-container">
             <span className="cart-subtotal-title">SubTotal :</span>
-            <span className="cart-subtotal-amount">{subTotal} AED</span>
+            <span className="cart-subtotal-amount">{cartCount} AED</span>
           </div>
 
           <button className="cart-checkout-action-btn">

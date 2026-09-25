@@ -57,7 +57,6 @@ const HomeAndOutdoorSection = () => {
                   backgroundImage: `url(${homeBanner})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  minHeight: '280px'
                 }}
               >
                 <div>

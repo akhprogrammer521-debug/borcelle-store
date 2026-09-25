@@ -1,14 +1,21 @@
+import { useContext } from "react"
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import hero from '../../../assets/image/Banner-board-800x420 2.png';
 import { BsPersonCircle } from "react-icons/bs";
 import Button from "../../../Components/ui/Button";
 import SecondButton from "../../../Components/ui/SecondButton";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../../../Contexts/AuthContext"
 
 const HeroSection = () => {
+  const { user } = useContext(AuthContext);
   const navigateTo = useNavigate()
+ 
+  const handleButton = () => {
+    navigateTo('/register')
+  }
 
-  const nandleButton = ()=>{
+  const handleLogin = () => {
     navigateTo('/login')
   }
   return (
@@ -47,18 +54,29 @@ const HeroSection = () => {
 
             <Col lg={3}>
               <div className="d-flex flex-column gap-2 h-100">
-                <div className="rounded-3 user-bg p-3 d-flex flex-column gap-2">
-                  <div className="w-100 d-flex align-items-center gap-2">
-                    <BsPersonCircle className="fs-1 text-light user-bg-cus rounded-circle shrink-0" />
-                    <p className="mb-0 lh-sm">Hi, user <br /><small className="text-muted">let's get started</small></p>
-                  </div>
-                  <div className="mt-2">
-                    <Button value={"Join us"} className="w-100" onClick={nandleButton}/>
-                  </div>
-                  <div>
-                    <SecondButton value={"Log in"} />
-                  </div>
-                </div>
+                {
+                  user
+                    ? <>
+                      <div className="rounded-3 user-bg p-3 d-flex flex-column gap-2">
+                        <div className="w-100 d-flex align-items-center gap-2">
+                          <BsPersonCircle className="fs-1 text-light user-bg-cus rounded-circle shrink-0" />
+                          <p className="mb-0 lh-sm"> Hi, {user.data.name} <br /><small className="text-muted">let's get started</small></p>
+                        </div>
+                      </div>
+                    </>
+                    : <div className="rounded-3 user-bg p-3 d-flex flex-column gap-2">
+                      <div className="w-100 d-flex align-items-center gap-2">
+                        <BsPersonCircle className="fs-1 text-light user-bg-cus rounded-circle shrink-0" />
+                        <p className="mb-0 lh-sm">Hi, user <br /><small className="text-muted">let's get started</small></p>
+                      </div>
+                      <div className="mt-2">
+                        <Button value={"Join us"} className="w-100" onClick={handleButton} />
+                      </div>
+                      <div>
+                        <SecondButton value={"Log in"} onClick={handleLogin} />
+                      </div>
+                    </div>
+                }
                 <div className="hero-orange-bg p-3 rounded-3 text-light fs-6">
                   Get US $10 off with a new supplier
                 </div>

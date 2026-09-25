@@ -19,7 +19,6 @@
   top: 30%;
 }
 
-/* Hero Banner Desktop Positioning */
 .hero-banner-container {
   min-height: 360px;
 }
@@ -33,7 +32,6 @@
   object-position: right center;
 }
 
-/* These headings sit on pale photography in both themes. */
 .image-banner-title {
   color: #212529;
 }
@@ -43,7 +41,6 @@
   color: var(--color-text-main);
 }
 
-/* Hero Banner Mobile View */
 .mobile-hero-wrapper {
   height: 180px;
 }
@@ -68,7 +65,7 @@
 }
 
 .image-bg{
-  background-image: url('../assets/image/image\ 102.png');
+  background-image: url('../../assets/image/image\ 102.png');
 }
 
 .blur-color{
@@ -117,7 +114,6 @@
   font-size: smaller;
 }
 
-/* prifle page  */
 
 .header-profile{
   background-image: linear-gradient(90deg , rgba(240, 52, 93, 1), rgba(221, 163, 176, 1));
@@ -134,4 +130,12 @@ html[data-bs-theme="dark"] .price-bg {
 
 html[data-bs-theme="dark"] .bg-light-cus {
   background: var(--bs-warning-bg-subtle);
+}
+
+
+
+.offer-pct:hover{
+  transform: scale(10);
+  transform: translateY(-1);
+  background: #d64563;
 }

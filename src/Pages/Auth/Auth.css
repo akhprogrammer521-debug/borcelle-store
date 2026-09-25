@@ -125,6 +125,17 @@ input[type="radio" i] {
   background-repeat: no-repeat;
 }
 
+.auth-profile-input.is-invalid,
+.auth-profile-input.is-valid {
+  background-image: none;
+  padding-right: 64px;
+}
+
+.auth-field-icon {
+  pointer-events: none;
+  z-index: 2;
+  font-size: 26px;
+}
 
 .mobile-auth-card {
   max-width: 430px;

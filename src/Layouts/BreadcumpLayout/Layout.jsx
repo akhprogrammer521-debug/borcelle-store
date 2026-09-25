@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
     return (
         <>
             <MainLayout>
-                <div className="bg-light">
+                <div className="">
                     <Container>
                         <Breadcrumb>
                             <Breadcrumb.Item href="#">Home</Breadcrumb.Item>

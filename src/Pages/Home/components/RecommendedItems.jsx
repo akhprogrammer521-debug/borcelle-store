@@ -69,11 +69,10 @@ const RecommendedItems = () => {
         )}
       </div>
 
-      {/* DESKTOP VIEW */}
       <div className="d-none d-md-block">
         <Row className="g-3">
           {recItems.map((item) => (
-            <Col key={item.id} md={3} lg={2} className="flex-grow-1" style={{ width: "20%" }}>
+            <Col key={item.id} md={3} lg={2} className="grow" style={{ width: "20%" }}>
               <div className="bg-white border rounded-3 p-3 h-100 d-flex flex-column align-items-start justify-content-between">
                 <div className="w-100 d-flex align-items-center justify-content-center mb-3" style={{ height: "130px" }}>
                   <img src={item.image} alt={item.desc} className="mw-100 mh-100 object-fit-contain" />
@@ -84,6 +83,7 @@ const RecommendedItems = () => {
                     {item.desc}
                   </p>
                 </div>
+                <Button value={"Add to Card"} className="mt-3"/>
               </div>
             </Col>
           ))}

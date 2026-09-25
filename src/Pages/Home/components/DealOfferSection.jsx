@@ -40,11 +40,11 @@ const DealOfferSection = () => {
             </div>
           </div>
 
-          <div className="d-flex overflow-x-auto text-center">
+          <div className=" d-flex overflow-x-auto text-center">
             {offers.map((item) => (
               <div
                 key={item.id}
-                className="p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
+                className=" p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
                 style={{ width: '135px' }}
               >
                 <div style={{ height: '85px', width: '85px' }} className="d-flex align-items-center justify-content-center mb-2">

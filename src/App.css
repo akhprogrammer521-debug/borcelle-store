@@ -1,7 +1,7 @@
-@import './styles/variables.css';
-@import './styles/shared.css';
-@import './styles/header.css';
-@import './styles/cart-drawer.css';
-@import './styles/footer.css';
-@import './styles/page-sections.css';
-@import './styles/theme.css';
+@import './assets/css/variables.css';
+@import './assets/css/shared.css';
+@import './assets/css/header.css';
+@import './assets/css/cart-drawer.css';
+@import './assets/css/footer.css';
+@import './assets/css/page-sections.css';
+@import './assets/css/theme.css';

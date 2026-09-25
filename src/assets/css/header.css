@@ -72,7 +72,6 @@
 }
 
 
-/* Navigation Cart Badges */
 .cursor-pointer {
   cursor: pointer;
 }
@@ -105,9 +104,7 @@
   line-height: 1;
 }
 
-/* ==========================================================================
-   MOBILE SEARCH BAR
-   ========================================================================== */
+
 .mobile-search-wrapper {
   position: relative;
 }
@@ -136,9 +133,7 @@
   border-color: var(--brand-primary);
 }
 
-/* ==========================================================================
-   MOBILE CATEGORY PILL NAVIGATION
-   ========================================================================== */
+
 .mobile-categories-scroll {
   overflow-x: auto;
   white-space: nowrap;
@@ -165,9 +160,7 @@
   font-weight: 500;
 }
 
-/* ==========================================================================
-   MOBILE OFFCANVAS DRAWER
-   ========================================================================== */
+
 .offcanvas.mobile-offcanvas {
   --bs-offcanvas-width: var(--offcanvas-drawer-width);
 }

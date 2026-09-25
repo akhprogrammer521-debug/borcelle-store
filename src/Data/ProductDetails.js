@@ -1,4 +1,3 @@
-// These are the image paths already used in your uploaded component.
 import Tshirt1 from "../assets/products_cloth/image 24.png";
 import Tshirt2 from "../assets/products_cloth/image 26.png";
 import Tshirt3 from "../assets/products_cloth/image 30.png";
@@ -6,7 +5,6 @@ import Tshirt4 from "../assets/products_cloth/image 34.png";
 import Tshirt5 from "../assets/products_cloth/image 35.png";
 import Tshirt6 from "../assets/products_cloth/image 36.png";
 
-// Sample data: replace these values and image paths with your product data.
 export const productDetails = {
     id: "cotton-shirt-23421",
     title: "Mens Long Sleeve T-shirt Cotton Base Layer Slim Muscle",
@@ -35,7 +33,6 @@ export const productDetails = {
         { id: "large-order", price: 78, quantity: "700+ pcs" },
     ],
 
-    // Each group is an object of label/value pairs.
     detailGroups: [
         { id: "price", values: { Price: "Negotiable" } },
         {
@@ -67,7 +64,6 @@ export const productDetails = {
         ],
     },
 
-    // The same tab renderer handles paragraphs, detail objects and feature arrays.
     tabs: [
         {
             id: "desc",
@@ -82,7 +78,6 @@ export const productDetails = {
                     text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                 },
             ],
-            // Placeholder specifications retained from your uploaded example.
             details: {
                 Model: "#8786867",
                 Style: "Classic style",
@@ -124,7 +119,6 @@ export const productDetails = {
         },
     ],
 
-    // Demo recommendations reuse your available image imports.
     likedProducts: [
         { id: "liked-1", image: Tshirt1, model: "Men Blazers Sets Elegant Formal", price1: 7, price2: 99.5 },
         { id: "liked-2", image: Tshirt2, model: "Men Shirt Sleeve Polo Contrast", price1: 7, price2: 99.5 },

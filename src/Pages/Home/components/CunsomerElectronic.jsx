@@ -36,7 +36,7 @@ const CunsomerElectronic = () => {
             {items.map((product) => (
               <div
                 key={product.id}
-                className="border rounded-2 p-2 bg-white flex-shrink-0 d-flex flex-column align-items-center text-center"
+                className="border rounded-2 p-2 bg-white shrink-0 d-flex flex-column align-items-center text-center"
                 style={{ width: "135px" }}
               >
                 <div style={{ height: "85px", width: "85px" }} className="d-flex align-items-center justify-content-center mb-2">
@@ -53,14 +53,13 @@ const CunsomerElectronic = () => {
         <div className="d-none d-md-block">
           <Row className="g-0">
             {/* Left Category Banner */}
-            <Col md={4} lg={3}>
+            <Col md={3}>
               <div
                 className="p-4 h-100 d-flex flex-column justify-content-between position-relative"
                 style={{
                   backgroundImage: `url(${homeBanner})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  minHeight: '280px'
                 }}
               >
                 <div>
@@ -73,16 +72,16 @@ const CunsomerElectronic = () => {
             </Col>
 
             {/* Right Products Grid (4 Columns x 2 Rows) */}
-            <Col md={8} lg={9}>
+            <Col md={9}>
               <Row className="g-0">
                 {items.map((product) => (
-                  <Col md={6} lg={3} key={product.id} className="border-bottom border-end p-3">
+                  <Col md={3} key={product.id} className="border-bottom border-end p-3">
                     <div className="d-flex justify-content-between align-items-start h-100">
                       <div>
                         <p className="mb-1 text-dark fw-medium small">{product.title}</p>
                         <small className="text-muted d-block" style={{ fontSize: '12px' }}>From<br />{product.price}</small>
                       </div>
-                      <div style={{ width: '65px', height: '65px' }} className="d-flex align-items-center justify-content-center flex-shrink-0 ms-2">
+                      <div style={{ width: '65px', height: '65px' }} className="d-flex align-items-center justify-content-center shrink-0 ms-2">
                         <img src={product.image} alt={product.title} className="mw-100 mh-100 object-fit-contain" />
                       </div>
                     </div>

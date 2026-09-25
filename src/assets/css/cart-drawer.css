@@ -1,4 +1,3 @@
-/* Backdrop Overlay */
 .cart-overlay-backdrop {
   position: fixed;
   top: 0;
@@ -17,7 +16,6 @@
   visibility: visible;
 }
 
-/* Side Drawer Modal */
 .cart-modal-drawer {
   position: fixed;
   top: 0;
@@ -40,7 +38,6 @@
   transform: translateX(0);
 }
 
-/* Cart Header */
 .cart-header {
   display: flex;
   align-items: center;
@@ -71,14 +68,12 @@
   color: var(--color-text-main);
 }
 
-/* Cart Body */
 .cart-body {
   flex: 1;
   overflow-y: auto;
   padding: 0 24px 24px 24px;
 }
 
-/* Cart Item Row */
 .cart-item-row {
   display: flex;
   align-items: flex-start;
@@ -153,7 +148,6 @@
   margin-bottom: 10px;
 }
 
-/* Actions Row (Qty Control + Delete) */
 .cart-item-actions {
   display: flex;
   align-items: center;
@@ -203,7 +197,6 @@
   color: #d82b4f;
 }
 
-/* Subtotal Row */
 .cart-subtotal-container {
   display: flex;
   justify-content: space-between;
@@ -224,7 +217,6 @@
   color: #f33562;
 }
 
-/* Checkout Button */
 .cart-checkout-action-btn {
   width: 100%;
   background-color: #f33562;

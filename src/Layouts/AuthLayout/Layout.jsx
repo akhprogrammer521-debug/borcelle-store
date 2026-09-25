@@ -4,9 +4,9 @@ const Layout = ({ leftContent, rightContent }) => {
     return (
         <Container fluid className="p-0">
             <Row className="g-0 min-vh-100 d-none d-lg-flex">
-                <Col lg={6}>
+                <Col lg={6} className="">
                     <div className="auth-left-bg vh-100">
-                        <div className="auth-left-overlay h-100 d-flex align-items-center justify-content-center">
+                        <div className="auth-left-overlay min-vh-100 d-flex align-items-center justify-content-center">
                             {leftContent}
                         </div>
                     </div>

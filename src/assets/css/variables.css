@@ -1,9 +1,5 @@
-/* ==========================================================================
-   CSS CUSTOM PROPERTIES (VARIABLES)
-   ========================================================================== */
 :root {
   color-scheme: light;
-  /* Colors */
   --brand-primary: hsla(347, 86%, 57%, 1);
   --brand-primary-hover: hsla(340, 86%, 57%, 1);
   --brand-gradient-start: rgba(240, 52, 93, 1);
@@ -25,7 +21,6 @@
   --color-white: #ffffff;
   --color-surface: #ffffff;
 
-  /* Typography */
   --font-size-xs: 13px;
   --font-size-sm: 14px;
   --font-size-base: 15px;
@@ -34,13 +29,11 @@
   --font-size-icon-md: 18px;
   --font-size-avatar: 40px;
 
-  /* Spacing & Layout */
   --radius-sm: 6px;
   --radius-md: 7px;
   --height-input: 40px;
   --offcanvas-drawer-width: 280px;
 
-  /* Transitions */
   --transition-fast: all 0.2s ease;
   --transition-normal: box-shadow 0.3s ease;
   --transition-interaction: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;

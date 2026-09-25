@@ -1,5 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { useNavigate, NavLink } from 'react-router';
 import { Form, Nav } from "react-bootstrap";
+import { AuthContext } from "../../Contexts/AuthContext"
 import {
   BsPersonCircle,
   BsEnvelope,
@@ -10,16 +12,28 @@ import {
 import Layout from "../../Layouts/AuthLayout/Layout";
 import logo from "../../assets/logo/Simplification.png";
 
-import "./Auth.css";
-import { NavLink } from "react-router";
 import LoadingButton from "../../Components/ui/LoadingButton";
+import { AuthService } from "../../services/AuthService";
 
-const Signup = ({ onSignup }) => {
+import "./Auth.css";
+
+const Signup = () => {
   const [photo, setPhoto] = useState(null);
+  const [registerData, setRegiserData] = useState({
+    image: "",
+    name: "",
+    email: "",
+    phone: ""
+  });
+
+  const { setUser } = useContext(AuthContext)
   const [isSaving, setIsSaving] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [error, setError] = useState(null);
+
+  const navigateTo = useNavigate()
 
   const fileInputRef = useRef(null);
-
   const handlePhotoClick = () => {
     fileInputRef.current?.click();
   };
@@ -34,16 +48,34 @@ const Signup = ({ onSignup }) => {
     setPhoto(imageUrl);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!onSignup) return;
+  const handleRegisteration = (e) => {
+    e.preventDefault();
 
-    setIsSaving(true);
-    try {
-      await onSignup();
-    } finally {
-      setIsSaving(false);
+    const form = e.currentTarget;
+
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
     }
+
+    setValidated(true);
+    setError(null);
+    setIsSaving(true);
+
+    AuthService.SignUpService(registerData)
+      .then((data) => {
+        setUser(data)
+        localStorage.setItem("userInfo", JSON.stringify(data))
+        console.log(data);
+        navigateTo("/login");
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsSaving(false);
+      });
   };
 
   const leftContent = (
@@ -81,7 +113,9 @@ const Signup = ({ onSignup }) => {
       </div>
 
       <Form
-        onSubmit={handleSubmit}
+        noValidate
+        validated={validated}
+        onSubmit={handleRegisteration}
         className="mt-4 border-0"
       >
         {/* Photo */}
@@ -118,36 +152,82 @@ const Signup = ({ onSignup }) => {
         </div>
 
         {/* Name */}
-        <div className="position-relative mb-3">
-          <Form.Control
-            type="text"
-            placeholder="Name..."
-            className="auth-profile-input pe-5"
-          />
+        <Form.Group className="mb-3" controlId="validationName">
+          <div className="position-relative">
+            <Form.Control
+              type="text"
+              placeholder="Name..."
+              className="auth-profile-input pe-5"
+              required
+              value={registerData.name}
+              onChange={(e) =>
+                setRegiserData({
+                  ...registerData,
+                  name: e.target.value,
+                })
+              }
+            />
 
-          <BsPersonCircle className="position-absolute top-50 end-0 translate-middle-y me-4 auth-field-icon" />
-        </div>
+            <BsPersonCircle className="position-absolute top-50 end-0 translate-middle-y me-5 auth-field-icon" />
+          </div>
+
+          <Form.Control.Feedback type="invalid">
+            Please enter your name.
+          </Form.Control.Feedback>
+        </Form.Group>
 
         {/* Email */}
-        <div className="position-relative mb-3">
-          <Form.Control
-            type="email"
-            placeholder="Email"
-            className="auth-profile-input pe-5"
-          />
-
-          <BsEnvelope className="position-absolute top-50 end-0 translate-middle-y me-4 auth-field-icon" />
-        </div>
-
+        <Form.Group controlId="validationFormik02">
+          <div className="position-relative mb-3">
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              className="auth-profile-input pe-5"
+              required
+              value={registerData.email}
+              onChange={(e) =>
+                setRegiserData({
+                  ...registerData,
+                  email: e.target.value,
+                })
+              }
+            />
+            <BsEnvelope className="position-absolute top-50 end-0 translate-middle-y me-5 auth-field-icon" />
+          </div>
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid email.
+          </Form.Control.Feedback>
+        </Form.Group>
         {/* Phone */}
-        <div className="position-relative mb-4">
-          <Form.Control
-            type="tel"
-            placeholder="Add number"
-            className="auth-profile-input pe-5"
-          />
+        <Form.Group controlId="validationFormik03">
+          <div className="position-relative mb-4">
 
-          <BsTelephone className="position-absolute top-50 end-0 translate-middle-y me-4 auth-field-icon" />
+            <Form.Control
+              type="tel"
+              placeholder="Add number"
+              className="auth-profile-input pe-5"
+              required
+              pattern="^09[0-9]{8}$"
+              value={registerData.phone}
+              onChange={(e) =>
+                setRegiserData({
+                  ...registerData,
+                  phone: e.target.value,
+                })
+              }
+            />
+            <BsTelephone className="position-absolute top-50 end-0 translate-middle-y me-5 auth-field-icon" />
+          </div>
+          <Form.Control.Feedback type="invalid">
+            Enter a valid phone number: 09xxxxxxxx.
+          </Form.Control.Feedback>
+        </Form.Group>
+        <div>
+          {error && (
+            <div className="alert alert-warning">
+              {error}
+            </div>
+          )}
         </div>
 
         <LoadingButton
@@ -160,7 +240,7 @@ const Signup = ({ onSignup }) => {
         </LoadingButton>
       </Form>
       <div className="text-center mt-3 custom-nav-link">
-            <Nav.Link as={NavLink} to={'/login'}>Login</Nav.Link>
+        <Nav.Link as={NavLink} to={'/login'}>Login</Nav.Link>
       </div>
     </div>
   );
