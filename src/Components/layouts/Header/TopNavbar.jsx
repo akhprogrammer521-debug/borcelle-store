@@ -35,8 +35,8 @@ import { CartContext } from '../../../Contexts/CartContext';
 const TopNavbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
-  const {cart, setCart} = useContext(CartContext);
-  console.log(cart);  
+  const { cart, setCart } = useContext(CartContext);
+  console.log(cart);
 
   const handleClose = () => setShowSidebar(false);
   const handleShow = () => setShowSidebar(true);
@@ -61,9 +61,9 @@ const TopNavbar = () => {
   };
 
   const cartCount = cart.reduce(
-  (total, item) => total + item.quantity,
-  0
-);
+    (total, item) => total + item.quantity,
+    0
+  );
 
   const links = [
     { name: "Profile", to: "/profile", icon: <BsFillPersonFill size={20} /> },
@@ -115,7 +115,7 @@ const TopNavbar = () => {
             <Nav className="me-auto my-lg-0 d-flex align-items-center gap-3">
               {links.map((link) => {
                 const isCart = link.name === 'My Cart';
-                return(
+                return (
                   <Nav.Link
                     key={link.name}
                     as={link.action ? 'button' : NavLink}
@@ -189,9 +189,9 @@ const TopNavbar = () => {
             <button type="button" className="btn-close ms-auto" onClick={handleClose} aria-label="Close"></button>
           </div>
           <div className="mobile-auth-link">
-            <a href="#signin" className="text-decoration-none text-dark fw-medium">Sign in</a>
+            <NavLink to={"/login"} className="text-decoration-none text-dark fw-medium">Sign in</NavLink>
             <span className="mx-1">|</span>
-            <a href="#register" className="text-decoration-none text-dark fw-medium">Register</a>
+            <NavLink to={"/register"} className="text-decoration-none text-dark fw-medium">Register</NavLink>
           </div>
         </div>
 
@@ -223,7 +223,7 @@ const TopNavbar = () => {
         onClick={handleCartClose}
       />
 
-      <div className={`cart-modal-drawer ${showCart ? 'active' : ''}`}>
+      <div className={`cart-modal-drawer ${showCart ? 'active' : ''} `}>
         <div className="cart-header">
           <h5 className="cart-title">Your Shopping Bag</h5>
           <button className="cart-close-btn" onClick={handleCartClose} aria-label="Close">
@@ -265,12 +265,12 @@ const TopNavbar = () => {
               Your shopping bag is empty
             </div>
           )}
-
+        </div>
+        <div className="cart-footer">
           <div className="cart-subtotal-container">
             <span className="cart-subtotal-title">SubTotal :</span>
             <span className="cart-subtotal-amount">{cartCount} AED</span>
           </div>
-
           <button className="cart-checkout-action-btn">
             Checkout
           </button>

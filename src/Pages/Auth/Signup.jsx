@@ -38,14 +38,19 @@ const Signup = () => {
     fileInputRef.current?.click();
   };
 
-  const handlePhotoChange = (event) => {
-    const file = event.target.files?.[0];
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0];
 
     if (!file) return;
 
     const imageUrl = URL.createObjectURL(file);
 
     setPhoto(imageUrl);
+
+    setRegiserData((data)=>({
+      ...data,
+      image: file
+    }))
   };
 
   const handleRegisteration = (e) => {

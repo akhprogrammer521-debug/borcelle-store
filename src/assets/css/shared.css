@@ -2,6 +2,78 @@
   background-color: var(--color-body-bg);
 }
 
+.success-modal {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+}
+
+.success-modal-header {
+  height: 38px;
+  padding: 0 16px;
+  background-color: #f52e5b;
+  border: 0;
+  border-radius: 0;
+}
+
+.success-modal-header .btn-close {
+  opacity: 1;
+}
+
+.success-badge {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: #04db80;
+  clip-path: polygon(
+    50% 0%, 61% 12%, 77% 7%, 82% 23%,
+    98% 30%, 90% 45%, 100% 58%, 84% 67%,
+    86% 84%, 68% 82%, 58% 100%, 45% 87%,
+    28% 95%, 23% 78%, 5% 70%, 14% 54%,
+    0% 42%, 16% 31%, 13% 13%, 31% 15%
+  );
+}
+
+.success-badge svg {
+  font-size: 55px;
+  stroke-width: 1.5;
+}
+
+.success-modal-body {
+  padding: 90px 40px 24px;
+  text-align: center;
+}
+
+.success-modal-body p {
+  margin: 0;
+  line-height: 1.8;
+  color: #2c2c2c;
+}
+
+.success-modal-footer {
+  display: block;
+  padding: 20px 18px 24px;
+  border-top: 1px solid #d8d8d8;
+}
+
+.success-modal-button {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 6px;
+  background-color: #f52e5b;
+}
+
+.success-modal-button:hover {
+  background-color: #df204c;
+}
+
 .custom-nav-link {
   color: var(--color-text-muted);
 }
@@ -201,4 +273,11 @@ table, th, td {
     --bs-accordion-body-padding-y: 1rem;
     --bs-accordion-active-color: var(--bs-primary-text-emphasis);
     --bs-accordion-active-bg: ;
+}
+
+
+.user_image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }

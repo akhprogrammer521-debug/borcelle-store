@@ -233,3 +233,14 @@
 .cart-checkout-action-btn:hover {
   background-color: #e02854;
 }
+
+.cart-footer {
+  padding: 16px 24px 24px;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border-light);
+  flex-shrink: 0;
+}
+
+.cart-footer .cart-subtotal-container {
+  margin: 0 0 16px;
+}

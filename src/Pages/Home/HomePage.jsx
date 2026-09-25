@@ -9,19 +9,43 @@ import RegionSection from "./components/RegionSection";
 import RequestSendingSection from "./components/RequestSendingSection";
 import ServiceSection from "./components/SevicesSection";
 import Reveal from "../../Components/shared/ScrollReveal";
-const HomePage = () => {    
+import SuccessModal from "../../Components/ui/Modal";
+
+import { useState } from "react";
+
+
+const HomePage = () => {
+
+    const [showSuccess, setShowSuccess] = useState(() => {
+        return sessionStorage.getItem("show_success_modal") === "true";
+    });
+
+    const handleCloseSuccess = () => {
+        setShowSuccess(false);
+        sessionStorage.removeItem("show_success_modal");
+    };
+
+    const handleContinue = () => {
+        setShowSuccess(false);
+        sessionStorage.removeItem("show_success_modal");
+    };
     return (
         <>
             <MainLayout>
-                    <Reveal><HeroSection /></Reveal>
-                    <Reveal><DealOfferSection /></Reveal>
-                    <Reveal><HomeAndOutdoorSection /></Reveal>
-                    <Reveal><CunsomerElectronic /></Reveal>
-                    <RequestSendingSection />
-                    <Reveal><RecommendedItems /></Reveal>
-                    <Reveal><ServiceSection /></Reveal>
-                    <Reveal><RegionSection /></Reveal>
-                    <SubscribeSection />
+                <SuccessModal
+                    show={showSuccess}
+                    onClose={handleCloseSuccess}
+                    onContinue={handleContinue}
+                />
+                <Reveal><HeroSection /></Reveal>
+                <Reveal><DealOfferSection /></Reveal>
+                <Reveal><HomeAndOutdoorSection /></Reveal>
+                <Reveal><CunsomerElectronic /></Reveal>
+                <RequestSendingSection />
+                <Reveal><RecommendedItems /></Reveal>
+                <Reveal><ServiceSection /></Reveal>
+                <Reveal><RegionSection /></Reveal>
+                <SubscribeSection />
             </MainLayout>
         </>
     )
