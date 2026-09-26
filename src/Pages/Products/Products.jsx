@@ -12,6 +12,7 @@ import ProductsToolbar from "./components/ProductsToolbar";
 import ProductsList from "./components/ProductsList";
 
 const Products = ({ isLoading = false }) => {
+
     const [productItems, setProductItems] = useState([]);
     const [isProductsLoading, setIsProductsLoading] = useState(true);
     const [view, setView] = useState("list");
@@ -83,7 +84,10 @@ const Products = ({ isLoading = false }) => {
                                 view={view}
                                 onViewChange={setView}
                             />
-                            <ProductsList products={productItems} view={view} isLoading={isLoading || isProductsLoading} />
+                            <ProductsList 
+                            products={productItems} 
+                            view={view} 
+                            isLoading={isLoading || isProductsLoading} />
                         </Col>
                     </Row>
                 </Container>

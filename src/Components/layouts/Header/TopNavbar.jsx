@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ThemeToggle from '../../../theme/ThemeToggle';
-
+import { CategoriesApi } from "../../../services/CategoriesApi"
 import { NavLink } from "react-router";
 
 import {
@@ -32,17 +32,30 @@ import {
 import logo from '../../../assets/logo/logo.png';
 import { CartContext } from '../../../Contexts/CartContext';
 
-const TopNavbar = () => {
+const TopNavbar = ({ onCategoryChange }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { cart, setCart } = useContext(CartContext);
   console.log(cart);
-
+  const [categories, setCategories] = useState([]);
   const handleClose = () => setShowSidebar(false);
   const handleShow = () => setShowSidebar(true);
 
   const handleCartClose = () => setShowCart(false);
   const handleCartShow = () => setShowCart(true);
+
+  const [showAllCategories] = useState(false);
+  const displayedCategories = showAllCategories ? categories : categories.slice(0, 4);
+
+  useEffect(() => {
+    CategoriesApi.GetAllCatsService()
+      .then((data) => {
+        setCategories(data.data);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }, [setCategories]);
 
   const updateQuantity = (id, change) => {
     setCart(prev =>
@@ -153,7 +166,7 @@ const TopNavbar = () => {
                 <img alt="Logo" src={logo} width="70" height="50" className="brand-logo" />
               </Navbar.Brand>
             </div>
-            <div className="d-flex align-items-center text-dark gap-3">
+            <div className="d-flex align-items-center text-dark gap-2">
               <ThemeToggle />
               <Nav.Link onClick={handleCartShow} className="p-0 text-dark position-relative">
                 <BsFillCartFill size={22} />
@@ -173,10 +186,19 @@ const TopNavbar = () => {
           </div>
 
           <div className="mobile-categories-scroll d-flex gap-2">
-            <button className="btn mobile-cat-pill active">All category</button>
-            <button className="btn mobile-cat-pill">Gadgets</button>
-            <button className="btn mobile-cat-pill">Clothes</button>
-            <button className="btn mobile-cat-pill">Accessories</button>
+            {/* <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill active">All category</Nav.Link>
+            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">electronics</Nav.Link>
+            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">MacBook</Nav.Link>
+            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">TV</Nav.Link>
+            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">Headphones</Nav.Link> */}
+            {displayedCategories.map((category) => (
+              <Nav.Link
+                key={category.id}
+                as={NavLink} to={"/products"}
+                className={`btn mobile-cat-pill`}
+                onClick={() => { onCategoryChange(category.id) }}
+              >{category.name}</Nav.Link>
+            ))}
           </div>
         </div>
       </Container>
@@ -189,9 +211,9 @@ const TopNavbar = () => {
             <button type="button" className="btn-close ms-auto" onClick={handleClose} aria-label="Close"></button>
           </div>
           <div className="mobile-auth-link">
-            <NavLink to={"/login"} className="text-decoration-none text-dark fw-medium">Sign in</NavLink>
+            <NavLink to={"/login"} className="text-decoration-none text-dark fw-medium">Login</NavLink>
             <span className="mx-1">|</span>
-            <NavLink to={"/register"} className="text-decoration-none text-dark fw-medium">Register</NavLink>
+            <NavLink to={"/register"} className="text-decoration-none text-dark fw-medium">Sign Up</NavLink>
           </div>
         </div>
 

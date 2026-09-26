@@ -82,11 +82,15 @@
   color: var(--color-text-dark);
 }
 
-.custom-nav-link:hover,
-.custom-nav-links:hover,
+.nav-link:focus,
+.nav-link:focus-visible,
+.custom-nav-link:focus,
 .custom-nav-link:focus-visible,
+.custom-nav-links:focus,
 .custom-nav-links:focus-visible {
-  color: var(--brand-primary);
+  color: #d64563 !important;
+  outline: none;
+  box-shadow: none;
 }
 
 .btn-cus {

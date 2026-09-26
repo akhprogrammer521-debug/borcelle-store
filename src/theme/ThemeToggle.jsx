@@ -16,9 +16,6 @@ export default function ThemeToggle({ compact = false }) {
       title={label}
     >
       {isDark ? <BsSunFill  size={20} aria-hidden="true" /> : <BsMoonStarsFill size={20} aria-hidden="true" />}
-      <span className={compact ? 'visually-hidden' : ''}>
-        {isDark ? 'Light mode' : 'Dark mode'}
-      </span>
     </button>
   );
 }
