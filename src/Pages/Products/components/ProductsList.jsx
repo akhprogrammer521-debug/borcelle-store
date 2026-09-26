@@ -1,6 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import ProductCard from "../../../Components/ui/ProductCard";
 import { ProductsListSkeleton } from "../../../Components/ui/Skeleton";
+import { NavLink } from "react-router";
 
 const ProductsList = ({ products, view, isLoading = false }) => {
     if (isLoading) {
@@ -23,12 +24,29 @@ const ProductsList = ({ products, view, isLoading = false }) => {
                 </Row>
             ) : (
                 products.map((product) => (
-                    <ProductCard
-                        key={product.id}
-                        product={product}
-                        view="list"
-                    />
+                    <div key={product.id}>
+                        <NavLink
+                            to={`/products/${product.id}`}
+                            className="d-lg-none text-decoration-none custom-nav-link"
+                        >
+                            <ProductCard
+                                product={product}
+                                view={view}
+                                showDetails={false}
+                            />
+                        </NavLink>
+
+                        <div className="d-none d-lg-block">
+                            <ProductCard
+                                product={product}
+                                view={view}
+                                showDetails
+                            />
+                        </div>
+                    </div>
+
                 ))
+
             )}
         </div>
     );

@@ -45,7 +45,7 @@ const RegionSection = () => {
                                 }}
                             />
 
-                            <div className="d-flex flex-column justify-content-center">
+                            <div className="d-flex flex-column justify-content-center fs-6">
                                 <p className="mb-0 lh-sm">{item.name}</p>
                                 <p className="mb-0 lh-sm text-secondary">{item.email}</p>
                             </div>

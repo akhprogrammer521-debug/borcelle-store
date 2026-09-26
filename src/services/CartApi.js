@@ -43,5 +43,24 @@ export const CartApi = {
             })
     },
 
-    DeleteCartService: ()=>{}
+    DeleteCartService: (cartId) => {
+        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.CART.DELETE}/${cartId}`
+
+        return fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+          
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    return res.json().then((ServerError) => {
+                        throw new Error(ServerError.message || "Failed delete item")
+                    })
+                }
+                return res.json()
+            })
+    }
 }

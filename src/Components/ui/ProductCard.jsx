@@ -5,7 +5,7 @@ import Button from "../ui/Button"
 import { CartApi } from "../../services/CartApi";
 import { useContext, useState } from "react";
 import { CartContext } from "../../Contexts/CartContext";
-const ProductCard = ({ product, view }) => {
+const ProductCard = ({ product, view, showDetails = true }) => {
 
     const { setCart } = useContext(CartContext);
     const [error, setError] = useState(null);
@@ -90,12 +90,14 @@ const ProductCard = ({ product, view }) => {
                     {error && (
                         <div className="alert alert-danger">{error}</div>
                     )}
-                    <NavLink
-                        to={`/products/${product.id}`}
-                        className="text-danger text-decoration-none fw-semibold"
-                    >
-                        View details
-                    </NavLink>
+                    {showDetails && (
+                        <NavLink
+                            to={`/products/${product.id}`}
+                            className="text-danger text-decoration-none fw-semibold d-lg-flex"
+                        >
+                            View details
+                        </NavLink>
+                    )}
                 </div>
             </div>
         );
@@ -143,15 +145,17 @@ const ProductCard = ({ product, view }) => {
                     <span className="text-success">{product.shipping}</span>
                 </div>
 
-                <p className="text-secondary mb-2">{product.description}</p>
+                <p className="text-secondary mb-2 d-lg-flex d-none">{product.description}</p>
 
                 <div className="d-flex gap-4 align-items-center">
-                    <NavLink
-                        to={`/products/${product.id}`}
-                        className="text-danger text-decoration-none fw-semibold"
-                    >
-                        View details
-                    </NavLink>
+                    {showDetails && (
+                        <NavLink
+                            to={`/products/${product.id}`}
+                            className="text-danger text-decoration-none fw-semibold d-lg-flex"
+                        >
+                            View details
+                        </NavLink>
+                    )}
                     <Button
                         value={isSaving ? "Added" : "Add to cart"}
                         className="mt-3 my-2 w-auto"

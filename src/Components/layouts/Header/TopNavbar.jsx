@@ -31,12 +31,14 @@ import {
 
 import logo from '../../../assets/logo/logo.png';
 import { CartContext } from '../../../Contexts/CartContext';
+import { CartApi } from '../../../services/CartApi';
 
 const TopNavbar = ({ onCategoryChange }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { cart, setCart } = useContext(CartContext);
   console.log(cart);
+  
   const [categories, setCategories] = useState([]);
   const handleClose = () => setShowSidebar(false);
   const handleShow = () => setShowSidebar(true);
@@ -57,6 +59,16 @@ const TopNavbar = ({ onCategoryChange }) => {
       });
   }, [setCategories]);
 
+  const handleRemoveItem = (cardId)=>{
+    CartApi.DeleteCartService(cardId)
+    .then((data)=>{
+      setCart(data.data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
   const updateQuantity = (id, change) => {
     setCart(prev =>
       prev.map(item => {
@@ -69,9 +81,9 @@ const TopNavbar = ({ onCategoryChange }) => {
     );
   };
 
-  const removeItem = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id));
-  };
+  // const removeItem = (id) => {
+  //   setCart(prev => prev.filter(item => item.id !== id));
+  // };
 
   const cartCount = cart.reduce(
     (total, item) => total + item.quantity,
@@ -186,11 +198,6 @@ const TopNavbar = ({ onCategoryChange }) => {
           </div>
 
           <div className="mobile-categories-scroll d-flex gap-2">
-            {/* <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill active">All category</Nav.Link>
-            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">electronics</Nav.Link>
-            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">MacBook</Nav.Link>
-            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">TV</Nav.Link>
-            <Nav.Link as={NavLink} to={"/products"} className="btn mobile-cat-pill">Headphones</Nav.Link> */}
             {displayedCategories.map((category) => (
               <Nav.Link
                 key={category.id}
@@ -254,6 +261,7 @@ const TopNavbar = ({ onCategoryChange }) => {
         </div>
 
         <div className="cart-body">
+          
           {cart.map((item) => (
             <div className="cart-item-row" key={item.id}>
               <div className="cart-item-image-container">
@@ -263,8 +271,8 @@ const TopNavbar = ({ onCategoryChange }) => {
 
               <div className="cart-item-info">
                 <div className="cart-item-title-price">
-                  <span className="cart-item-title">{item.title}</span>
-                  <span className="cart-item-price">{item.price} AED</span>
+                  <span className="cart-item-title">{item.product.name}</span>
+                  <span className="cart-item-price">{item.product.price} AED</span>
                 </div>
                 <div className="cart-item-subtext">{item.subtitle}</div>
 
@@ -274,7 +282,7 @@ const TopNavbar = ({ onCategoryChange }) => {
                     <span className="cart-qty-value">{item.quantity}</span>
                     <button className="cart-qty-btn" onClick={() => updateQuantity(item.id, 1)}>+</button>
                   </div>
-                  <button className="cart-delete-icon-btn" onClick={() => removeItem(item.id)}>
+                  <button className="cart-delete-icon-btn" onClick={()=>{handleRemoveItem(item.id)}}>
                     <BsTrashFill size={18} />
                   </button>
                 </div>
