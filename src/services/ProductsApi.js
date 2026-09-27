@@ -1,31 +1,33 @@
 import { API_Config } from "../Config/ApiConfig";
 
 export const ProductsApi = {
-    GetProductsService: (categoryId) => {
+    GetProductsService: (categoryId, page = 1) => {
         const params = new URLSearchParams();
 
         if (categoryId) {
-            params.append("category_id", categoryId)
+            params.append("category_id", categoryId);
         }
-        const query = params.toString()
-        const url = query
-            ? `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.INDEX}?${query}`
-            : `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.INDEX}`
+
+        params.append("page", page);
+
+        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.INDEX}?${params}`;
+
         return fetch(url, {
             method: "GET",
             headers: {
-                "Accept": "application/json"
+                Accept: "application/json",
+            },
+        }).then((res) => {
+            if (!res.ok) {
+                return res.json().then((serverError) => {
+                    throw new Error(serverError.message || "No products");
+                });
             }
-        })
-            .then((res) => {
-                if (!res.ok) {
-                    return res.json().then((serverError) => {
-                        throw new Error(serverError.message || "No products")
-                    })
-                }
-                return res.json()
-            })
+
+            return res.json();
+        });
     },
+    
     GetProductByIdService: (productId) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.SHOW}/${productId}`;
         return fetch(url, {

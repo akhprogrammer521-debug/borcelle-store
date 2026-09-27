@@ -1,29 +1,20 @@
 import { Col, Container, Row } from "react-bootstrap";
-
-// Banner Image
+import { useEffect, useState } from "react";
+import { ProductsApi } from "../../../services/ProductsApi";
 import homeBanner from "../../../assets/products_tech/image 98.png";
 
-// Product Images
-import softChairs from "../../../assets/products_tech/image 23.png";
-import sofaChair from "../../../assets/products_tech/image 28.png";
-import kitchenDishes from "../../../assets/products_tech/image 29.png";
-import smartWatches from "../../../assets/products_tech/image 32.png";
-import kitchenMixer from "../../../assets/products_tech/image 33.png";
-import blenders from "../../../assets/products_tech/image 34 (2).png";
-import homeAppliance from "../../../assets/products_tech/image 35 (2).png";
-import coffeeMaker from "../../../assets/products_tech/image 85.png";
-
 const CunsomerElectronic = () => {
-  const items = [
-    { id: 1, title: "Soft chairs", price: "USD 19", image: softChairs },
-    { id: 2, title: "Sofa & chair", price: "USD 19", image: sofaChair },
-    { id: 3, title: "Kitchen dishes", price: "USD 19", image: kitchenDishes },
-    { id: 4, title: "Smart watches", price: "USD 19", image: smartWatches },
-    { id: 5, title: "Kitchen mixer", price: "USD 100", image: kitchenMixer },
-    { id: 6, title: "Blenders", price: "USD 39", image: blenders },
-    { id: 7, title: "Home appliance", price: "USD 19", image: homeAppliance },
-    { id: 8, title: "Coffee maker", price: "USD 10", image: coffeeMaker },
-  ];
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    ProductsApi.GetProductsService()
+      .then((data) => {
+        setItems(data.data.slice(9, 20));
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }, []);
 
   return (
     <Container className="p-0 p-md-3 my-2">
@@ -40,10 +31,10 @@ const CunsomerElectronic = () => {
                 style={{ width: "135px" }}
               >
                 <div style={{ height: "85px", width: "85px" }} className="d-flex align-items-center justify-content-center mb-2">
-                  <img src={product.image} alt={product.title} className="mw-100 mh-100 object-fit-contain" />
+                  <img src={product.image} alt={product.name} className="mw-100 mh-100 object-fit-contain" />
                 </div>
-                <p className="mb-1 text-dark small text-truncate w-100">{product.title}</p>
-                <small className="text-muted">From {product.price}</small>
+                <p className="mb-1 text-dark small text-truncate w-100">{product.name}</p>
+                <small className="text-muted">USD {product.price}</small>
               </div>
             ))}
           </div>
@@ -75,11 +66,11 @@ const CunsomerElectronic = () => {
             <Col md={9}>
               <Row className="g-0">
                 {items.map((product) => (
-                  <Col md={3} key={product.id} className="border-bottom border-end p-3">
+                  <Col md={6} lg={3} key={product.id} className="border-bottom border-end p-3">
                     <div className="d-flex justify-content-between align-items-start h-100">
                       <div>
-                        <p className="mb-1 text-dark fw-medium small">{product.title}</p>
-                        <small className="text-muted d-block" style={{ fontSize: '12px' }}>From<br />{product.price}</small>
+                        <p className="mb-1 text-dark fw-medium small">{product.name}</p>
+                        <small className="text-muted d-block" style={{ fontSize: '12px' }}>From<br />USD {product.price}</small>
                       </div>
                       <div style={{ width: '65px', height: '65px' }} className="d-flex align-items-center justify-content-center shrink-0 ms-2">
                         <img src={product.image} alt={product.title} className="mw-100 mh-100 object-fit-contain" />

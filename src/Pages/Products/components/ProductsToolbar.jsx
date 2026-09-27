@@ -1,12 +1,14 @@
 import { Button, Form } from "react-bootstrap";
 import { BsGridFill, BsList } from "react-icons/bs";
 
-const ProductsToolbar = ({ view, onViewChange }) => {
+const ProductsToolbar = ({ totalProducts, view, onViewChange }) => {
+
     return (
         <div className="border rounded p-3 mb-3 bg-white">
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                 <div>
-                    12,911 items in{" "}
+                   <span className="fw-bold">{totalProducts}</span>
+                    {" "}
                     <span className="fw-bold">Mobile accessory</span>
                 </div>
 

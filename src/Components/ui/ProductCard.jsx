@@ -1,15 +1,27 @@
-import { FaRegHeart } from "react-icons/fa";
-import SecondButton from "./SecondButton";
-import { NavLink } from "react-router";
-import Button from "../ui/Button"
-import { CartApi } from "../../services/CartApi";
 import { useContext, useState } from "react";
+import { NavLink } from "react-router";
+
+import { AuthContext } from "../../Contexts/AuthContext";
 import { CartContext } from "../../Contexts/CartContext";
+import { FavContext } from "../../Contexts/FavouriteContext";
+
+import { CartApi } from "../../services/CartApi";
+import { FavApi } from "../../services/FavouriteApi";
+
+import { FaRegHeart } from "react-icons/fa";
+
+import SecondButton from "./SecondButton";
+import Button from "./Button"
+
 const ProductCard = ({ product, view, showDetails = true }) => {
 
+    const { user } = useContext(AuthContext);
+    const token = localStorage.getItem("token");
+    const isLoggedIn = Boolean(user && token);
     const { setCart } = useContext(CartContext);
+    const { favourite, setFavourite } = useContext(FavContext);
     const [error, setError] = useState(null);
-    const [isSaving, setIsSaving] = useState(null)
+    const [isSaving, setIsSaving] = useState(null);
 
     const handleAddingCart = () => {
         setError(false);
@@ -24,9 +36,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
 
                 setCart((previousCart) => {
                     const updatedCart = [...previousCart, addedCartItem];
-
                     sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
-
                     return updatedCart;
                 });
             })
@@ -37,6 +47,65 @@ const ProductCard = ({ product, view, showDetails = true }) => {
             .finally(() => {
                 setIsSaving(false)
             })
+    }
+
+    const favouriteItem = favourite.find((item) =>
+        isLoggedIn
+            ? item.product?.id === product.id
+            : item.product_id === product.id
+    )
+
+    const handleAddProductToFav = () => {
+        setError(null);
+        if (!isLoggedIn) {
+            const addedGuestFavourite = {
+                product_id: product.id,
+            };
+
+            setFavourite((previousFav) => {
+                const updatedFav = [...previousFav, addedGuestFavourite];
+
+                localStorage.setItem("itemFav", JSON.stringify(updatedFav));
+                return updatedFav;
+            });
+
+            return;
+        }
+
+        FavApi.AddFavouriteService({ productId: product.id })
+            .then(() => FavApi.GetFavouriteService())
+            .then((data) => {
+                setFavourite(data.data || []);
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
+    }
+
+    const handleRemoveProductFromFav = (favouriteItem) => {
+        setError(null);
+
+        if (!isLoggedIn) {
+            setFavourite((previousFav) => {
+                const updatedFav = previousFav.filter(
+                    (item) => item.product_id !== product.id
+                );
+
+                localStorage.setItem("itemFav", JSON.stringify(updatedFav));
+                return updatedFav;
+            });
+
+            return;
+        }
+
+        FavApi.RemoveFavouriteService(favouriteItem.id)
+            .then(() => FavApi.GetFavouriteService())
+            .then((data) => {
+                setFavourite(data.data || []);
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
     }
 
     if (view === "grid") {
@@ -77,7 +146,15 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                         </div>
 
                         <div className="flex-shrink-0">
-                            <SecondButton value={<FaRegHeart />} />
+                            <SecondButton
+                                value={<FaRegHeart />}
+                                onClick={() =>
+                                    favouriteItem
+                                        ? handleRemoveProductFromFav(favouriteItem)
+                                        : handleAddProductToFav()
+                                }
+                                className={favouriteItem ? "btn-cus-secondary-fav" : ""}
+                            />
                         </div>
                     </div>
 
@@ -106,7 +183,14 @@ const ProductCard = ({ product, view, showDetails = true }) => {
     return (
         <div className="ui-card border p-3 bg-white rounded-2 d-flex gap-4 mb-3 position-relative">
             <div className="position-absolute top-0 end-0 m-3 z-1">
-                <SecondButton value={<FaRegHeart />} />
+                <SecondButton
+                    value={<FaRegHeart />}
+                    onClick={() =>
+                        favouriteItem
+                            ? handleRemoveProductFromFav(favouriteItem)
+                            : handleAddProductToFav()
+                    } className={favouriteItem ? "btn-cus-secondary-fav" : ""}
+                />
             </div>
 
             <div className="flex-shrink-0">

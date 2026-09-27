@@ -1,4 +1,9 @@
 import { useContext, useState, useEffect } from 'react';
+import { NavLink, useNavigate } from "react-router";
+import { CategoriesApi } from "../../../services/CategoriesApi";
+import { CartContext } from '../../../Contexts/CartContext';
+import { CartApi } from '../../../services/CartApi';
+
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -7,8 +12,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ThemeToggle from '../../../theme/ThemeToggle';
-import { CategoriesApi } from "../../../services/CategoriesApi"
-import { NavLink } from "react-router";
 
 import {
   BsFillPersonFill,
@@ -30,15 +33,13 @@ import {
 } from "react-icons/bs";
 
 import logo from '../../../assets/logo/logo.png';
-import { CartContext } from '../../../Contexts/CartContext';
-import { CartApi } from '../../../services/CartApi';
 
 const TopNavbar = ({ onCategoryChange }) => {
+
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { cart, setCart } = useContext(CartContext);
-  console.log(cart);
-  
+
   const [categories, setCategories] = useState([]);
   const handleClose = () => setShowSidebar(false);
   const handleShow = () => setShowSidebar(true);
@@ -46,8 +47,8 @@ const TopNavbar = ({ onCategoryChange }) => {
   const handleCartClose = () => setShowCart(false);
   const handleCartShow = () => setShowCart(true);
 
-  const [showAllCategories] = useState(false);
-  const displayedCategories = showAllCategories ? categories : categories.slice(0, 4);
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     CategoriesApi.GetAllCatsService()
@@ -59,14 +60,14 @@ const TopNavbar = ({ onCategoryChange }) => {
       });
   }, [setCategories]);
 
-  const handleRemoveItem = (cardId)=>{
+  const handleRemoveItem = (cardId) => {
     CartApi.DeleteCartService(cardId)
-    .then((data)=>{
-      setCart(data.data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+      .then((data) => {
+        setCart(data.data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
   const updateQuantity = (id, change) => {
@@ -81,14 +82,22 @@ const TopNavbar = ({ onCategoryChange }) => {
     );
   };
 
-  // const removeItem = (id) => {
-  //   setCart(prev => prev.filter(item => item.id !== id));
-  // };
-
   const cartCount = cart.reduce(
     (total, item) => total + item.quantity,
     0
   );
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    const text = searchText.trim();
+
+    navigate(
+      text
+        ? `/products?search=${encodeURIComponent(text)}`
+        : "/products"
+    );
+  };
 
   const links = [
     { name: "Profile", to: "/profile", icon: <BsFillPersonFill size={20} /> },
@@ -117,12 +126,17 @@ const TopNavbar = ({ onCategoryChange }) => {
             </Navbar.Brand>
           </div>
           <div className="desktop-search">
-            <Form className="d-flex gap-3 align-items-center customem-nav-form">
+            <Form
+              className="d-flex gap-3 align-items-center customem-nav-form"
+              onSubmit={handleSearch}
+            >
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="custom-nav-search"
                 aria-label="Search"
+                value={searchText}
+                onChange={(e) => { setSearchText(e.target.value) }}
               />
               <NavDropdown title="All Categories" id="basic-nav-dropdown" className="custom-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -131,7 +145,11 @@ const TopNavbar = ({ onCategoryChange }) => {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
               </NavDropdown>
-              <Button variant="outline-success" className="custom-nav-button">
+              <Button
+                variant="outline-success" 
+                className="custom-nav-button"
+                type="submit"  
+              >
                 Search
               </Button>
             </Form>
@@ -198,10 +216,15 @@ const TopNavbar = ({ onCategoryChange }) => {
           </div>
 
           <div className="mobile-categories-scroll d-flex gap-2">
-            {displayedCategories.map((category) => (
+            <Nav.Link
+              as={NavLink}
+              to="/products"
+              className="`btn mobile-cat-pill"
+            >All Categories</Nav.Link>
+            {categories.map((category) => (
               <Nav.Link
                 key={category.id}
-                as={NavLink} to={"/products"}
+                as={NavLink} to={`/products?category=${category.id}`}
                 className={`btn mobile-cat-pill`}
                 onClick={() => { onCategoryChange(category.id) }}
               >{category.name}</Nav.Link>
@@ -261,7 +284,7 @@ const TopNavbar = ({ onCategoryChange }) => {
         </div>
 
         <div className="cart-body">
-          
+
           {cart.map((item) => (
             <div className="cart-item-row" key={item.id}>
               <div className="cart-item-image-container">
@@ -282,7 +305,7 @@ const TopNavbar = ({ onCategoryChange }) => {
                     <span className="cart-qty-value">{item.quantity}</span>
                     <button className="cart-qty-btn" onClick={() => updateQuantity(item.id, 1)}>+</button>
                   </div>
-                  <button className="cart-delete-icon-btn" onClick={()=>{handleRemoveItem(item.id)}}>
+                  <button className="cart-delete-icon-btn" onClick={() => { handleRemoveItem(item.id) }}>
                     <BsTrashFill size={18} />
                   </button>
                 </div>

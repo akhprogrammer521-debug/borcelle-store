@@ -29,6 +29,7 @@ const Login = () => {
 
         if (!phoneRegex.test(phone)) {
             setErrorMsg("The phone number must be 10 digits. Please enter a valid phone number, for example: 09xxxxxxxx");
+            setLoading(false)
             return;
         }
 

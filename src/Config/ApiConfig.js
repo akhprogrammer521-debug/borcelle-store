@@ -43,6 +43,14 @@ export const API_Config = {
       STORE: "cart",
       DELETE: "cart",
       NEW_REQUEST: "cart"
+    },
+
+    // Favourite
+
+    FAVOURITE: {
+      INDEX: "favorite",
+      STORE: "favorite",
+      DELETE: "favorite"
     }
   },
 };
