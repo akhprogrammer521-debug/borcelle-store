@@ -74,7 +74,7 @@ const Products = ({ isLoading = false }) => {
     }, [activeCategoryId, currentPage]);
 
     const filteredProducts = productItems.filter((product) =>
-        product.name.toLowerCase().includes(searchText)
+        (product.name || "").toLowerCase().includes(searchText)
     );
 
     return (

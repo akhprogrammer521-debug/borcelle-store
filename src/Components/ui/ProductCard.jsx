@@ -116,8 +116,8 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                     style={{ height: "220px" }}
                 >
                     <img
-                        src={product.image}
-                        alt={product.name}
+                        src={product.image || null}
+                        alt={product.name || "Product"}
                         className="img-fluid h-100 object-fit-contain"
                     />
                 </div>
@@ -195,8 +195,8 @@ const ProductCard = ({ product, view, showDetails = true }) => {
 
             <div className="flex-shrink-0">
                 <img
-                    src={product.image}
-                    alt={product.name}
+                    src={product.image || null}
+                    alt={product.name || "Product"}
                     width={150}
                     height={150}
                     className="object-fit-contain"
