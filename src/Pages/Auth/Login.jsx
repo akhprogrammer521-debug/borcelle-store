@@ -1,7 +1,6 @@
 import { BsTelephone } from "react-icons/bs";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../../Contexts/AuthContext";
 import { AuthService } from "../../services/AuthService";
 import Layout from "../../Layouts/AuthLayout/Layout";
 
@@ -18,7 +17,6 @@ const Login = () => {
     const [phone, setPhone] = useState('');
     const [errorMsg, setErrorMsg] = useState(null)
     const [loading, setLoading] = useState(false)
-    const { setUser } = useContext(AuthContext)
     const navigateTo = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -38,7 +36,6 @@ const Login = () => {
             .then((data) => {
                 console.log(data)
                 sessionStorage.setItem("verification_phone", phone);
-                setUser(data)
                 localStorage.setItem("userInfo", JSON.stringify(data))
                 navigateTo('/verification')
             })

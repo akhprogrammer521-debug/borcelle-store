@@ -39,8 +39,6 @@ const QuantityControl = ({ id, model, quantity, onQuantityChange }) => {
 };
 
 const ProductCart = ({ item, onQuantityChange }) => {
-  const { id, image, model, size, color, seller, price, quantity } = item;
-
   return (
     <div className="pb-3">
       {/* Desktop View */}
@@ -48,8 +46,8 @@ const ProductCart = ({ item, onQuantityChange }) => {
         <div className="d-flex align-items-start gap-3">
           <div className="border rounded-2 p-2 shrink-0">
             <img
-              src={image}
-              alt={model}
+              src={item.product.image}
+              alt={item.product.name}
               width={60}
               height={60}
               className="object-fit-contain"
@@ -57,11 +55,11 @@ const ProductCart = ({ item, onQuantityChange }) => {
           </div>
 
           <div className="d-flex flex-column">
-            <h6 className="mb-1 fw-semibold">{model}</h6>
+            <h6 className="mb-1 fw-semibold"></h6>
             <p className="text-secondary small mb-1">
-              Size: {size}, Color: {color}
+              Size: {item.product.category}, Color: {item.product.color}
             </p>
-            <p className="text-secondary small mb-2">Seller: {seller}</p>
+            <p className="text-secondary small mb-2">Seller: </p>
 
             <div className="d-flex gap-2">
               <Button type="button" variant="outline-danger" size="sm" className="border">
@@ -75,11 +73,11 @@ const ProductCart = ({ item, onQuantityChange }) => {
         </div>
 
         <div className="text-end shrink-0">
-          <p className="fw-bold mb-2">${price}</p>
+          <p className="fw-bold mb-2">${item.product.price}</p>
           <QuantityControl
-            id={id}
-            model={model}
-            quantity={quantity}
+            id={item.id}
+            // model={model}
+            quantity={item.product.quantity}
             onQuantityChange={onQuantityChange}
           />
         </div>
@@ -94,18 +92,18 @@ const ProductCart = ({ item, onQuantityChange }) => {
               style={{ width: "65px", height: "65px" }}
             >
               <img
-                src={image}
-                alt={model}
+                src={item.product.image}
+                alt={item.product.name}
                 className="w-100 h-100 object-fit-contain"
               />
             </div>
 
             <div>
-              <h6 className="mb-1 fw-normal fs-6 text-dark">{model}</h6>
+              <h6 className="mb-1 fw-normal fs-6 text-dark"></h6>
               <p className="text-muted small mb-0">
-                Size: {size}, Color: {color}
+                Size: {item.product.category}, Color: {item.product.color}
               </p>
-              <p className="text-muted small mb-0">Seller: {seller}</p>
+              <p className="text-muted small mb-0">Seller: </p>
             </div>
           </div>
 
@@ -113,7 +111,7 @@ const ProductCart = ({ item, onQuantityChange }) => {
             type="button"
             variant="link"
             className="text-muted p-0 border-0 shrink-0"
-            aria-label={`More options for ${model}`}
+            // aria-label={`More options for ${model}`}
           >
             <FaEllipsisV aria-hidden="true" />
           </Button>
@@ -121,12 +119,12 @@ const ProductCart = ({ item, onQuantityChange }) => {
 
         <div className="d-flex justify-content-between align-items-center mt-3">
           <QuantityControl
-            id={id}
-            model={model}
-            quantity={quantity}
+            id={item.product.id}
+            // model={model}
+            quantity={item.product.quantity}
             onQuantityChange={onQuantityChange}
           />
-          <span className="fw-bold fs-6">${price}</span>
+          <span className="fw-bold fs-6">${item.product.price}</span>
         </div>
       </div>
     </div>

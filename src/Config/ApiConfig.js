@@ -51,6 +51,14 @@ export const API_Config = {
       INDEX: "favorite",
       STORE: "favorite",
       DELETE: "favorite"
+    },
+
+    // Order
+    ORDER: {
+      INDEX: "order",
+      STORE: "order",
+      SHOW: "order",
+      CANCEL: "order"
     }
   },
 };

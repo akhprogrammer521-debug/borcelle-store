@@ -18,37 +18,50 @@ const ProductCard = ({ product, view, showDetails = true }) => {
     const { user } = useContext(AuthContext);
     const token = localStorage.getItem("token");
     const isLoggedIn = Boolean(user && token);
-    const { setCart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext);
     const { favourite, setFavourite } = useContext(FavContext);
     const [error, setError] = useState(null);
     const [isSaving, setIsSaving] = useState(null);
 
     const handleAddingCart = () => {
-        setError(false);
         setIsSaving(true);
+
+        const existingItem = cart.find(
+            (item) => item.product?.id === product.id
+        );
+
+        const newQuantity = existingItem
+            ? existingItem.quantity + 1
+            : 1;
 
         CartApi.AddCartService({
             productId: product.id,
-            quantity: 1,
+            quantity: newQuantity,
         })
             .then((response) => {
-                const addedCartItem = response.data;
+                const updatedCartItem = response.data;
 
                 setCart((previousCart) => {
-                    const updatedCart = [...previousCart, addedCartItem];
+                    const productExists = previousCart.some(
+                        (item) => item.product?.id === product.id
+                    );
+
+                    const updatedCart = productExists
+                        ? previousCart.map((item) =>
+                            item.product?.id === product.id
+                                ? updatedCartItem
+                                : item
+                        )
+                        : [...previousCart, updatedCartItem];
+
                     sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
                     return updatedCart;
                 });
             })
             .catch((err) => {
-                console.log(err)
-                setError(err.message)
-            })
-            .finally(() => {
-                setIsSaving(false)
-            })
-    }
-
+                setError(err.message);
+            });
+    };
     const favouriteItem = favourite.find((item) =>
         isLoggedIn
             ? item.product?.id === product.id
@@ -82,23 +95,8 @@ const ProductCard = ({ product, view, showDetails = true }) => {
             });
     }
 
-    const handleRemoveProductFromFav = (favouriteItem) => {
-        setError(null);
-
-        if (!isLoggedIn) {
-            setFavourite((previousFav) => {
-                const updatedFav = previousFav.filter(
-                    (item) => item.product_id !== product.id
-                );
-
-                localStorage.setItem("itemFav", JSON.stringify(updatedFav));
-                return updatedFav;
-            });
-
-            return;
-        }
-
-        FavApi.RemoveFavouriteService(favouriteItem.id)
+    const handleRemoveProductFromFav = () => {
+        FavApi.RemoveFavouriteService(product.id)
             .then(() => FavApi.GetFavouriteService())
             .then((data) => {
                 setFavourite(data.data || []);
@@ -106,7 +104,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
             .catch((err) => {
                 setError(err.message);
             });
-    }
+    };
 
     if (view === "grid") {
         return (

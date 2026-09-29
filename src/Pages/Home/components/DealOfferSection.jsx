@@ -1,19 +1,22 @@
+import { useEffect, useState } from "react";
+import { ProductsApi } from "../../../services/ProductsApi";
 import { Container } from "react-bootstrap";
 
-import watchImg from '../../../assets/products_tech/image 35 (2).png';
-import laptopImg from '../../../assets/products_tech/image 34 (2).png';
-import goproImg from '../../../assets/products_tech/image 28.png';
-import headphoneImg from '../../../assets/products_tech/image 29.png';
-import canonImg from '../../../assets/products_tech/image 23.png';
 
 const DealOfferSection = () => {
-  const offers = [
-    { id: 1, image: watchImg, name: 'Smart watches', price: -25 },
-    { id: 2, image: laptopImg, name: 'Smart watches', price: -25 },
-    { id: 3, image: goproImg, name: 'Smart watches', price: -25 },
-    { id: 4, image: headphoneImg, name: 'Smart watches', price: -25 },
-    { id: 5, image: canonImg, name: 'Smart watches', price: -25 },
-  ];
+
+  const [offers, setOffers] = useState([]);
+
+  useEffect(() => {
+    ProductsApi.GetProductsService()
+      .then((data) => {
+        setOffers(data.data.slice(0, 5));
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }, []);
+
 
   return (
     <Container className="p-0 p-md-3 my-2">
@@ -40,11 +43,11 @@ const DealOfferSection = () => {
             </div>
           </div>
 
-          <div className=" d-flex overflow-x-auto text-center">
+          <div className="d-flex overflow-x-auto text-center">
             {offers.map((item) => (
               <div
                 key={item.id}
-                className=" p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
+                className="p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
                 style={{ width: '135px' }}
               >
                 <div style={{ height: '85px', width: '85px' }} className="d-flex align-items-center justify-content-center mb-2">
@@ -52,7 +55,7 @@ const DealOfferSection = () => {
                 </div>
                 <p className="mb-2 text-dark small text-truncate w-100" style={{ fontSize: '13px' }}>{item.name}</p>
                 <span className="badge rounded-pill bg-danger-subtle text-danger px-2 py-1 fw-normal" style={{ fontSize: '11px' }}>
-                  {item.price}%
+                  25%
                 </span>
               </div>
             ))}
@@ -90,15 +93,15 @@ const DealOfferSection = () => {
             {offers.map((item, index) => (
               <div
                 key={item.id}
-                className={`p-3 text-center d-flex flex-column align-items-center justify-content-between flex-fill ${index !== offers.length - 1 ? 'border-end' : ''
+                className={`ui-card p-3 text-center d-flex flex-column align-items-center justify-content-between flex-fill ${index !== offers.length - 1 ? 'border-end' : ''
                   }`}
               >
                 <div style={{ height: '100px', width: '100px' }} className="d-flex align-items-center justify-content-center mb-2">
                   <img src={item.image} alt={item.name} className="mw-100 mh-100 object-fit-contain" />
                 </div>
-                <p className="mb-2 text-dark small fw-medium">{item.name}</p>
+                <p className="mb-2 text-dark small fw-medium w-50">{item.name}</p>
                 <span className="badge rounded-pill bg-danger-subtle text-danger px-2 py-1 fw-normal">
-                  {item.price}%
+                  25%
                 </span>
               </div>
             ))}

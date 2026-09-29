@@ -42,13 +42,10 @@ const RequestSendingSection = () => {
                         <h5 className="fw-bold mb-2">
                             An easy way to send <br /> requests to all suppliers
                         </h5>
-                        <div className="">
-                            <Button value={"Send inquiry"} className="mt-2 w-auto" />
-                        </div>
                     </div>
-                    <div className="d-none d-md-block">
+                    <div className="d-block">
                         <Row className="align-items-center">
-                            <Col md={6} lg={7} className="text-white pe-lg-5 align-items-start">
+                            <Col md={6} lg={7} className="d-none d-md-block text-white pe-lg-5 align-items-start">
                                 <h3 className="fw-bold mb-3">
                                     An easy way to send requests to all suppliers
                                 </h3>

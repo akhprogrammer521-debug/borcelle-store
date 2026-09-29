@@ -42,24 +42,21 @@ const ServiceSection = () => {
           const IconComponent = item.icon;
           return (
             <Col xs={12} sm={6} lg={3} key={item.id}>
-              <div className="bg-white border rounded-3 overflow-hidden h-100 d-flex flex-column">
-                
-                {/* Image Container with Floating Icon Badge */}
+              <div className="ui-card bg-white border rounded-3 overflow-hidden h-100 d-flex flex-column">
                 <div className="position-relative w-100" style={{ height: "120px" }}>
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
+                  <img
+                    src={item.image}
+                    alt={item.title}
                     className="w-100 h-100 object-fit-cover"
                   />
-                  {/* Floating Action Circle */}
-                  <div 
+                  <div
                     className="position-absolute bg-primary-subtle border border-2 border-white rounded-circle d-flex align-items-center justify-content-center text-dark shadow-sm"
-                    style={{ 
-                      width: "48px", 
-                      height: "48px", 
-                      bottom: "-24px", 
+                    style={{
+                      width: "48px",
+                      height: "48px",
+                      bottom: "-24px",
                       right: "20px",
-                      zIndex: 2 
+                      zIndex: 2
                     }}
                   >
                     <IconComponent size={20} />

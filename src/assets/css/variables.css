@@ -36,7 +36,7 @@
 
   --transition-fast: all 0.2s ease;
   --transition-normal: box-shadow 0.3s ease;
-  --transition-interaction: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  --transition-interaction: background-color 0.2s in-ease, color 0.5s ease, border-color 0.5s ease;
   --transition-elevation: transform 0.2s ease, box-shadow 0.2s ease;
   --focus-ring: 0 0 0 3px rgba(240, 52, 93, 0.24);
 }

@@ -5,10 +5,12 @@ import Link from "../../Components/ui/Link";
 import { useState, useContext, useRef } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import Button from "../../Components/ui/Button"
-import { FiEdit } from "react-icons/fi";
 
 const Profile = () => {
+
     const { user } = useContext(AuthContext);
+    const [ showModal, setShowModal ] = useState(false);
+
     const settingLinks = [
         { id: 1, href: '/cart', value: "Wishlist page" },
         { id: 2, href: '', value: "About us page" },
@@ -31,6 +33,11 @@ const Profile = () => {
         const imageUrl = URL.createObjectURL(file);
         setPhoto(imageUrl);
     };
+
+    const handleShowModal = ()=>{
+        setShowModal(true)
+    }
+
     return (
         <>
             <Layout
@@ -65,9 +72,7 @@ const Profile = () => {
                                 </div>
                             </div>
 
-                            <button className="">
-                                <FiEdit /> Edit
-                            </button>
+                            <Button className="w-auto px-2" value={"Edit"} onClick={handleShowModal}/>
                         </div>
                         <Form className="d-flex gap-4">
                             <Form.Group className="mb-3 w-50" controlId="exampleForm.ControlInput1">
@@ -87,8 +92,6 @@ const Profile = () => {
                                 <Col lg={4} sm={6} key={item.id}>
                                     <Link href={item.href} value={item.value} />
                                 </Col>
-
-
                             ))}
 
                         </Row>

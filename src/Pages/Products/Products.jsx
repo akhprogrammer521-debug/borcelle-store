@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { CategoriesApi } from "../../services/CategoriesApi";
-import { Button, Col, Container, Row, Pagination, Form } from "react-bootstrap";
+import { Button, Col, Container, Row, Pagination } from "react-bootstrap";
 import { BsFilter } from "react-icons/bs";
 import { ProductsApi } from "../../services/ProductsApi";
 import SubscribeSection from "../../Components/shared/SubscribeSection";
@@ -114,16 +114,6 @@ const Products = ({ isLoading = false }) => {
                             />
                             {paginationMeta && (
                                 <div className="d-flex justify-content-end align-items-start mt-4 gap-2">
-                                    {/* <Form.Select
-                                        aria-label="Default select example"
-                                        className="w-auto"
-                                        size="sm"
-                                    >
-                                        <option>ٍShow</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </Form.Select> */}
                                     <form action="">
                                         <select name="" id="" className="p-2 border rounded-1 pe-2">
                                             <option value="" className="me-1">Show 10</option>

@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router";
 import { CategoriesApi } from "../../../services/CategoriesApi";
 import { CartContext } from '../../../Contexts/CartContext';
+import { AuthContext } from "../../../Contexts/AuthContext"
 import { CartApi } from '../../../services/CartApi';
 
 import Button from 'react-bootstrap/Button';
@@ -31,6 +32,7 @@ import {
   BsX,
   BsTrashFill
 } from "react-icons/bs";
+import { LuUserPlus } from "react-icons/lu";
 
 import logo from '../../../assets/logo/logo.png';
 
@@ -39,6 +41,8 @@ const TopNavbar = ({ onCategoryChange }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { cart, setCart } = useContext(CartContext);
+
+  const { user } = useContext(AuthContext)
 
   const [categories, setCategories] = useState([]);
   const handleClose = () => setShowSidebar(false);
@@ -60,30 +64,54 @@ const TopNavbar = ({ onCategoryChange }) => {
       });
   }, [setCategories]);
 
-  const handleRemoveItem = (cardId) => {
-    CartApi.DeleteCartService(cardId)
-      .then((data) => {
-        setCart(data.data)
+  const handleRemoveItem = (cartItemId) => {
+    console.log("cart item id:", cartItemId);
+    console.log("token:", localStorage.getItem("token"));
+    CartApi.DeleteCartService(cartItemId)
+      .then(() => {
+        setCart((previousCart) => {
+          const updatedCart = previousCart.filter(
+            (item) => item.id !== cartItemId
+          );
+          sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
+          return updatedCart;
+        });
       })
       .catch((err) => {
-        console.log(err.message)
-      })
-  }
+        console.log(err.message);
+      });
+  };
 
-  const updateQuantity = (id, change) => {
-    setCart(prev =>
-      prev.map(item => {
-        if (item.id === id) {
-          const newQty = item.quantity + change;
-          return newQty > 0 ? { ...item, quantity: newQty } : item;
-        }
-        return item;
+  const updateQuantity = (cartItem, change) => {
+    const newQuantity = cartItem.quantity + change;
+
+    if (newQuantity < 1) return;
+
+    CartApi.AddCartService({
+      productId: cartItem.product.id,
+      quantity: newQuantity,
+    })
+      .then((response) => {
+        const updatedCartItem = response.data;
+
+        setCart((previousCart) => {
+          const updatedCart = previousCart.map((item) =>
+            item.id === cartItem.id
+              ? updatedCartItem
+              : item
+          );
+
+          sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
+          return updatedCart;
+        });
       })
-    );
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   const cartCount = cart.reduce(
-    (total, item) => total + item.quantity,
+    (total, item) => total + item.product.price * item.quantity,
     0
   );
 
@@ -139,16 +167,20 @@ const TopNavbar = ({ onCategoryChange }) => {
                 onChange={(e) => { setSearchText(e.target.value) }}
               />
               <NavDropdown title="All Categories" id="basic-nav-dropdown" className="custom-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                {categories.map((category, index) => (
+                  <Nav.Link
+                    key={category.id}
+                    as={NavLink} to={`/products?category=${category.id}`}
+                    className={`text-black p-1 ${index !== category.length - 2 ? 'border-bottom' : ''}
+                  `}
+                    onClick={() => { onCategoryChange(category.id) }}
+                  >{category.name}</Nav.Link>
+                ))}
               </NavDropdown>
               <Button
-                variant="outline-success" 
+                variant="outline-success"
                 className="custom-nav-button"
-                type="submit"  
+                type="submit"
               >
                 Search
               </Button>
@@ -204,9 +236,15 @@ const TopNavbar = ({ onCategoryChange }) => {
                   <span className="cart-badge-mobile">{cart.length}</span>
                 )}
               </Nav.Link>
-              <Nav.Link as={NavLink} to={'/profile'} className="p-0 text-dark">
-                <BsFillPersonFill size={24} />
-              </Nav.Link>
+              {
+                user
+                  ? <Nav.Link as={NavLink} to={'/profile'} className="p-0 text-dark">
+                    <BsFillPersonFill size={24} />
+                  </Nav.Link>
+                  : <Nav.Link as={NavLink} to={'/login'} className="p-0 text-dark">
+                    <LuUserPlus size={24} />
+                  </Nav.Link>
+              }
             </div>
           </div>
 
@@ -295,17 +333,17 @@ const TopNavbar = ({ onCategoryChange }) => {
               <div className="cart-item-info">
                 <div className="cart-item-title-price">
                   <span className="cart-item-title">{item.product.name}</span>
-                  <span className="cart-item-price">{item.product.price} AED</span>
+                  <span className="cart-item-price">{item.product.price * item.quantity} AED</span>
                 </div>
                 <div className="cart-item-subtext">{item.subtitle}</div>
 
                 <div className="cart-item-actions">
                   <div className="cart-qty-selector">
-                    <button className="cart-qty-btn" onClick={() => updateQuantity(item.id, -1)}>-</button>
+                    <button className="cart-qty-btn" onClick={() => updateQuantity(item, -1)} disabled={item.quantity <= 1}>-</button>
                     <span className="cart-qty-value">{item.quantity}</span>
-                    <button className="cart-qty-btn" onClick={() => updateQuantity(item.id, 1)}>+</button>
+                    <button className="cart-qty-btn" onClick={() => updateQuantity(item, 1)}>+</button>
                   </div>
-                  <button className="cart-delete-icon-btn" onClick={() => { handleRemoveItem(item.id) }}>
+                  <button className="cart-delete-icon-btn" onClick={() => { handleRemoveItem(item.id); console.log(item); }}>
                     <BsTrashFill size={18} />
                   </button>
                 </div>
@@ -324,9 +362,11 @@ const TopNavbar = ({ onCategoryChange }) => {
             <span className="cart-subtotal-title">SubTotal :</span>
             <span className="cart-subtotal-amount">{cartCount} AED</span>
           </div>
-          <button className="cart-checkout-action-btn">
-            Checkout
-          </button>
+          <NavLink to={"/cart"}>
+            <button className="cart-checkout-action-btn">
+              Checkout
+            </button>
+          </NavLink>
         </div>
       </div>
     </>

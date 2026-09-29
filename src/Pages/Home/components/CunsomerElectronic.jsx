@@ -9,7 +9,7 @@ const CunsomerElectronic = () => {
   useEffect(() => {
     ProductsApi.GetProductsService()
       .then((data) => {
-        setItems(data.data.slice(9, 20));
+        setItems(data.data.slice(7, 20));
       })
       .catch((error) => {
         console.error(error.message);
@@ -19,8 +19,6 @@ const CunsomerElectronic = () => {
   return (
     <Container className="p-0 p-md-3 my-2">
       <div className="bg-white border rounded-3 overflow-hidden">
-
-        {/* MOBILE VIEW (Header + Horizontal Scroll / Grid Layout) */}
         <div className="d-block d-md-none p-3">
           <h6 className="fw-bold mb-3 text-dark">Consumer electronics and gadgets</h6>
           <div className="d-flex overflow-x-auto gap-2">
@@ -40,10 +38,8 @@ const CunsomerElectronic = () => {
           </div>
         </div>
 
-        {/* DESKTOP VIEW (Banner on Left + 8 Grid Items on Right) */}
         <div className="d-none d-md-block">
           <Row className="g-0">
-            {/* Left Category Banner */}
             <Col md={3}>
               <div
                 className="p-4 h-100 d-flex flex-column justify-content-between position-relative"
@@ -62,11 +58,10 @@ const CunsomerElectronic = () => {
               </div>
             </Col>
 
-            {/* Right Products Grid (4 Columns x 2 Rows) */}
             <Col md={9}>
               <Row className="g-0">
                 {items.map((product) => (
-                  <Col md={6} lg={3} key={product.id} className="border-bottom border-end p-3">
+                  <Col md={6} lg={3} key={product.id} className="ui-card border-bottom border-end p-3">
                     <div className="d-flex justify-content-between align-items-start h-100">
                       <div>
                         <p className="mb-1 text-dark fw-medium small">{product.name}</p>

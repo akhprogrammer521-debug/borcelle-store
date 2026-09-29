@@ -7,8 +7,8 @@ export const FavApi = {
         return fetch(url, {
             method: "GET",
             headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Accept": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
         }).then((res) => {
             if (!res.ok) {
@@ -44,8 +44,8 @@ export const FavApi = {
             })
     },
 
-    RemoveFavouriteService: (favouriteId) => {
-        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.FAVOURITE.DELETE}/${favouriteId}`;
+    RemoveFavouriteService: (productId) => {
+        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.FAVOURITE.DELETE}/${productId}`;
 
         return fetch(url, {
             method: "DELETE",

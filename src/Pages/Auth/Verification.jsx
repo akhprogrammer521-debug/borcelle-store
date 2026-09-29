@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+
+import { AuthContext } from "../../Contexts/AuthContext";
 
 import Layout from "../../Layouts/AuthLayout/Layout";
 
@@ -10,6 +12,7 @@ import { AuthService } from "../../services/AuthService";
 import { useNavigate } from "react-router";
 const Verification = () => {
 
+  const { setUser } = useContext(AuthContext);
   const [code, setCode] = useState(["", "", "", "", ""]);
   const [isVerifying, setIsVerifying] = useState(false);
   const phone = sessionStorage.getItem("verification_phone");
@@ -65,7 +68,8 @@ const Verification = () => {
     AuthService.VerificationService({ phone, otp })
       .then((data) => {
         console.log(data)
-        localStorage.setItem("token", data.data.token)
+        setUser(data);
+        localStorage.setItem("token", data.data.token);
         sessionStorage.setItem("show_success_modal", "true");
         sessionStorage.removeItem("verification_phone");
         navigateTo("/");

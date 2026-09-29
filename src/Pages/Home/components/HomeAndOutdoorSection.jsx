@@ -9,7 +9,7 @@ const HomeAndOutdoorSection = () => {
   useEffect(() => {
     ProductsApi.GetProductsService()
       .then((data) => {
-        setItems(data.data.slice(0, 8));
+        setItems(data.data.slice(6, 14));
       })
       .catch((error) => {
         console.error(error.message);
@@ -62,7 +62,7 @@ const HomeAndOutdoorSection = () => {
             <Col md={8} lg={9}>
               <Row className="g-0">
                 {items.map((product) => (
-                  <Col md={6} lg={3} key={product.id} className="border-bottom border-end p-3">
+                  <Col md={6} lg={3} key={product.id} className="ui-card border-bottom border-end p-3">
                     <div className="d-flex justify-content-between align-items-start h-100">
                       <div>
                         <p className="mb-1 text-dark fw-medium small">{product.name}</p>
