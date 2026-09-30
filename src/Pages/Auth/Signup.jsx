@@ -71,7 +71,6 @@ const Signup = () => {
     AuthService.SignUpService(registerData)
       .then((data) => {
         setUser(data)
-        localStorage.setItem("userInfo", JSON.stringify(data))
         console.log(data);
         navigateTo("/login");
       })

@@ -69,6 +69,7 @@ const Verification = () => {
       .then((data) => {
         console.log(data)
         setUser(data);
+        localStorage.setItem("userInfo", JSON.stringify(data))
         localStorage.setItem("token", data.data.token);
         sessionStorage.setItem("show_success_modal", "true");
         sessionStorage.removeItem("verification_phone");

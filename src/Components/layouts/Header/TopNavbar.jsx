@@ -228,7 +228,7 @@ const TopNavbar = ({ onCategoryChange }) => {
                 <img alt="Logo" src={logo} width="70" height="50" className="brand-logo" />
               </Navbar.Brand>
             </div>
-            <div className="d-flex align-items-center text-dark gap-2">
+            <div className="d-flex align-items-center text-dark gap-3">
               <ThemeToggle />
               <Nav.Link onClick={handleCartShow} className="p-0 text-dark position-relative">
                 <BsFillCartFill size={22} />

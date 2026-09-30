@@ -104,6 +104,26 @@
   line-height: 1;
 }
 
+.cart-badge-mobile {
+  position: absolute;
+  top: -4px;
+  right: -11px;
+
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #f33562;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
 
 .mobile-search-wrapper {
   position: relative;

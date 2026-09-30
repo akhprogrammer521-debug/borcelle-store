@@ -9,6 +9,13 @@ export const API_Config = {
       VERIFY: "verify",
     },
 
+    // Profile
+
+    PROFILE: {
+      INDEX: "customer",
+      UPDATE: "customer"
+    },
+
     // Contact Ua
 
     CONTACT_US: {
