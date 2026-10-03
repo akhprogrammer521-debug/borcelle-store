@@ -12,8 +12,8 @@ export const CartApi = {
         })
             .then((res) => {
                 if (!res.ok) {
-                    return res.json().then((ServerMessage) => {
-                        throw new Error(ServerMessage || "Failed to fetch carts")
+                    return res.json().then((ServerError) => {
+                        throw new Error(ServerError || "Failed to fetch carts")
                     })
                 }
                 return res.json()
@@ -25,6 +25,7 @@ export const CartApi = {
         return fetch(url, {
             method: "POST",
             headers: {
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
@@ -35,8 +36,8 @@ export const CartApi = {
         })
             .then((res) => {
                 if (!res.ok) {
-                    return res.json().then((ServerMessage) => {
-                        throw new Error(ServerMessage || "Failed to add cart")
+                    return res.json().then((ServerError) => {
+                        throw new Error(ServerError || "Failed to add cart")
                     })
                 }
                 return res.json()

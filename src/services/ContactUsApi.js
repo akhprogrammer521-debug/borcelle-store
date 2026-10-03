@@ -13,8 +13,8 @@ export const ContactUsApi = {
         })
         .then((res)=>{
             if(!res.ok){
-                return res.json().then((serverMessage)=>{
-                    throw new Error(serverMessage.message || "Something went wrong")
+                return res.json().then((ServerError)=>{
+                    throw new Error(ServerError.message || "Something went wrong")
                 })
             }
             return res.json()

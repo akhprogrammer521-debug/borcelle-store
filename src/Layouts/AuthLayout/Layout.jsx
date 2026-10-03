@@ -3,16 +3,16 @@ import { Col, Container, Row } from "react-bootstrap";
 const Layout = ({ leftContent, rightContent }) => {
     return (
         <Container fluid className="p-0">
-            <Row className="g-0 min-vh-100 d-none d-lg-flex">
-                <Col lg={6} className="">
-                    <div className="auth-left-bg vh-100">
-                        <div className="auth-left-overlay min-vh-100 d-flex align-items-center justify-content-center">
+            <Row className="g-0 d-lg-flex">
+                <Col lg={6}>
+                    <div className="auth-left-bg min-vh-100">
+                        <div className="auth-left-overlay  min-vh-100 d-flex align-items-center justify-content-center">
                             {leftContent}
                         </div>
                     </div>
                 </Col>
                 <Col lg={6}>
-                    <div className="min-vh-100 bg-light d-flex align-items-center justify-content-center px-4 px-xl-5">
+                    <div className="bg-light min-vh-100 d-flex align-items-center justify-content-center px-4 px-xl-5">
                         {rightContent}
                     </div>
                 </Col>

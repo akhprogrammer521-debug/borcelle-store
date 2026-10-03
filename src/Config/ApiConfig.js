@@ -66,6 +66,23 @@ export const API_Config = {
       STORE: "order",
       SHOW: "order",
       CANCEL: "order"
+    },
+
+    // Setting
+
+    SETTINGS: {
+      PRIVACY_POLICY: "setting/privacy_policy",
+      TERMS_CONDS: "setting/terms_and_conditions"
+    },
+
+    // Address
+
+    ADDRESS: {
+      INDEX: "address",
+      SHOW: "orders",
+      STORE: "address",
+      UPDATE: "address",
+      DELETE: "address"
     }
   },
 };

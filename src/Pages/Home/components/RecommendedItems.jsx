@@ -5,13 +5,17 @@ import { NavLink } from "react-router";
 import { ProductsApi } from "../../../services/ProductsApi";
 import { CartApi } from "../../../services/CartApi";
 import { CartContext } from "../../../Contexts/CartContext";
+import { AuthContext } from "../../../Contexts/AuthContext";
 import Button from "../../../Components/ui/Button";
 
 const RecommendedItems = () => {
+
+  const { user } = useContext(AuthContext);
   const [recItems, setRecItems] = useState([]);
   const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(null);
-
+  const token = localStorage.getItem("token");
+  const isLoggedIn = Boolean(user && token);
   const { setCart } = useContext(CartContext);
 
   const [visibleCount, setVisibleCount] = useState(4);
@@ -31,6 +35,12 @@ const RecommendedItems = () => {
     e.preventDefault();
 
     setError(null);
+
+    if (!isLoggedIn) {
+      setError("Please log in before adding products to the cart.");
+      return;
+    }
+
     setIsSaving(item.id);
 
     CartApi.AddCartService({
@@ -42,7 +52,7 @@ const RecommendedItems = () => {
 
         setCart((previousCart) => {
           const updatedCart = [...previousCart, addedCartItem];
-          sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
+          // sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
           return updatedCart;
         });
       })

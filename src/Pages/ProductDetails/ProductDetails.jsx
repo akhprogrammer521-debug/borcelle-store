@@ -20,8 +20,8 @@ const ProductsDetails = ({ onInquiry }) => {
             .then((data) => {
                 setDetails(data.data);
             })
-            .catch((error) => {
-                console.error(error.message);
+            .catch((err) => {
+                console.log(err.message);
                 setDetails(null);
             })
             .finally(() => {

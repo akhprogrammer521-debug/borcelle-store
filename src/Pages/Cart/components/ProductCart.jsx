@@ -41,7 +41,6 @@ const QuantityControl = ({ id, model, quantity, onQuantityChange }) => {
 const ProductCart = ({ item, onQuantityChange }) => {
   return (
     <div className="pb-3">
-      {/* Desktop View */}
       <div className="d-none d-md-flex justify-content-between align-items-start gap-3">
         <div className="d-flex align-items-start gap-3">
           <div className="border rounded-2 p-2 shrink-0">
@@ -76,7 +75,6 @@ const ProductCart = ({ item, onQuantityChange }) => {
           <p className="fw-bold mb-2">${item.product.price}</p>
           <QuantityControl
             id={item.id}
-            // model={model}
             quantity={item.product.quantity}
             onQuantityChange={onQuantityChange}
           />

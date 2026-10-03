@@ -11,8 +11,8 @@ const CunsomerElectronic = () => {
       .then((data) => {
         setItems(data.data.slice(7, 20));
       })
-      .catch((error) => {
-        console.error(error.message);
+      .catch((err) => {
+        console.log(err.message);
       });
   }, []);
 

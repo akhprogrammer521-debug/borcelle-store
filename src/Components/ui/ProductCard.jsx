@@ -9,6 +9,7 @@ import { CartApi } from "../../services/CartApi";
 import { FavApi } from "../../services/FavouriteApi";
 
 import { FaRegHeart } from "react-icons/fa";
+import { BsFillHeartFill } from "react-icons/bs";
 
 import SecondButton from "./SecondButton";
 import Button from "./Button"
@@ -24,6 +25,12 @@ const ProductCard = ({ product, view, showDetails = true }) => {
     const [isSaving, setIsSaving] = useState(null);
 
     const handleAddingCart = () => {
+        setError(null);
+
+        if (!isLoggedIn) {
+            setError("Please log in before adding products to the cart.");
+            return;
+        }
         setIsSaving(true);
 
         const existingItem = cart.find(
@@ -54,7 +61,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                         )
                         : [...previousCart, updatedCartItem];
 
-                    sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
+                    // sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
                     return updatedCart;
                 });
             })
@@ -145,13 +152,13 @@ const ProductCard = ({ product, view, showDetails = true }) => {
 
                         <div className="flex-shrink-0">
                             <SecondButton
-                                value={<FaRegHeart />}
+                                value={favouriteItem ? <BsFillHeartFill /> : <FaRegHeart />}
                                 onClick={() =>
                                     favouriteItem
                                         ? handleRemoveProductFromFav(favouriteItem)
                                         : handleAddProductToFav()
                                 }
-                                className={favouriteItem ? "btn-cus-secondary-fav" : ""}
+                                className="btn-cus-secondary-fav"
                             />
                         </div>
                     </div>
@@ -182,12 +189,12 @@ const ProductCard = ({ product, view, showDetails = true }) => {
         <div className="ui-card border p-3 bg-white rounded-2 d-flex gap-4 mb-3 position-relative">
             <div className="position-absolute top-0 end-0 m-3 z-1">
                 <SecondButton
-                    value={<FaRegHeart />}
+                    value={favouriteItem ? <BsFillHeartFill /> : <FaRegHeart />}
                     onClick={() =>
                         favouriteItem
                             ? handleRemoveProductFromFav(favouriteItem)
                             : handleAddProductToFav()
-                    } className={favouriteItem ? "btn-cus-secondary-fav" : ""}
+                    } className="btn-cus-secondary-fav"
                 />
             </div>
 

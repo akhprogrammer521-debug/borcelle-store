@@ -13,7 +13,6 @@ import LoadingButton from "../../Components/ui/LoadingButton";
 
 const Login = () => {
 
-    // const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [phone, setPhone] = useState('');
     const [errorMsg, setErrorMsg] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -44,7 +43,6 @@ const Login = () => {
                 setErrorMsg(err.message)
             })
             .finally(() => {
-                // setIsLoggingIn(false)
                 setLoading(false)
             })
     };
@@ -106,7 +104,7 @@ const Login = () => {
                             )}
                             <LoadingButton
                                 type="submit"
-                                className="btn auth-primary-btn w-100 mt-4"
+                                className="auth-primary-btn border-0 w-100 mt-4"
                                 isLoading={loading}
                                 loadingLabel="Logging in"
                             >

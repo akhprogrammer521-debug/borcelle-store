@@ -33,6 +33,7 @@ const HomePage = () => {
         <>
             <MainLayout>
                 <SuccessModal
+                    value="You have successfully verified your account"
                     show={showSuccess}
                     onClose={handleCloseSuccess}
                     onContinue={handleContinue}

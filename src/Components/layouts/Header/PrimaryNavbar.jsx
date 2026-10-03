@@ -14,8 +14,8 @@ const PrimaryNavbar = () => {
       .then((data) => {
         setCategories(data.data);
       })
-      .catch((error) => {
-        console.error(error.message);
+      .catch((err) => {
+        console.log(err.message);
       });
   }, []);
 

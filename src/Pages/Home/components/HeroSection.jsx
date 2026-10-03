@@ -5,12 +5,15 @@ import { BsPersonCircle } from "react-icons/bs";
 import Button from "../../../Components/ui/Button";
 import SecondButton from "../../../Components/ui/SecondButton";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../../../Contexts/AuthContext"
+import { AuthContext } from "../../../Contexts/AuthContext";
+import { CartContext } from "../../../Contexts/CartContext";
 
 const HeroSection = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const { setCart } = useContext(CartContext);
+
   const navigateTo = useNavigate()
- 
+
   const handleButton = () => {
     navigateTo('/register')
   }
@@ -18,13 +21,23 @@ const HeroSection = () => {
   const handleLogin = () => {
     navigateTo('/login')
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
+
+    // sessionStorage.removeItem("userCart");
+
+    setUser(null);
+    setCart([]);
+    navigateTo('/')
+  }
+
   return (
     <div>
       <Container className="p-3">
-        {/* DESKTOP VIEW (Visible on lg screens and up) */}
         <div className="d-none d-lg-flex border rounded-3 p-3 bg-white">
           <Row className="gx-3 w-100 align-items-stretch">
-            {/* Left Category Sidebar */}
             <Col lg={3} xl={2}>
               <ul className="d-flex flex-column gap-2 ps-0 mb-0">
                 <li className="list-unstyled hero-link"><Nav.Link href="" className="p-1">Automobiles</Nav.Link></li>
@@ -61,6 +74,7 @@ const HeroSection = () => {
                         <div className="w-100 d-flex align-items-center gap-2">
                           <BsPersonCircle className="fs-1 text-light user-bg-cus rounded-circle shrink-0" />
                           <p className="mb-0 lh-sm"> Hi, {user.data.name} <br /><small className="text-muted">let's get started</small></p>
+                          <Button value={"Logout"} onClick={handleLogout} />
                         </div>
                       </div>
                     </>

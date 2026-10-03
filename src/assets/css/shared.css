@@ -16,6 +16,10 @@
   border-radius: 0;
 }
 
+.loc-icon-cus{
+  color: var(--brand-primary);
+}
+
 .success-modal-header .btn-close {
   opacity: 1;
 }
@@ -158,9 +162,7 @@
 }
 
 .btn-cus-secondary-fav{
-  background-color: var(--brand-gradient-start);
-  color: white;
-  border: 1px solid var(--brand-gradient-start);
+  color: var(--brand-gradient-start);
 }
 button,
 .btn {
@@ -240,10 +242,6 @@ table, th, td {
 
 .profile-links:hover{
   color: var(--brand-primary);
-}
-
-.bg-vh {
-  height: calc(100vh - 56px);
 }
 
 .skeleton {
@@ -348,4 +346,67 @@ table, th, td {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.profile-title {
+  color: #fff;
+}
+
+.address-modal {
+  max-width: 720px;
+  margin: 16px auto;
+}
+
+.address-modal .modal-content {
+  height: calc(100vh - 32px);
+  max-height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: none;
+  border-radius: 16px;
+}
+
+.address-modal .modal-header,
+.address-modal .modal-footer {
+  flex-shrink: 0;
+  padding: 16px 24px;
+}
+
+.address-modal .modal-header {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.address-modal .modal-footer {
+  border-top: 1px solid #eeeeee;
+}
+
+.address-modal .modal-body {
+  flex: 1;
+  min-height: 0;
+  padding: 18px 24px;
+  overflow-y: auto;
+}
+
+.address-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+
+.address-fields .form-label {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.address-fields .form-control {
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.btn-del {
+  background-color: black;
+  color: white;
 }

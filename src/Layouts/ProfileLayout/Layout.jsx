@@ -6,7 +6,7 @@ const Layout = ({ headerProfile , bodyProfile}) => {
     return (
         <>
             <TopNavbar />
-            <div className="bg-light p-5 bg-vh">
+            <div className="bg-light min-vh-100 p-5">
                 <Container>
                     <Row className="rounded-3">
                         <div className="header-profile rounded-3 p-4 text-white">

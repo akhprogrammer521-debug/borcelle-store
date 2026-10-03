@@ -15,17 +15,21 @@ const Products = ({ isLoading = false }) => {
 
     const [productItems, setProductItems] = useState([]);
     const [isProductsLoading, setIsProductsLoading] = useState(true);
+
     const [error, setError] = useState(null);
-    const [view, setView] = useState("list");
+    const [view, setView] = useState("grid");
     const [showFilters, setShowFilters] = useState(false);
+
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+
     const [categories, setCategories] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
+    const searchText = searchParams.get("search")?.toLowerCase() || "";
+
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationMeta, setPaginationMeta] = useState(null);
-    const searchText = searchParams.get("search")?.toLowerCase() || "";
 
     const categoryIdFromNavbar =
         Number(searchParams.get("category")) || null;
@@ -53,8 +57,8 @@ const Products = ({ isLoading = false }) => {
             .then((data) => {
                 setCategories(data.data);
             })
-            .catch((error) => {
-                console.error(error.message);
+            .catch((err) => {
+                console.log(err.message);
             });
     }, []);
 

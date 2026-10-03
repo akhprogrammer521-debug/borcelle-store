@@ -68,9 +68,9 @@ const Verification = () => {
     AuthService.VerificationService({ phone, otp })
       .then((data) => {
         console.log(data)
-        setUser(data);
         localStorage.setItem("userInfo", JSON.stringify(data))
         localStorage.setItem("token", data.data.token);
+        setUser(data);
         sessionStorage.setItem("show_success_modal", "true");
         sessionStorage.removeItem("verification_phone");
         navigateTo("/");
@@ -90,7 +90,6 @@ const Verification = () => {
     newCode[index] = digit;
     setCode(newCode);
 
-    // بعد كتابة رقم: انتقلي للحقل التالي
     if (digit && index < code.length - 1) {
       inputsRef.current[index + 1]?.focus();
     }
@@ -102,13 +101,11 @@ const Verification = () => {
 
       const newCode = [...code];
 
-      // يحذف الرقم الموجود في الحقل الحالي
       if (code[index]) {
         newCode[index] = "";
         setCode(newCode);
       }
 
-      // ثم يرجع للحقل السابق
       if (index > 0) {
         inputsRef.current[index - 1]?.focus();
       }
@@ -118,7 +115,7 @@ const Verification = () => {
   const handlePaste = (e) => {
     e.preventDefault();
 
-    const pastedCode = event.clipboardData
+    const pastedCode = e.clipboardData
       .getData("text")
       .replace(/\D/g, "")
       .slice(0, 5);
@@ -232,19 +229,15 @@ const Verification = () => {
               </button>
               <LoadingButton
                 type="submit"
-                className="btn auth-primary-btn w-100 mt-4"
+                className="auth-primary-btn border-0 w-100 mt-4"
                 isLoading={isVerifying}
                 loadingLabel="Verifying code"
               >
                 Verify
               </LoadingButton>
             </form>
-            <div className="d-flex align-items-center gap-3 my-4">
-              <div className="grow border-top" />
-              <span className="text-secondary">
-                OR
-              </span>
-              <div className="grow border-top" />
+            <div className="d-flex justify-content-center align-items-center gap-3 my-4">
+              OR
             </div>
             <button
               type="button"

@@ -21,8 +21,8 @@ const FavProvider = ({ children }) => {
       .then((data) => {
         setFavourite(data.data || []);
       })
-      .catch((error) => {
-        console.error(error.message);
+      .catch((err) => {
+        console.log(err.message);
       });
   }, [user]);
 

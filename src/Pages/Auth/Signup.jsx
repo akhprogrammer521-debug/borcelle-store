@@ -1,7 +1,7 @@
-import { useRef, useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate, NavLink } from 'react-router';
 import { Form, Nav } from "react-bootstrap";
-import { AuthContext } from "../../Contexts/AuthContext"
+// import { AuthContext } from "../../Contexts/AuthContext";
 import {
   BsPersonCircle,
   BsEnvelope,
@@ -26,28 +26,20 @@ const Signup = () => {
     phone: ""
   });
 
-  const { setUser } = useContext(AuthContext)
+  // const { setUser } = useContext(AuthContext)
   const [isSaving, setIsSaving] = useState(false);
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState(null);
 
   const navigateTo = useNavigate()
 
-  const fileInputRef = useRef(null);
-  const handlePhotoClick = () => {
-    fileInputRef.current?.click();
-  };
-
   const handlePhotoChange = (e) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
-
     const imageUrl = URL.createObjectURL(file);
-
     setPhoto(imageUrl);
-
-    setRegiserData((data)=>({
+    setRegiserData((data) => ({
       ...data,
       image: file
     }))
@@ -55,7 +47,7 @@ const Signup = () => {
 
   const handleRegisteration = (e) => {
     e.preventDefault();
-
+    console.log(e)
     const form = e.currentTarget;
 
     if (form.checkValidity() === false) {
@@ -70,7 +62,7 @@ const Signup = () => {
 
     AuthService.SignUpService(registerData)
       .then((data) => {
-        setUser(data)
+        // setUser(data)
         console.log(data);
         navigateTo("/login");
       })
@@ -124,10 +116,9 @@ const Signup = () => {
       >
         {/* Photo */}
         <div className="d-flex justify-content-center mb-4">
-          <div
+          <label
+            htmlFor="profile-photo"
             className="profile-photo-box d-flex flex-column align-items-center justify-content-center text-center"
-            onClick={handlePhotoClick}
-            role="button"
           >
             {photo ? (
               <img
@@ -138,16 +129,13 @@ const Signup = () => {
             ) : (
               <>
                 <BsCamera className="profile-photo-icon mb-2" />
-
-                <span className="fs-5 text-secondary">
-                  Add photo
-                </span>
+                <span className="fs-5 text-secondary">Add photo</span>
               </>
             )}
-          </div>
+          </label>
 
-          <Form.Control
-            ref={fileInputRef}
+          <input
+            id="profile-photo"
             type="file"
             accept="image/*"
             className="d-none"

@@ -37,7 +37,7 @@ const ContactUs = ({ onSendMessage }) => {
         <>
             <Layout
                 headerProfile={
-                    <div className="d-flex align-items-center gap-2">
+                    <div className="profile-title d-flex align-items-center gap-2">
                             <BsCaretLeftFill size={30} />
                             <span>Contact us page</span>
                     </div>

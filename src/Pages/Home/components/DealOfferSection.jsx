@@ -12,8 +12,8 @@ const DealOfferSection = () => {
       .then((data) => {
         setOffers(data.data.slice(0, 5));
       })
-      .catch((error) => {
-        console.error(error.message);
+      .catch((err) => {
+        console.log(err.message);
       });
   }, []);
 

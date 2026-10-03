@@ -11,8 +11,8 @@ const HomeAndOutdoorSection = () => {
       .then((data) => {
         setItems(data.data.slice(6, 14));
       })
-      .catch((error) => {
-        console.error(error.message);
+      .catch((err) => {
+        console.log(err.message);
       });
   }, []);
 

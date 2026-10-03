@@ -1,15 +1,34 @@
 import Layout from "../../../Layouts/ProfileLayout/Layout";
 import { BsCaretLeftFill } from "react-icons/bs";
-import { terms_conditions } from "../../../Data/TermsConditions";
+import { useEffect, useState } from "react";
+import { SettingApi } from "../../../services/SettingApi";
 
 const TermCondition = () => {
+
+    const [termsConds, setTermsConds] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        SettingApi.GEtTermCondService()
+            .then((data) => {
+                setTermsConds(Array.isArray(data.data) ? data.data : []);
+            })
+            .catch((err) => {
+                setError(err.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+    
     return (
         <>
             <Layout
                 headerProfile={
-                    <div className="d-flex align-items-center gap-2">
-                            <BsCaretLeftFill size={30} />
-                            <span>Terms and condition</span>
+                    <div className="profile-title d-flex align-items-center gap-2">
+                        <BsCaretLeftFill size={30} />
+                        <span>Terms and condition</span>
                     </div>
                 }
 
@@ -18,11 +37,12 @@ const TermCondition = () => {
                         className="overflow-hidden"
                         style={{ maxHeight: "650px" }}
                     >
+                        {loading && <p>Loading...</p>}
                         <div
                             className="overflow-y-auto px-4"
                             style={{ maxHeight: "650px" }}
                         >
-                            {terms_conditions.map((term) => (
+                            {termsConds.map((term) => (
                                 <div
                                     key={term.id}
                                     className="py-4 border-bottom"
@@ -36,6 +56,11 @@ const TermCondition = () => {
                                     </p>
                                 </div>
                             ))}
+                            {error && (
+                                <div className="alert alert-danger">
+                                    {error}
+                                </div>
+                            )}
                         </div>
                     </div>
                 }
