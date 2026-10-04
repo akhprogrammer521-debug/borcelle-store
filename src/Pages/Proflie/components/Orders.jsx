@@ -30,6 +30,10 @@ const Orders = () => {
             })
     }, []);
 
+    const pendingOrders = orders.filter(
+        (order) => order.status === "PENDING"
+    );
+
     const handleDeleteOrder = (comment) => {
         setIsDeleting(true);
 
@@ -65,14 +69,14 @@ const Orders = () => {
                         <div className="overflow-auto" style={{ maxHeight: "650px" }}>
                             <div className="px-4 d-flex flex-column gap-3">
 
-                                {orders.length === 0 ? (
+                                {pendingOrders.length === 0 ? (
                                     <div className="text-center text-muted m-auto p-5">
                                         No orders found.
                                     </div>
                                 ) : (
                                     <div>
                                         <Row className="d-flex p-3 flex-wrap g-2">
-                                            {orders.map((order) => (
+                                            {pendingOrders.map((order) => (
                                                 <Col lg={4} key={order.id}>
                                                     <div className="d-flex justify-content-between align-items-center border rounded p-3">
                                                         <div className="d-flex align-items-center">

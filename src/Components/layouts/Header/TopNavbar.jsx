@@ -41,6 +41,7 @@ const TopNavbar = ({ onCategoryChange }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { cart, setCart } = useContext(CartContext);
+  const [setOrders] = useState([]);
 
   const { user } = useContext(AuthContext)
 
@@ -50,7 +51,7 @@ const TopNavbar = ({ onCategoryChange }) => {
 
   const handleCartClose = () => setShowCart(false);
   const handleCartShow = () => setShowCart(true);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -70,6 +71,9 @@ const TopNavbar = ({ onCategoryChange }) => {
       .then(() => {
         setCart((previousCart) =>
           previousCart.filter((item) => item.id !== cartItemId)
+        );
+        setOrders((previousOrders) =>
+          previousOrders.filter((order) => order.id !== cartItemId)
         );
       })
       .catch((err) => {
@@ -96,6 +100,14 @@ const TopNavbar = ({ onCategoryChange }) => {
               : item
           );
           return updatedCart;
+        });
+        setOrders((previousOrders) => {
+          const updatedOrders = previousOrders.map((item) =>
+            item.id === cartItem.id
+              ? updatedCartItem
+              : item
+          );
+          return updatedOrders;
         });
       })
       .catch((err) => {

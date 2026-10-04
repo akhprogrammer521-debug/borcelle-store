@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartApi } from "../../services/CartApi";
 import Layout from "../../Layouts/CartLayout/Layout";
 import Tshirt from "../../assets/products_cloth/image 24.png";
@@ -12,25 +12,73 @@ import OrderSummary from "./components/OrderSummary";
 import SavedForLater from "./components/SavedForLater";
 import ShopSection from '../../Components/shared/ShopSection';
 import { CartContentSkeleton } from "../../Components/ui/Skeleton";
+import { CartContext } from "../../Contexts/CartContext";
 
-const Cart = ({onCheckout= false}) => {
+const Cart = ({ onCheckout = false }) => {
 
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { setCart } = useContext(CartContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     CartApi.GetCartService()
-    .then((data)=>{
-      setOrders(data.data || [])
+      .then((data) => {
+        setOrders(data.data || [])
+      })
+      .catch((err) => {
+        setError(err.message)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [])
+
+  const handleQuantityChange = (cartItem, change) => {
+    const newQuantity = cartItem.quantity + change;
+
+    if (newQuantity < 1) return;
+
+    CartApi.AddCartService({
+      productId: cartItem.product.id,
+      quantity: newQuantity,
     })
-    .catch((err)=>{
-      setError(err.message)
-    })
-    .finally(()=>{
-      setIsLoading(false)
-    })
-  },[])
+      .then(() => {
+        setOrders((previousOrders) =>
+          previousOrders.map((order) =>
+            order.id === cartItem.id
+              ? { ...order, quantity: newQuantity }
+              : order
+          )
+        );
+        setCart((previousCart) =>
+          previousCart.map((item) =>
+            item.id === cartItem.id
+              ? { ...item, quantity: newQuantity }
+              : item
+          )
+        );
+
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
+  const handleRemoveItem = (cartItemId) => {
+    CartApi.DeleteCartService(cartItemId)
+      .then(() => {
+        setOrders((previousOrders) =>
+          previousOrders.filter((order) => order.id !== cartItemId)
+        );
+        setCart((previousCart) =>
+          previousCart.filter((item) => item.id !== cartItemId)
+        );
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
 
   const savedItems = [
     { id: 101, price: "57.70", title: "Regular Fit Resort Shirt", image: Tshirt },
@@ -50,7 +98,8 @@ const Cart = ({onCheckout= false}) => {
               {isLoading ? <CartContentSkeleton /> : <>
                 {orders.map((item) => (
                   <div key={item.id}>
-                    <ProductCart item={item} />
+                    <ProductCart item={item} onQuantityChange={handleQuantityChange}
+                      onRemoveItem={handleRemoveItem} />
                   </div>
                 ))}
                 <div className="border-bottom" />

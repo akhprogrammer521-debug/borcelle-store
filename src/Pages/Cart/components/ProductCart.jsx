@@ -1,47 +1,12 @@
 import { Button } from "react-bootstrap";
+import { BsTrashFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
 
-const QuantityControl = ({ id, model, quantity, onQuantityChange }) => {
-  return (
-    <div
-      className="d-inline-flex align-items-center border rounded overflow-hidden"
-      role="group"
-      aria-label={`Quantity for ${model}`}
-    >
-      <Button
-        type="button"
-        variant="light"
-        size="sm"
-        className="px-2 border-0 rounded-0"
-        onClick={() => onQuantityChange(id, -1)}
-        disabled={quantity <= 1}
-        aria-label="Decrease quantity"
-      >
-        −
-      </Button>
+const ProductCart = ({ item, onQuantityChange, onRemoveItem }) => {
 
-      <span className="px-3 small fw-semibold" aria-live="polite">
-        {quantity}
-      </span>
-
-      <Button
-        type="button"
-        variant="light"
-        size="sm"
-        className="px-2 border-0 rounded-0"
-        onClick={() => onQuantityChange(id, 1)}
-        aria-label="Increase quantity"
-      >
-        +
-      </Button>
-    </div>
-  );
-};
-
-const ProductCart = ({ item, onQuantityChange }) => {
   return (
     <div className="pb-3">
-      <div className="d-none d-md-flex justify-content-between align-items-start gap-3">
+      <div className="d-none d-md-flex justify-content-between align-items-center gap-3">
         <div className="d-flex align-items-start gap-3">
           <div className="border rounded-2 p-2 shrink-0">
             <img
@@ -59,29 +24,21 @@ const ProductCart = ({ item, onQuantityChange }) => {
               Size: {item.product.category}, Color: {item.product.color}
             </p>
             <p className="text-secondary small mb-2">Seller: </p>
-
-            <div className="d-flex gap-2">
-              <Button type="button" variant="outline-danger" size="sm" className="border">
-                Remove
-              </Button>
-              <Button type="button" size="sm" className="btn-cus-secondary border">
-                Save for later
-              </Button>
-            </div>
           </div>
         </div>
-
-        <div className="text-end shrink-0">
-          <p className="fw-bold mb-2">${item.product.price}</p>
-          <QuantityControl
-            id={item.id}
-            quantity={item.product.quantity}
-            onQuantityChange={onQuantityChange}
-          />
+        <div className="cart-item-actions">
+          <p className="fw-bold mb-2">${(item.product.price * item.quantity).toFixed(2)}</p>
+          <div className="cart-qty-selector">
+            <button className="cart-qty-btn" onClick={() => onQuantityChange(item, -1)} disabled={item.quantity <= 1}>-</button>
+            <span className="cart-qty-value">{item.quantity}</span>
+            <button className="cart-qty-btn" onClick={() => onQuantityChange(item, 1)}>+</button>
+          </div>
+          <button className="cart-delete-icon-btn" onClick={() => { onRemoveItem(item.id); console.log(item); }}>
+            <BsTrashFill size={18} />
+          </button>
         </div>
       </div>
 
-      {/* Mobile View */}
       <div className="d-md-none">
         <div className="d-flex justify-content-between align-items-start gap-2 mb-2">
           <div className="d-flex gap-3">
@@ -109,19 +66,22 @@ const ProductCart = ({ item, onQuantityChange }) => {
             type="button"
             variant="link"
             className="text-muted p-0 border-0 shrink-0"
-            // aria-label={`More options for ${model}`}
           >
             <FaEllipsisV aria-hidden="true" />
           </Button>
         </div>
 
         <div className="d-flex justify-content-between align-items-center mt-3">
-          <QuantityControl
-            id={item.product.id}
-            // model={model}
-            quantity={item.product.quantity}
-            onQuantityChange={onQuantityChange}
-          />
+          <div className="d-flex gap-2">
+            <div className="cart-qty-selector">
+              <button className="cart-qty-btn" onClick={() => onQuantityChange(item, -1)} disabled={item.quantity <= 1}>-</button>
+              <span className="cart-qty-value">{item.quantity}</span>
+              <button className="cart-qty-btn" onClick={() => onQuantityChange(item, 1)}>+</button>
+            </div>
+            <button className="cart-delete-icon-btn" onClick={() => { onRemoveItem(item.id); console.log(item); }}>
+              <BsTrashFill size={18} />
+            </button>
+          </div>
           <span className="fw-bold fs-6">${item.product.price}</span>
         </div>
       </div>
