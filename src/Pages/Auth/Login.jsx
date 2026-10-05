@@ -1,24 +1,26 @@
 import { BsTelephone } from "react-icons/bs";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { AuthService } from "../../services/AuthService";
 import Layout from "../../Layouts/AuthLayout/Layout";
 
 import logo from "../../assets/logo/Simplification.png";
-
+import logo1 from "../../assets/logo/logo.png";
 import "./Auth.css";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router";
 import LoadingButton from "../../Components/ui/LoadingButton";
 import { useTranslation } from "react-i18next";
+import { ThemeContext } from "../../theme/ThemeContext";
 
 const Login = () => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 
     const [phone, setPhone] = useState('');
     const [errorMsg, setErrorMsg] = useState(null)
     const [loading, setLoading] = useState(false)
     const navigateTo = useNavigate()
+    const { theme } = useContext(ThemeContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -53,12 +55,21 @@ const Login = () => {
             leftContent={
                 <>
                     <div className="text-center d-flex flex-column align-items-center justify-content-center p-4">
-                        <img
-                            src={logo}
-                            alt={t("nav.logo")}
-                            className="img-fluid mb-3"
-                            width={245}
-                        />
+                        {
+                            theme === "light"
+                                ? <img
+                                    src={logo1}
+                                    alt={t("nav.logo")}
+                                    className="img-fluid mb-3"
+                                    width={245}
+                                />
+                                : <img
+                                    src={logo}
+                                    alt={t("nav.logo")}
+                                    className="img-fluid mb-3"
+                                    width={245}
+                                />
+                        }
                         <h1 className="auth-main-title mb-3">
                             {t("auth.letsGetStarted")}
                         </h1>

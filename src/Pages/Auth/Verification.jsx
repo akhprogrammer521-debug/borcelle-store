@@ -5,15 +5,18 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import Layout from "../../Layouts/AuthLayout/Layout";
 
 import logo from "../../assets/logo/Simplification.png";
+import logo1 from "../../assets/logo/logo.png";
 
 import "./Auth.css";
 import LoadingButton from "../../Components/ui/LoadingButton";
 import { AuthService } from "../../services/AuthService";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
+import { ThemeContext } from "../../theme/ThemeContext";
 const Verification = () => {
   const { t } = useTranslation();
 
+  const { theme } = useContext(ThemeContext)
   const { setUser } = useContext(AuthContext);
   const [code, setCode] = useState(["", "", "", "", ""]);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -146,11 +149,21 @@ const Verification = () => {
       leftContent={
         <>
           <div className="text-center d-flex flex-column align-items-center justify-content-center p-4">
-            <img
-              src={logo}
-              alt={t("nav.logo")}
-              className="auth-logo img-fluid mb-3"
-            />
+            {
+              theme === "light"
+                ? <img
+                  src={logo1}
+                  alt={t("nav.logo")}
+                  className="img-fluid mb-3"
+                  width={245}
+                />
+                : <img
+                  src={logo}
+                  alt={t("nav.logo")}
+                  className="img-fluid mb-3"
+                  width={245}
+                />
+            }
             <h1 className="auth-main-title mb-3">
               {t("auth.letsGetStarted")}
             </h1>

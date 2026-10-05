@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, NavLink } from 'react-router';
 import { Form, Nav } from "react-bootstrap";
-// import { AuthContext } from "../../Contexts/AuthContext";
+import logo1 from "../../assets/logo/logo.png";
 import {
   BsPersonCircle,
   BsEnvelope,
@@ -17,6 +17,7 @@ import { AuthService } from "../../services/AuthService";
 
 import "./Auth.css";
 import { useTranslation } from "react-i18next";
+import { ThemeContext } from "../../theme/ThemeContext";
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ const Signup = () => {
     phone: ""
   });
 
-  // const { setUser } = useContext(AuthContext)
+  const { theme } = useContext(ThemeContext)
   const [isSaving, setIsSaving] = useState(false);
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState(null);
@@ -78,11 +79,21 @@ const Signup = () => {
 
   const leftContent = (
     <div className="text-center d-flex flex-column align-items-center justify-content-center p-4">
-      <img
-        src={logo}
-        alt={t("auth.borcelleLogo")}
-        className="auth-logo img-fluid mb-3"
-      />
+      {
+        theme === "light"
+          ? <img
+            src={logo1}
+            alt={t("nav.logo")}
+            className="img-fluid mb-3"
+            width={245}
+          />
+          : <img
+            src={logo}
+            alt={t("nav.logo")}
+            className="img-fluid mb-3"
+            width={245}
+          />
+      }
 
       <h1 className="auth-main-title mb-3">
         {t("auth.letsGetStarted")}
