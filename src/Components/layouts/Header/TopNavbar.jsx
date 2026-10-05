@@ -136,16 +136,16 @@ const TopNavbar = ({ onCategoryChange }) => {
   };
 
   const links = [
-  { name: t("nav.profile"), to: "/profile", icon: <BsFillPersonFill size={20} /> },
-  { name: t("nav.message"), to: "/profile/term&condition", icon: <BsChatLeftTextFill size={18} /> },
-  { name: t("common.orders"), to: "/cart", icon: <BsFillHeartFill size={18} /> },
-  { name: t("nav.myCart"), to: "/", icon: <BsFillCartFill size={18} />, action: handleCartShow },
+    { name: t("nav.profile"), to: "/profile", icon: <BsFillPersonFill size={20} /> },
+    { name: t("nav.message"), to: "/profile/term&condition", icon: <BsChatLeftTextFill size={18} /> },
+    { name: t("common.orders"), to: "/cart", icon: <BsFillHeartFill size={18} /> },
+    { name: t("nav.myCart"), to: "/", icon: <BsFillCartFill size={18} />, action: handleCartShow },
 
-  {
-    name: "",
-    icon: <LanguageSwitcher />
-  }
-];
+    {
+      name: "",
+      icon: <LanguageSwitcher />
+    }
+  ];
 
   const canvasLinks = [
     { name: t("common.home"), to: "/", icon: <BsHouseDoor /> },
@@ -244,6 +244,7 @@ const TopNavbar = ({ onCategoryChange }) => {
             </div>
             <div className="d-flex align-items-center text-dark gap-3">
               <ThemeToggle />
+              <LanguageSwitcher />
               <Nav.Link onClick={handleCartShow} className="p-0 text-dark position-relative">
                 <BsFillCartFill size={22} />
                 {cart.length > 0 && (
