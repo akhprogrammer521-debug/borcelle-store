@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
-import { ProductsApi } from "../../../services/ProductsApi";
+import { ProductsService } from "../../../services/ProductsService";
 import { Container } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { OffersCard } from "../../../Components/ui/Skeleton";
 
 
 const DealOfferSection = () => {
   const { t } = useTranslation();
 
   const [offers, setOffers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    ProductsApi.GetProductsService()
+    ProductsService.GetProductsApi()
       .then((data) => {
         setOffers(data.data.slice(0, 5));
       })
       .catch((err) => {
         console.log(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false)
       });
+
   }, []);
 
 
@@ -46,21 +52,29 @@ const DealOfferSection = () => {
           </div>
 
           <div className="d-flex overflow-x-auto text-center">
-            {offers.map((item) => (
-              <div
-                key={item.id}
-                className="p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
-                style={{ width: '135px' }}
-              >
-                <div style={{ height: '85px', width: '85px' }} className="d-flex align-items-center justify-content-center mb-2">
-                  <img src={item.image} alt={item.name} className="mw-100 mh-100 object-fit-contain" />
-                </div>
-                <p className="mb-2 text-dark small text-truncate w-100" style={{ fontSize: '13px' }}>{item.name}</p>
-                <span className="badge rounded-pill bg-danger-subtle text-danger px-2 py-1 fw-normal" style={{ fontSize: '11px' }}>
-                  25%
-                </span>
-              </div>
-            ))}
+            {
+              isLoading
+                ? <>
+                  <OffersCard />
+                </>
+                : <>
+                  {offers.map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
+                      style={{ width: '135px' }}
+                    >
+                      <div style={{ height: '85px', width: '85px' }} className="d-flex align-items-center justify-content-center mb-2">
+                        <img src={item.image} alt={item.name} className="mw-100 mh-100 object-fit-contain" />
+                      </div>
+                      <p className="mb-2 text-dark small text-truncate w-100" style={{ fontSize: '13px' }}>{item.name}</p>
+                      <span className="badge rounded-pill bg-danger-subtle text-danger px-2 py-1 fw-normal" style={{ fontSize: '11px' }}>
+                        25%
+                      </span>
+                    </div>
+                  ))}
+                </>
+            }
           </div>
         </div>
 

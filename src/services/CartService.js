@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const CartApi = {
-    GetCartService: () => {
+export const CartService = {
+    GetCartApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.CART.INDEX}`;
         return fetch(url, {
             method: "GET",
@@ -20,7 +20,7 @@ export const CartApi = {
             })
     },
 
-    AddCartService: ({ productId, quantity }) => {
+    AddCartApi: ({ productId, quantity }) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.CART.STORE}`;
         return fetch(url, {
             method: "POST",
@@ -44,7 +44,7 @@ export const CartApi = {
             })
     },
 
-    DeleteCartService: (cartId) => {
+    DeleteCartApi: (cartId) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.CART.DELETE}/${cartId}`
 
         return fetch(url, {

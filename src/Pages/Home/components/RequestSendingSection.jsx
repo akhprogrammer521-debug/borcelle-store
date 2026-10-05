@@ -1,7 +1,7 @@
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Button from "../../../Components/ui/Button"
 import { useState } from "react";
-import { ContactUsApi } from "../../../services/ContactUsApi";
+import { ContactUsService } from "../../../services/ContactUsService";
 import { useTranslation } from "react-i18next";
 const RequestSendingSection = () => {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ const RequestSendingSection = () => {
         e.preventDefault()
         setError(false)
         setIsSaving(false)
-        ContactUsApi.ContactUsService(contactUs)
+        ContactUsService.ContactUsApi(contactUs)
             .then(() => {
                 setContactUs({
                     type: "EMAIL",

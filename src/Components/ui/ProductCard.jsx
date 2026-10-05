@@ -5,8 +5,8 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { CartContext } from "../../Contexts/CartContext";
 import { FavContext } from "../../Contexts/FavouriteContext";
 
-import { CartApi } from "../../services/CartApi";
-import { FavApi } from "../../services/FavouriteApi";
+import { CartService } from "../../services/CartService";
+import { FavouriteService } from "../../services/FavouriteService";
 
 import { FaRegHeart } from "react-icons/fa";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -43,7 +43,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
             ? existingItem.quantity + 1
             : 1;
 
-        CartApi.AddCartService({
+        CartService.AddCartApi({
             productId: product.id,
             quantity: newQuantity,
         })
@@ -94,8 +94,8 @@ const ProductCard = ({ product, view, showDetails = true }) => {
             return;
         }
 
-        FavApi.AddFavouriteService({ productId: product.id })
-            .then(() => FavApi.GetFavouriteService())
+        FavouriteService.AddFavouriteApi({ productId: product.id })
+            .then(() => FavouriteService.GetFavouriteApi())
             .then((data) => {
                 setFavourite(data.data || []);
             })
@@ -105,8 +105,8 @@ const ProductCard = ({ product, view, showDetails = true }) => {
     }
 
     const handleRemoveProductFromFav = () => {
-        FavApi.RemoveFavouriteService(product.id)
-            .then(() => FavApi.GetFavouriteService())
+        FavouriteService.DeleteFavouriteApi(product.id)
+            .then(() => FavouriteService.GetFavouriteApi())
             .then((data) => {
                 setFavourite(data.data || []);
             })

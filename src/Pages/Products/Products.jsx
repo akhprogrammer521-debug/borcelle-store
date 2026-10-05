@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { CategoriesApi } from "../../services/CategoriesApi";
+import { CategoriesService } from "../../services/CategoriesService";
 import { Button, Col, Container, Row, Pagination } from "react-bootstrap";
 import { BsFilter } from "react-icons/bs";
-import { ProductsApi } from "../../services/ProductsApi";
+import { ProductsService } from "../../services/ProductsService";
 import SubscribeSection from "../../Components/shared/SubscribeSection";
 import Layout from "../../Layouts/BreadcumpLayout/Layout";
 import { useSearchParams } from "react-router";
@@ -55,7 +55,7 @@ const Products = ({ isLoading = false }) => {
     };
 
     useEffect(() => {
-        CategoriesApi.GetAllCatsService()
+        CategoriesService.GetAllCatsApi()
             .then((data) => {
                 setCategories(data.data);
             })
@@ -65,7 +65,7 @@ const Products = ({ isLoading = false }) => {
     }, []);
 
     useEffect(() => {
-        ProductsApi.GetProductsService(activeCategoryId, currentPage)
+        ProductsService.GetProductsApi(activeCategoryId, currentPage)
             .then((data) => {
                 setProductItems(data.data);
                 setPaginationMeta(data.meta);

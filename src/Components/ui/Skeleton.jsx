@@ -36,6 +36,21 @@ export const ProductCardSkeleton = ({ view = "grid" }) => {
   );
 };
 
+export const OffersCard = () => {
+  return (
+    <div
+      className="p-3 border-end flex-shrink-0 d-flex flex-column align-items-center justify-content-between"
+      style={{ width: '135px' }}
+    >
+      <div style={{ height: '85px', width: '85px' }} className="d-flex align-items-center justify-content-center mb-2">
+       <Skeleton className="m-3" style={{ height: 220, display: "block" }} />
+      </div>
+      <Skeleton style={{ width: "86%", height: "1rem" }} />
+     <Skeleton style={{ width: "86%", height: "1rem" }} />
+    </div>
+  )
+}
+
 export const ProductsListSkeleton = ({ view = "grid", count = 6 }) => (
   <>
     {view === "grid" ? (

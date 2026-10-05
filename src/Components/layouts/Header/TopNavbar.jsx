@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router";
-import { CategoriesApi } from "../../../services/CategoriesApi";
+import { CategoriesService } from "../../../services/CategoriesService";
 import { CartContext } from '../../../Contexts/CartContext';
 import { AuthContext } from "../../../Contexts/AuthContext"
-import { CartApi } from '../../../services/CartApi';
+import { CartService } from '../../../services/CartService';
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -60,7 +60,7 @@ const TopNavbar = ({ onCategoryChange }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    CategoriesApi.GetAllCatsService()
+    CategoriesService.GetAllCatsApi()
       .then((data) => {
         setCategories(data.data);
       })
@@ -70,7 +70,7 @@ const TopNavbar = ({ onCategoryChange }) => {
   }, [setCategories]);
 
   const handleRemoveItem = (cartItemId) => {
-    CartApi.DeleteCartService(cartItemId)
+    CartService.DeleteCartApi(cartItemId)
       .then(() => {
         setCart((previousCart) =>
           previousCart.filter((item) => item.id !== cartItemId)
@@ -89,7 +89,7 @@ const TopNavbar = ({ onCategoryChange }) => {
 
     if (newQuantity < 1) return;
 
-    CartApi.AddCartService({
+    CartService.AddCartApi({
       productId: cartItem.product.id,
       quantity: newQuantity,
     })

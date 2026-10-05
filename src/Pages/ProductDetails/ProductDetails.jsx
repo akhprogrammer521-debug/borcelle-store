@@ -6,7 +6,7 @@ import ShopSection from "../../Components/shared/ShopSection";
 import { ProductDetailsSkeleton } from "../../Components/ui/Skeleton";
 import Layout from "../../Layouts/BreadcumpLayout/Layout";
 import { productDetails } from "../../Data/ProductDetails";
-import { ProductsApi } from "../../services/ProductsApi";
+import { ProductsService } from "../../services/ProductsService";
 
 import ProductsDetailsCard from "./components/ProductsDetailsCard";
 import { useTranslation } from "react-i18next";
@@ -18,7 +18,7 @@ const ProductsDetails = ({ onInquiry }) => {
     const { pID } = useParams();
 
     useEffect(() => {
-        ProductsApi.GetProductByIdService(pID)
+        ProductsService.GetProductByIdApi(pID)
             .then((data) => {
                 setDetails(data.data);
             })

@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const ContactUsApi = {
-    ContactUsService: ({email, message}) => {
+export const ContactUsService = {
+    ContactUsApi: ({email, message}) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.CONTACT_US.CONTACT}`;
         return fetch(url, {
             method: "POST",

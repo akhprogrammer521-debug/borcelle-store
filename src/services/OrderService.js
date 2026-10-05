@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const OrderApi = {
-    GetOrdersService: () => {
+export const OrderService = {
+    GetOrdersApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ORDER.INDEX}`;
 
         return fetch(url, {
@@ -20,7 +20,7 @@ export const OrderApi = {
             })
     },
 
-    AddOrdersService: (orderData) => {
+    AddOrdersApi: (orderData) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ORDER.STORE}`;
 
         return fetch(url, {
@@ -42,7 +42,7 @@ export const OrderApi = {
             })
     },
 
-    DeleteOrderService: (orderId, comment) => {
+    DeleteOrderApi: (orderId, comment) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ORDER.CANCEL}/${orderId}`;
         return fetch(url, {
             method: "DELETE",

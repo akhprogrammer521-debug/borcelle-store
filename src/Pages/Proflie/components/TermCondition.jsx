@@ -1,7 +1,7 @@
 import Layout from "../../../Layouts/ProfileLayout/Layout";
 import { BsCaretLeftFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import { SettingApi } from "../../../services/SettingApi";
+import { SettingService } from "../../../services/SettingService";
 import { useTranslation } from "react-i18next";
 
 const TermCondition = () => {
@@ -12,7 +12,7 @@ const TermCondition = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        SettingApi.GEtTermCondService()
+        SettingService.GEtTermsCondsApi()
             .then((data) => {
                 setTermsConds(Array.isArray(data.data) ? data.data : []);
             })

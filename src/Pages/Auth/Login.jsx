@@ -33,7 +33,7 @@ const Login = () => {
         }
 
         console.log("Submitting form")
-        AuthService.LoginService(phone)
+        AuthService.LoginApi(phone)
             .then((data) => {
                 console.log(data)
                 sessionStorage.setItem("verification_phone", phone);

@@ -2,7 +2,7 @@ import { BsCaretLeftFill } from "react-icons/bs";
 import Layout from "../../../Layouts/ProfileLayout/Layout";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { OrderApi } from "../../../services/OrderApi";
+import { OrderService } from "../../../services/OrderService";
 import Button from "../../../Components/ui/Button";
 import {
     CancelOrderModal,
@@ -21,7 +21,7 @@ const Orders = () => {
 
 
     useEffect(() => {
-        OrderApi.GetOrdersService()
+        OrderService.GetOrdersApi()
             .then((data) => {
                 console.log("Orders data:", data);
                 console.log("Orders data:", data.data);
@@ -39,7 +39,7 @@ const Orders = () => {
     const handleDeleteOrder = (comment) => {
         setIsDeleting(true);
 
-        OrderApi.DeleteOrderService(selectedOrder.id, comment)
+        OrderService.DeleteOrderApi(selectedOrder.id, comment)
             .then(() => {
                 setOrders((currentOrders) =>
                     currentOrders.filter((order) => order.id !== selectedOrder.id)

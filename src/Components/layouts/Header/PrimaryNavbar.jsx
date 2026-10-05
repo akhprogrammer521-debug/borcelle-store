@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router";
-import { CategoriesApi } from "../../../services/CategoriesApi";
+import { CategoriesService } from "../../../services/CategoriesService";
 import { useTranslation } from "react-i18next";
 
 const PrimaryNavbar = () => {
@@ -12,7 +12,7 @@ const PrimaryNavbar = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    CategoriesApi.GetAllCatsService()
+    CategoriesService.GetAllCatsApi()
       .then((data) => {
         setCategories(data.data);
       })

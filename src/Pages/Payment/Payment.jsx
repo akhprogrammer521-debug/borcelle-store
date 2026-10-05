@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
-import { CartApi } from "../../services/CartApi";
-import { ProfileApi } from "../../services/ProfileApi";
-import { OrderApi } from "../../services/OrderApi";
+import { CartService } from "../../services/CartService";
+import { ProfileService } from "../../services/ProfileService";
+import { OrderService } from "../../services/OrderService";
 import TopNavbar from '../../Components/layouts/Header/TopNavbar';
 import Layout from '../../Layouts/PayLayout/Layout';
 
@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 
 const Payment = () => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 
     const { cart, setCart } = useContext(CartContext);
     const [orders, setOrders] = useState([]);
@@ -30,9 +30,9 @@ const Payment = () => {
     const [selectedAddressId, setSelectedAddressId] = useState("");
     const [couponCode, setCouponCode] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
-
+  
     useEffect(() => {
-        CartApi.GetCartService()
+        CartService.GetCartApi()
             .then((data) => {
                 setOrders(data.data || [])
             })
@@ -45,7 +45,7 @@ const Payment = () => {
     }, [])
 
     useEffect(() => {
-        ProfileApi.GetAddressService()
+        ProfileService.GetAddressApi()
             .then((data) => {
                 setAddress(data.data);
             })
@@ -67,6 +67,11 @@ const Payment = () => {
             return;
         }
 
+        if(!couponCode) {
+            setError("Enter your Coupon")
+            return
+        }
+
         setIsVerifying(true);
 
         const orderData = {
@@ -83,7 +88,7 @@ const Payment = () => {
         }
 
         else {
-            OrderApi.AddOrdersService(orderData)
+            OrderService.AddOrdersApi(orderData)
                 .then((data) => {
                     console.log("Order added successfully:", data);
                     setShowSuccess(true);
@@ -174,7 +179,8 @@ const Payment = () => {
                                             className="rounded-2 border-0 form-control"
                                             value={couponCode}
                                             onChange={(e) => setCouponCode(e.target.value)}
-                                        />                                        <SecondButton className="w-auto rounded-2 border-0" value={<div className="d-flex align-items-center gap-2"><VscRefresh />{t("payment.check")}</div>}> </SecondButton>
+                                        />
+                                        <SecondButton className="w-auto rounded-2 border-0" value={<div className="d-flex align-items-center gap-2"><VscRefresh />{t("payment.check")}</div>}> </SecondButton>
                                     </div>
                                 </div>
                             </form>
@@ -239,7 +245,7 @@ const Payment = () => {
 
                             {showSuccess && (
                                 <SuccessModal
-                                value={t("payment.success")}
+                                    value={t("payment.success")}
                                     show={showSuccess}
                                     onClose={handleCloseSuccess}
                                     onContinue={handleContinue}

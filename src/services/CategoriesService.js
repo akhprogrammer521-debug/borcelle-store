@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const CategoriesApi = {
-    GetAllCatsService: ()=>{
+export const CategoriesService = {
+    GetAllCatsApi: ()=>{
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.CATS.INDEX}`
         return fetch(url, {
             method: "GET",

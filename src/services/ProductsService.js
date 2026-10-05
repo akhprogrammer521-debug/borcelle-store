@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const ProductsApi = {
-    GetProductsService: (categoryId, page = 1) => {
+export const ProductsService = {
+    GetProductsApi: (categoryId, page = 1) => {
         const params = new URLSearchParams();
 
         if (categoryId) {
@@ -28,7 +28,7 @@ export const ProductsApi = {
         });
     },
 
-    GetProductByIdService: (productId) => {
+    GetProductByIdApi: (productId) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.SHOW}/${productId}`;
         return fetch(url, {
             method: "GET",
@@ -47,7 +47,7 @@ export const ProductsApi = {
             });
     },
 
-    AddProductService: ({ name, description, price, category_id, image }) => {
+    AddProductApi: ({ name, description, price, category_id, image }) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.STORE}`;
         const formData = new FormData();
 
@@ -80,7 +80,7 @@ export const ProductsApi = {
             });
     },
 
-    UpdateProductService: ({ id, name, description, price, category_id, image }) => {
+    UpdateProductApi: ({ id, name, description, price, category_id, image }) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.UPDATE}/${id}`;
         const formData = new FormData();
 
@@ -114,7 +114,7 @@ export const ProductsApi = {
             })
     },
 
-    GetMyProductsService: () => {
+    GetMyProductsApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.MY_PRODUCTS}?mine=1`;
         return fetch(url, {
             method: "GET",
@@ -135,7 +135,7 @@ export const ProductsApi = {
             });
     },
 
-    DeleteProductService: (id) => {
+    DeleteProductApi: (id) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.MY_PRODUCTS}/${id}`;
         return fetch(url, {
             method: "DELETE",

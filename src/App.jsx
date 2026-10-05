@@ -19,6 +19,7 @@ import MyProducts from './Pages/Proflie/components/MyProducts';
 import Products from './Pages/Products/Products';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import Cart from './Pages/Cart/Cart';
+import AdminRoutes from './admin/routes/AdminRoutes';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -49,6 +50,7 @@ const App = () => {
         <Route path='/products' element={<Products />} />
         <Route path="/products/:pID" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
       </Routes>
     </div>
   );

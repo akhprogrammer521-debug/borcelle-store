@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { BsCheckLg } from "react-icons/bs";
-import { CategoriesApi } from "../../services/CategoriesApi";
+import { CategoriesService } from "../../services/CategoriesService";
 import { useTranslation } from "react-i18next";
 
 function SuccessModal({ show, onClose, onContinue, value }) {
@@ -430,7 +430,7 @@ export const ProductModal = ({ show,
 }));
 
   useEffect(() => {
-    CategoriesApi.GetAllCatsService()
+    CategoriesService.GetAllCatsApi()
       .then((data) => {
         console.log(data);
         setCategories(data.data);

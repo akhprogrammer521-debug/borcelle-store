@@ -3,7 +3,7 @@ import Layout from "../../../Layouts/ProfileLayout/Layout";
 import Button from "../../../Components/ui/Button";
 import { useEffect, useState } from "react";
 import { AddressModal } from "../../../Components/ui/Modal";
-import { ProfileApi } from "../../../services/ProfileApi";
+import { ProfileService } from "../../../services/ProfileService";
 import { MdLocationPin } from "react-icons/md";
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -20,11 +20,11 @@ const Address = () => {
         setIsSaving(true);
 
         const request = selectedAddress
-            ? ProfileApi.UpdateAddressService({
+            ? ProfileService.UpdateAddressApi({
                 id: selectedAddress.id,
                 ...formData,
             })
-            : ProfileApi.AddAddressService(formData);
+            : ProfileService.AddAddressApi(formData);
 
         request
             .then((data) => {
@@ -55,7 +55,7 @@ const Address = () => {
     };
 
     useEffect(() => {
-        ProfileApi.GetAddressService()
+        ProfileService.GetAddressApi()
             .then((data) => {
                 setAddress(data.data);
             })
@@ -65,7 +65,7 @@ const Address = () => {
     }, [setAddress]);
 
     const handleDeleteAddress = (id) => {
-        ProfileApi.DeleteAddressService(id)
+        ProfileService.DeleteAddressApi(id)
             .then(() => {
                 setAddress((prev) => prev.filter((addr) => addr.id !== id));
             })

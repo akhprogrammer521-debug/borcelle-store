@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const FavApi = {
-    GetFavouriteService: () => {
+export const FavouriteService = {
+    GetFavouriteApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.FAVOURITE.INDEX}`;
 
         return fetch(url, {
@@ -21,7 +21,7 @@ export const FavApi = {
         });
     },
 
-    AddFavouriteService: ({ productId }) => {
+    AddFavouriteApi: ({ productId }) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.FAVOURITE.STORE}`
         return fetch(url, {
             method: "POST",
@@ -44,7 +44,7 @@ export const FavApi = {
             })
     },
 
-    RemoveFavouriteService: (productId) => {
+    DeleteFavouriteApi: (productId) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.FAVOURITE.DELETE}/${productId}`;
 
         return fetch(url, {

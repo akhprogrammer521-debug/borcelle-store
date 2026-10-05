@@ -62,7 +62,7 @@ const Signup = () => {
     setError(null);
     setIsSaving(true);
 
-    AuthService.SignUpService(registerData)
+    AuthService.SignUpApi(registerData)
       .then((data) => {
         // setUser(data)
         console.log(data);

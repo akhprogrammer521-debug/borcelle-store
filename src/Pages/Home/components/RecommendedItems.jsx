@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router";
 
-import { ProductsApi } from "../../../services/ProductsApi";
-import { CartApi } from "../../../services/CartApi";
+import { ProductsService } from "../../../services/ProductsService";
+import { CartService } from "../../../services/CartService";
 import { CartContext } from "../../../Contexts/CartContext";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import Button from "../../../Components/ui/Button";
@@ -23,7 +23,7 @@ const RecommendedItems = () => {
   const [visibleCount, setVisibleCount] = useState(4);
 
   useEffect(() => {
-    ProductsApi.GetProductsService()
+    ProductsService.GetProductsApi()
       .then((response) => {
         setRecItems(response.data.slice(0, 10));
       })
@@ -45,7 +45,7 @@ const RecommendedItems = () => {
 
     setIsSaving(item.id);
 
-    CartApi.AddCartService({
+    CartService.AddCartApi({
       productId: item.id,
       quantity: 1,
     })
@@ -54,7 +54,6 @@ const RecommendedItems = () => {
 
         setCart((previousCart) => {
           const updatedCart = [...previousCart, addedCartItem];
-          // sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
           return updatedCart;
         });
       })

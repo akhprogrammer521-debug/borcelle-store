@@ -3,7 +3,7 @@ import Layout from "../../../Layouts/ProfileLayout/Layout";
 import Button from "../../../Components/ui/Button";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ProductsApi } from "../../../services/ProductsApi";
+import { ProductsService } from "../../../services/ProductsService";
 import { ProductModal } from "../../../Components/ui/Modal";
 import { useTranslation } from "react-i18next";
 
@@ -19,11 +19,11 @@ const MyProducts = () => {
         setIsSaving(true);
 
         const request = selectedProduct
-            ? ProductsApi.UpdateProductService({
+            ? ProductsService.UpdateProductApi({
                 id: selectedProduct.id,
                 ...formData,
             })
-            : ProductsApi.AddProductService(formData);
+            : ProductsService.AddProductApi(formData);
 
         request
             .then((data) => {
@@ -54,7 +54,7 @@ const MyProducts = () => {
     };
 
     useEffect(() => {
-        ProductsApi.GetMyProductsService()
+        ProductsService.GetMyProductsApi()
             .then((data) => {
                 setProduct(data.data);
             })
@@ -64,7 +64,7 @@ const MyProducts = () => {
     }, [setProduct]);
 
     const handleDeleteProduct = (id) => {
-        ProductsApi.DeleteProductService(id)
+        ProductsService.DeleteProductApi(id)
             .then(() => {
                 setProduct((prev) => prev.filter((prod) => prod.id !== id));
             })

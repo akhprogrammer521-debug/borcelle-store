@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { ProductsApi } from "../../../services/ProductsApi";
+import { ProductsService } from "../../../services/ProductsService";
 import homeBanner from "../../../assets/products_tech/image 98.png";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +9,7 @@ const CunsomerElectronic = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    ProductsApi.GetProductsService()
+    ProductsService.GetProductsApi()
       .then((data) => {
         setItems(data.data.slice(7, 20));
       })

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../Contexts/CartContext";
 import { AuthContext } from "../Contexts/AuthContext";
-import { CartApi } from "../services/CartApi";
+import { CartService } from "../services/CartService";
 
 const CartProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -16,7 +16,7 @@ const CartProvider = ({ children }) => {
       return;
     }
 
-    CartApi.GetCartService()
+    CartService.GetCartApi()
       .then((data) => {
         console.log("GET CART RESPONSE:", data);
         setCart(Array.isArray(data.data) ? data.data : []);

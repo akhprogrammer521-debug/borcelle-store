@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { FavContext } from "../Contexts/FavouriteContext";
-import { FavApi } from "../services/FavouriteApi";
+import { FavouriteService } from "../services/FavouriteService";
 
 const FavProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -17,7 +17,7 @@ const FavProvider = ({ children }) => {
   useEffect(() => {
     if (!user) return;
 
-    FavApi.GetFavouriteService()
+    FavouriteService.GetFavouriteApi()
       .then((data) => {
         setFavourite(data.data || []);
       })

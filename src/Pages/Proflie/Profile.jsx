@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { ProfileApi } from "../../services/ProfileApi";
+import { ProfileService } from "../../services/ProfileService";
 import Layout from "../../Layouts/ProfileLayout/Layout";
 import Form from "react-bootstrap/Form";
 import { Col, Row, Button } from "react-bootstrap";
@@ -26,7 +26,7 @@ const Profile = () => {
     const fileInputRef = useRef(null);
 
     useEffect(() => {
-        ProfileApi.GetProfileDataService()
+        ProfileService.GetProfileDataApi()
             .then((data) => {
                 const profile = data.data.user;
 
@@ -78,7 +78,7 @@ const Profile = () => {
         setIsSaving(true);
         setError(null);
 
-        ProfileApi.UpdateProfileService(changes)
+        ProfileService.UpdateProfileApi(changes)
             .then((data) => {
                 const completeProfile = {
                     ...originalProfile,

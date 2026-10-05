@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../../Contexts/AuthContext";
+import { FavContext } from "../../../Contexts/FavouriteContext";
+import { FavouriteService } from "../../../services/FavouriteService";
 import {
     Col,
     Container,
@@ -11,9 +14,8 @@ import {
     BsCart3,
     BsChatLeftText,
     BsCheckLg,
+    BsFillHeartFill,
     BsGeoAlt,
-    BsHeart,
-    BsHeartFill,
     BsStar,
     BsStarFill,
     BsStarHalf,
@@ -26,6 +28,7 @@ import SecondButton from "../../../Components/ui/SecondButton";
 import ProductLiked from "./ProductLiked";
 import RelatedProducts from "./RelatedProducts";
 import { useTranslation } from "react-i18next";
+import { FaRegHeart } from "react-icons/fa";
 
 const starValues = [1, 2, 3, 4, 5];
 
@@ -64,12 +67,59 @@ const ProductsDetailsCard = ({
     product,
     staticProduct,
 }) => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
     const allImages = [product.image, ...(product.images || [])].filter(Boolean);
     const [selectedImage, setSelectedImage] = useState(allImages[0] || "");
     const [fancyboxRef] = useFancybox({});
     const [activeTab, setActiveTab] = useState(staticProduct.tabs[0].id);
     const colors = product.colors || [];
+    const { user } = useContext(AuthContext);
+    const token = localStorage.getItem("token");
+    const isLoggedIn = Boolean(user && token);
+    const { favourite, setFavourite } = useContext(FavContext);
+
+    const favouriteItem = favourite.find((item) =>
+        isLoggedIn
+            ? item.product?.id === product.id
+            : item.product_id === product.id
+    )
+
+    const handleAddProductToFav = () => {
+        if (!isLoggedIn) {
+            const addedGuestFavourite = {
+                product_id: product.id,
+            };
+
+            setFavourite((previousFav) => {
+                const updatedFav = [...previousFav, addedGuestFavourite];
+
+                localStorage.setItem("itemFav", JSON.stringify(updatedFav));
+                return updatedFav;
+            });
+
+            return;
+        }
+
+        FavouriteService.AddFavouriteApi({ productId: product.id })
+            .then(() => FavouriteService.GetFavouriteApi())
+            .then((data) => {
+                setFavourite(data.data || []);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
+
+    const handleRemoveProductFromFav = () => {
+        FavouriteService.DeleteFavouriteApi(product.id)
+            .then(() => FavouriteService.GetFavouriteApi())
+            .then((data) => {
+                setFavourite(data.data || []);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    };
 
     return (
         <Container fluid="md" className="px-2 px-md-3 py-3">
@@ -292,17 +342,15 @@ const ProductsDetailsCard = ({
                                     loadingLabel={t("productDetails.sending")}
                                 />
 
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-danger"
-                                    aria-label={t("productDetails.saveProduct")}
-                                >
-                                    {product.is_favorite ? (
-                                        <BsHeartFill />
-                                    ) : (
-                                        <BsHeart />
-                                    )}
-                                </button>
+                                <SecondButton
+                                    value={favouriteItem ? <BsFillHeartFill /> : <FaRegHeart />}
+                                    onClick={() =>
+                                        favouriteItem
+                                            ? handleRemoveProductFromFav(favouriteItem)
+                                            : handleAddProductToFav()
+                                    }
+                                    className="btn-cus-secondary-fav w-auto"
+                                />
                             </div>
                             <SecondButton value={t("productDetails.sellersProfile")} />
                         </div>

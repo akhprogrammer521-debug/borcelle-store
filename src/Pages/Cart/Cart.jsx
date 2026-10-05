@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CartApi } from "../../services/CartApi";
+import { CartService } from "../../services/CartService";
 import Layout from "../../Layouts/CartLayout/Layout";
 import Tshirt from "../../assets/products_cloth/image 24.png";
 import { Container, Row, Col } from "react-bootstrap";
@@ -24,7 +24,7 @@ const Cart = ({ onCheckout = false }) => {
   const { setCart } = useContext(CartContext);
 
   useEffect(() => {
-    CartApi.GetCartService()
+    CartService.GetCartApi()
       .then((data) => {
         setOrders(data.data || [])
       })
@@ -41,7 +41,7 @@ const Cart = ({ onCheckout = false }) => {
 
     if (newQuantity < 1) return;
 
-    CartApi.AddCartService({
+    CartService.AddCartApi({
       productId: cartItem.product.id,
       quantity: newQuantity,
     })
@@ -68,7 +68,7 @@ const Cart = ({ onCheckout = false }) => {
   };
 
   const handleRemoveItem = (cartItemId) => {
-    CartApi.DeleteCartService(cartItemId)
+    CartService.DeleteCartApi(cartItemId)
       .then(() => {
         setOrders((previousOrders) =>
           previousOrders.filter((order) => order.id !== cartItemId)

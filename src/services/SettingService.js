@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const SettingApi = {
-    GEtTermCondService: () => {
+export const SettingService = {
+    GEtTermsCondsApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.SETTINGS.TERMS_CONDS}`;
 
         return fetch(url, {
@@ -21,7 +21,7 @@ export const SettingApi = {
             })
     },
 
-    GetPrivacyPolicyService: () => {
+    GetPrivacyPolicyApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.SETTINGS.PRIVACY_POLICY}`;
 
         return fetch(url, {

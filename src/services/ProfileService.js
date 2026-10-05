@@ -1,7 +1,7 @@
 import { API_Config } from "../Config/ApiConfig";
 
-export const ProfileApi = {
-    GetProfileDataService: () => {
+export const ProfileService = {
+    GetProfileDataApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PROFILE.INDEX}`;
 
         return fetch(url, {
@@ -23,7 +23,7 @@ export const ProfileApi = {
         });
     },
 
-    UpdateProfileService: (changes) => {
+    UpdateProfileApi: (changes) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PROFILE.UPDATE}`;
         const formData = new FormData();
 
@@ -61,7 +61,7 @@ export const ProfileApi = {
         });
     },
 
-    GetAddressService: () => {
+    GetAddressApi: () => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ADDRESS.INDEX}`;
 
         return fetch(url, {
@@ -81,7 +81,7 @@ export const ProfileApi = {
         });
     },
 
-    AddAddressService: ({ name, phone, city, neighborhood, street, building, zip_code, lat, lng, is_default }) => {
+    AddAddressApi: ({ name, phone, city, neighborhood, street, building, zip_code, lat, lng, is_default }) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ADDRESS.STORE}`;
         const formData = new FormData();
 
@@ -114,7 +114,7 @@ export const ProfileApi = {
         });
     },
 
-    UpdateAddressService: ({ id, name, phone, city, neighborhood, street, building, zip_code, lat, lng, is_default }) => {
+    UpdateAddressApi: ({ id, name, phone, city, neighborhood, street, building, zip_code, lat, lng, is_default }) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ADDRESS.UPDATE}/${id}`;
         const formData = new FormData();
 
@@ -147,7 +147,7 @@ export const ProfileApi = {
         });
     },
 
-    DeleteAddressService: (id) => {
+    DeleteAddressApi: (id) => {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ADDRESS.DELETE}/${id}`;
         return fetch(url, {
             method: "DELETE",

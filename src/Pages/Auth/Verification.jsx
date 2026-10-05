@@ -41,7 +41,7 @@ const Verification = () => {
   }, [timeLeft]);
 
   const handleReset = () => {
-    AuthService.ResendOtpService(phone)
+    AuthService.ResendOtpApi(phone)
       .then(() => {
         setTimeLeft(60);
         setCode(["", "", "", "", ""]);
@@ -67,7 +67,7 @@ const Verification = () => {
     setError(null);
     setIsVerifying(true);
 
-    AuthService.VerificationService({ phone, otp })
+    AuthService.VerificationApi({ phone, otp })
       .then((data) => {
         console.log(data)
         localStorage.setItem("userInfo", JSON.stringify(data))
