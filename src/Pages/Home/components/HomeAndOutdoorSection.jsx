@@ -2,8 +2,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { ProductsApi } from "../../../services/ProductsApi";
 import homeBanner from "../../../assets/products_home/image 92.png";
+import { useTranslation } from "react-i18next";
 
 const HomeAndOutdoorSection = () => {
+  const { t } = useTranslation();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const HomeAndOutdoorSection = () => {
       <div className="bg-white border rounded-3 overflow-hidden">
 
         <div className="d-block d-md-none p-3">
-          <h6 className="fw-bold mb-3 text-dark">Home and outdoor</h6>
+          <h6 className="fw-bold mb-3 text-dark">{t("home.homeAndOutdoor")}</h6>
           <div className="d-flex overflow-x-auto gap-2">
             {items.map((product) => (
               <div
@@ -51,9 +53,9 @@ const HomeAndOutdoorSection = () => {
                 }}
               >
                 <div>
-                  <h5 className="fw-bold image-banner-title mb-2">Home and<br />outdoor</h5>
+                  <h5 className="fw-bold image-banner-title mb-2">{t("home.homeAnd")}<br />{t("home.outdoor")}</h5>
                   <button className="btn btn-light bg-white border-0 fw-medium shadow-sm btn-sm px-3 py-2 rounded-2">
-                    Source now
+                    {t("home.sourceNow")}
                   </button>
                 </div>
               </div>
@@ -66,7 +68,7 @@ const HomeAndOutdoorSection = () => {
                     <div className="d-flex justify-content-between align-items-start h-100">
                       <div>
                         <p className="mb-1 text-dark fw-medium small">{product.name}</p>
-                        <small className="text-muted d-block" style={{ fontSize: '12px' }}>From<br />USD {product.price}</small>
+                        <small className="text-muted d-block" style={{ fontSize: '12px' }}>{t("common.from")}<br />USD {product.price}</small>
                       </div>
                       <div style={{ width: '65px', height: '65px' }} className="d-flex align-items-center justify-content-center shrink-0 ms-2">
                         <img src={product.image} alt={product.title} className="mw-100 mh-100 object-fit-contain" />

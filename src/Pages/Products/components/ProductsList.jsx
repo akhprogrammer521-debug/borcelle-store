@@ -2,11 +2,13 @@ import { Col, Row } from "react-bootstrap";
 import ProductCard from "../../../Components/ui/ProductCard";
 import { ProductsListSkeleton } from "../../../Components/ui/Skeleton";
 import { NavLink } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const ProductsList = ({ products, view, isLoading = false }) => {
+  const { t } = useTranslation();
     if (isLoading) {
         return (
-            <div aria-busy="true" aria-label="Loading products">
+            <div aria-busy="true" aria-label={t("products.loadingProducts")}>
                 <ProductsListSkeleton view={view} />
             </div>
         );

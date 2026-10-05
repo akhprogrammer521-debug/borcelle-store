@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProductsApi } from "../../../services/ProductsApi";
 import { ProductModal } from "../../../Components/ui/Modal";
+import { useTranslation } from "react-i18next";
 
 const MyProducts = () => {
+  const { t } = useTranslation();
 
     const [modalOpen, setModalOpen] = useState(false);
     const [product, setProduct] = useState([]);
@@ -91,7 +93,7 @@ const MyProducts = () => {
                     headerProfile={
                         <div className="profile-title d-flex align-items-center gap-2">
                             <BsCaretLeftFill size={30} />
-                            <span>My Products</span>
+                            <span>{t("common.myProducts")}</span>
                         </div>
                     }
 
@@ -100,14 +102,14 @@ const MyProducts = () => {
                             <div className="d-flex flex-column gap-3">
                                 <div className="d-flex justify-content-end my-3">
                                     <Button
-                                        value="Add Product"
+                                        value={t("products.addProduct")}
                                         className="w-auto"
                                         onClick={handleOpenAddModal}
                                     />
                                 </div>
                                 {product.length === 0 ? (
                                     <div className="text-center text-muted m-auto p-5">
-                                        No Products found.
+                                        {t("validation.noProductsFound")}
                                     </div>
                                 ) : (
                                     <div>
@@ -121,7 +123,7 @@ const MyProducts = () => {
                                                         >
                                                             <img
                                                                 src={prod.image || null}
-                                                                alt={prod.name || "Product"}
+                                                                alt={prod.name || t("common.product")}
                                                                 className="img-fluid h-100 object-fit-contain"
                                                             />
                                                         </div>
@@ -142,7 +144,7 @@ const MyProducts = () => {
                                                             </div>
                                                             <div className="d-flex gap-2">
                                                                 <Button
-                                                                    value={"Edit"}
+                                                                    value={t("common.edit")}
                                                                     className="mt-3 my-2 w-auto"
                                                                     onClick={() => handleEditProduct(prod)}
                                                                 />
@@ -150,7 +152,7 @@ const MyProducts = () => {
                                                                     value={""}
                                                                     className="border-0 p-1 rounded-2 mt-3 my-2 w-auto btn-del"
                                                                     onClick={() => { handleDeleteProduct(prod.id) }}
-                                                                >Delete</button>
+                                                                >{t("common.delete")}</button>
                                                             </div>
                                                         </div>
                                                     </div>

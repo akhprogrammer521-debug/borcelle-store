@@ -2,8 +2,10 @@ import Layout from "../../../Layouts/ProfileLayout/Layout";
 import { BsCaretLeftFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { SettingApi } from "../../../services/SettingApi";
+import { useTranslation } from "react-i18next";
 
 const TermCondition = () => {
+  const { t } = useTranslation();
 
     const [termsConds, setTermsConds] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -28,7 +30,7 @@ const TermCondition = () => {
                 headerProfile={
                     <div className="profile-title d-flex align-items-center gap-2">
                         <BsCaretLeftFill size={30} />
-                        <span>Terms and condition</span>
+                        <span>{t("profile.termsAndCondition")}</span>
                     </div>
                 }
 
@@ -37,7 +39,7 @@ const TermCondition = () => {
                         className="overflow-hidden"
                         style={{ maxHeight: "650px" }}
                     >
-                        {loading && <p>Loading...</p>}
+                        {loading && <p>{t("common.loading")}</p>}
                         <div
                             className="overflow-y-auto px-4"
                             style={{ maxHeight: "650px" }}

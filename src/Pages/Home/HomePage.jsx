@@ -12,9 +12,11 @@ import Reveal from "../../Components/shared/ScrollReveal";
 import SuccessModal from "../../Components/ui/Modal";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 
 const HomePage = () => {
+    const { t } = useTranslation();
 
     const [showSuccess, setShowSuccess] = useState(() => {
         return sessionStorage.getItem("show_success_modal") === "true";
@@ -33,7 +35,7 @@ const HomePage = () => {
         <>
             <MainLayout>
                 <SuccessModal
-                    value="You have successfully verified your account"
+                    value={t("auth.accountVerified")}
                     show={showSuccess}
                     onClose={handleCloseSuccess}
                     onContinue={handleContinue}

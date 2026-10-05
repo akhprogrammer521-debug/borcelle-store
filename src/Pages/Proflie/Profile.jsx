@@ -5,8 +5,10 @@ import Layout from "../../Layouts/ProfileLayout/Layout";
 import Form from "react-bootstrap/Form";
 import { Col, Row, Button } from "react-bootstrap";
 import Link from "../../Components/ui/Link";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+  const { t } = useTranslation();
     const { user, setUser } = useContext(AuthContext);
 
     const [profileData, setProfileData] = useState({
@@ -131,13 +133,13 @@ const Profile = () => {
     };
 
     const settingLinks = [
-        { id: 1, href: "/profile/myProducts", value: "My Products" },
-        { id: 2, href: "/profile/orders", value: "My Orders" },
-        { id: 3, href: "/profile/favorite", value: "My Favorites" },
-        { id: 4, href: "/profile/privacy-policy", value: "Privacy & Policy" },
-        { id: 5, href: "/profile/contact-us", value: "Contact us page" },
-        { id: 6, href: "/profile/term&condition", value: "Terms and condition" },
-        { id: 7, href: "/profile/address", value: "Address" },
+        { id: 1, href: "/profile/myProducts", value: t("common.myProducts") },
+        { id: 2, href: "/profile/orders", value: t("common.myOrders") },
+        { id: 3, href: "/profile/favorite", value: t("profile.myFavorites") },
+        { id: 4, href: "/profile/privacy-policy", value: t("profile.privacyPolicy2") },
+        { id: 5, href: "/profile/contact-us", value: t("profile.contactUsPage") },
+        { id: 6, href: "/profile/term&condition", value: t("profile.termsAndCondition") },
+        { id: 7, href: "/profile/address", value: t("common.address") },
     ];
 
     return (
@@ -150,11 +152,11 @@ const Profile = () => {
                                 type="button"
                                 className="border-0 bg-white p-0 position-relative"
                                 onClick={handlePhotoClick}
-                                aria-label="Change profile photo"
+                                aria-label={t("profile.changeProfilePhoto")}
                             >
                                 <img
                                     src={photo || user?.data?.image}
-                                    alt="Profile"
+                                    alt={t("profile.profile")}
                                     className="user_image"
                                 />
                             </button>
@@ -179,11 +181,11 @@ const Profile = () => {
                     <Form className="d-flex flex-column">
                         <div className="d-flex flex-column flex-md-row gap-4">
                             <Form.Group className="mb-3 w-100" controlId="profileName">
-                                <Form.Label>Full Name</Form.Label>
+                                <Form.Label>{t("profile.fullName")}</Form.Label>
 
                                 <Form.Control
                                     type="text"
-                                    placeholder="Your Full Name"
+                                    placeholder={t("profile.yourFullName")}
                                     className="bg-light"
                                     value={profileData.name}
                                     onChange={(e) =>
@@ -196,11 +198,11 @@ const Profile = () => {
                             </Form.Group>
 
                             <Form.Group className="mb-3 w-100" controlId="profileEmail">
-                                <Form.Label>Email</Form.Label>
+                                <Form.Label>{t("common.email")}</Form.Label>
 
                                 <Form.Control
                                     type="email"
-                                    placeholder="Your Email"
+                                    placeholder={t("profile.yourEmail")}
                                     className="bg-light"
                                     value={profileData.email}
                                     onChange={(e) =>
@@ -213,11 +215,11 @@ const Profile = () => {
                             </Form.Group>
 
                             <Form.Group className="mb-3 w-100" controlId="profilePhone">
-                                <Form.Label>Phone</Form.Label>
+                                <Form.Label>{t("common.phone")}</Form.Label>
 
                                 <Form.Control
                                     type="tel"
-                                    placeholder="Your Number"
+                                    placeholder={t("profile.yourNumber")}
                                     className="bg-light"
                                     value={profileData.phone}
                                     onChange={(e) =>
@@ -240,11 +242,11 @@ const Profile = () => {
                             onClick={handleUpdateProfile}
                             disabled={isSaving || !originalProfile}
                         >
-                            {isSaving ? "Saving..." : "Save"}
+                            {isSaving ? t("common.saving") : t("common.save")}
                         </Button>
                     </Form>
 
-                    <p className="fw-bold">Setting</p>
+                    <p className="fw-bold">{t("profile.setting")}</p>
 
                     <Row className="g-3">
                         {settingLinks.map((item) => (

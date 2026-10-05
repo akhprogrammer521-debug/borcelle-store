@@ -1,7 +1,9 @@
 import { Button, Form } from "react-bootstrap";
 import { BsGridFill, BsList } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 const ProductsToolbar = ({ totalProducts, view, onViewChange }) => {
+  const { t } = useTranslation();
 
     return (
         <div className="border rounded p-3 mb-3 bg-white">
@@ -9,26 +11,26 @@ const ProductsToolbar = ({ totalProducts, view, onViewChange }) => {
                 <div>
                    <span className="fw-bold">{totalProducts}</span>
                     {" "}
-                    <span className="fw-bold">Mobile accessory</span>
+                    <span className="fw-bold">{t("products.mobileAccessory")}</span>
                 </div>
 
                 <div className="d-flex flex-wrap align-items-center gap-3">
                     <Form.Check
                         type="checkbox"
                         id="products-verified-only"
-                        label="Verified only"
+                        label={t("products.verifiedOnly")}
                         defaultChecked
                     />
 
                     <Form.Select
                         className="w-auto"
                         defaultValue="Featured"
-                        aria-label="Sort products"
+                        aria-label={t("products.sortProducts")}
                     >
-                        <option>Featured</option>
-                        <option>Newest</option>
-                        <option>Lowest price</option>
-                        <option>Highest price</option>
+                        <option>{t("products.featured")}</option>
+                        <option>{t("products.newest")}</option>
+                        <option>{t("products.lowestPrice")}</option>
+                        <option>{t("products.highestPrice")}</option>
                     </Form.Select>
 
                     <div>
@@ -38,7 +40,7 @@ const ProductsToolbar = ({ totalProducts, view, onViewChange }) => {
                             }
                             onClick={() => onViewChange("grid")}
                             className="rounded-end-0"
-                            aria-label="Grid view"
+                            aria-label={t("products.gridView")}
                             aria-pressed={view === "grid"}
                         >
                             <BsGridFill />
@@ -50,7 +52,7 @@ const ProductsToolbar = ({ totalProducts, view, onViewChange }) => {
                             }
                             onClick={() => onViewChange("list")}
                             className="rounded-start-0"
-                            aria-label="List view"
+                            aria-label={t("products.listView")}
                             aria-pressed={view === "list"}
                         >
                             <BsList />

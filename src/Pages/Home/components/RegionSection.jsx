@@ -1,7 +1,9 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ReactCountryFlag from "react-country-flag";
+import { useTranslation } from "react-i18next";
 
 const RegionSection = () => {
+  const { t } = useTranslation();
     const countries = [
         { id: 1, countryCode: "AE", name: "Arabic Emirates", email: "shopname.ae" },
         { id: 2, countryCode: "AU", name: "Australia", email: "shopname.au" },
@@ -19,7 +21,7 @@ const RegionSection = () => {
 
     return (
         <Container className="my-3">
-            <p className="fw-bold">Suppliers by region</p>
+            <p className="fw-bold">{t("home.suppliersByRegion")}</p>
 
             <Row className="g-3">
                 {countries.map((item) => (
@@ -38,7 +40,7 @@ const RegionSection = () => {
                             <ReactCountryFlag
                                 countryCode={item.countryCode}
                                 svg
-                                title={item.name}
+                                title={t(`home.region.${item.countryCode}`)}
                                 style={{
                                     width: "2.5em",
                                     height: "2.5em",
@@ -46,7 +48,7 @@ const RegionSection = () => {
                             />
 
                             <div className="d-flex flex-column justify-content-center fs-6">
-                                <p className="mb-0 lh-sm">{item.name}</p>
+                                <p className="mb-0 lh-sm">{t(`home.region.${item.countryCode}`)}</p>
                                 <p className="mb-0 lh-sm text-secondary">{item.email}</p>
                             </div>
                         </div>

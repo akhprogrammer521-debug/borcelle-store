@@ -36,8 +36,10 @@ import { LuUserPlus } from "react-icons/lu";
 import LanguageSwitcher from "../../ui/LanguageSwitcher";
 
 import logo from '../../../assets/logo/logo.png';
+import { useTranslation } from "react-i18next";
 
 const TopNavbar = ({ onCategoryChange }) => {
+  const { t, i18n } = useTranslation();
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
@@ -52,7 +54,7 @@ const TopNavbar = ({ onCategoryChange }) => {
 
   const handleCartClose = () => setShowCart(false);
   const handleCartShow = () => setShowCart(true);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -134,10 +136,10 @@ const TopNavbar = ({ onCategoryChange }) => {
   };
 
   const links = [
-  { name: "Profile", to: "/profile", icon: <BsFillPersonFill size={20} /> },
-  { name: "Message", to: "/profile/term&condition", icon: <BsChatLeftTextFill size={18} /> },
-  { name: "Orders", to: "/cart", icon: <BsFillHeartFill size={18} /> },
-  { name: "My Cart", to: "/", icon: <BsFillCartFill size={18} />, action: handleCartShow },
+  { name: t("nav.profile"), to: "/profile", icon: <BsFillPersonFill size={20} /> },
+  { name: t("nav.message"), to: "/profile/term&condition", icon: <BsChatLeftTextFill size={18} /> },
+  { name: t("common.orders"), to: "/cart", icon: <BsFillHeartFill size={18} /> },
+  { name: t("nav.myCart"), to: "/", icon: <BsFillCartFill size={18} />, action: handleCartShow },
 
   {
     name: "",
@@ -146,13 +148,13 @@ const TopNavbar = ({ onCategoryChange }) => {
 ];
 
   const canvasLinks = [
-    { name: "Home", to: "/", icon: <BsHouseDoor /> },
-    { name: "Categories", to: "/products", icon: <BsListUl /> },
-    { name: "Favorites", to: "/", icon: <BsHeart /> },
-    { name: "My Orders", to: "/cart", icon: <BsBoxSeam /> },
-    { name: "English | USD", to: "/", icon: <BsGlobe />, dividerBefore: true },
-    { name: "Contact Us", to: "/profile/contact-us", icon: <BsHeadset /> },
-    { name: "About", to: "/", icon: <BsBuilding /> }
+    { name: t("common.home"), to: "/", icon: <BsHouseDoor /> },
+    { name: t("nav.categories"), to: "/products", icon: <BsListUl /> },
+    { name: t("common.favorites"), to: "/", icon: <BsHeart /> },
+    { name: t("common.myOrders"), to: "/cart", icon: <BsBoxSeam /> },
+    { name: t("nav.languageAndCurrency", { language: t(i18n.resolvedLanguage === "ar" ? "nav.arabic" : "nav.english"), currency: "USD" }), to: "/", icon: <BsGlobe />, dividerBefore: true },
+    { name: t("common.contactUs2"), to: "/profile/contact-us", icon: <BsHeadset /> },
+    { name: t("nav.about"), to: "/", icon: <BsBuilding /> }
   ];
 
   return (
@@ -161,7 +163,7 @@ const TopNavbar = ({ onCategoryChange }) => {
         <Navbar expand="lg" className="d-none p-0 d-lg-flex justify-content-between align-items-center gap-3">
           <div>
             <Navbar.Brand as={NavLink} to={'/'}>
-              <img alt="Logo" src={logo} width="60" height="40" className="brand-logo d-inline-block align-top" />
+              <img alt={t("nav.logo")} src={logo} width="60" height="40" className="brand-logo d-inline-block align-top" />
             </Navbar.Brand>
           </div>
           <div className="desktop-search">
@@ -171,13 +173,13 @@ const TopNavbar = ({ onCategoryChange }) => {
             >
               <Form.Control
                 type="search"
-                placeholder="Search"
+                placeholder={t("common.search")}
                 className="custom-nav-search"
-                aria-label="Search"
+                aria-label={t("common.search")}
                 value={searchText}
                 onChange={(e) => { setSearchText(e.target.value) }}
               />
-              <NavDropdown title="All Categories" id="basic-nav-dropdown" className="custom-nav-dropdown">
+              <NavDropdown title={t("nav.allCategories")} id="basic-nav-dropdown" className="custom-nav-dropdown">
                 {categories.map((category, index) => (
                   <Nav.Link
                     key={category.id}
@@ -193,14 +195,14 @@ const TopNavbar = ({ onCategoryChange }) => {
                 className="custom-nav-button"
                 type="submit"
               >
-                Search
+                {t("common.search")}
               </Button>
             </Form>
           </div>
           <div>
             <Nav className="me-auto my-lg-0 d-flex align-items-center gap-3">
               {links.map((link) => {
-                const isCart = link.name === 'My Cart';
+                const isCart = link.action === handleCartShow;
                 return (
                   <Nav.Link
                     key={link.name}
@@ -237,7 +239,7 @@ const TopNavbar = ({ onCategoryChange }) => {
                 <BsList size={28} />
               </Button>
               <Navbar.Brand as={NavLink} to={'/'} className="m-0">
-                <img alt="Logo" src={logo} width="70" height="50" className="brand-logo" />
+                <img alt={t("nav.logo")} src={logo} width="70" height="50" className="brand-logo" />
               </Navbar.Brand>
             </div>
             <div className="d-flex align-items-center text-dark gap-3">
@@ -262,7 +264,7 @@ const TopNavbar = ({ onCategoryChange }) => {
 
           <div className="mobile-search-wrapper mb-2">
             <BsSearch className="search-icon" />
-            <input type="text" className="form-control mobile-search-input" placeholder="Search" />
+            <input type="text" className="form-control mobile-search-input" placeholder={t("common.search")} />
           </div>
 
           <div className="mobile-categories-scroll d-flex gap-2">
@@ -270,7 +272,7 @@ const TopNavbar = ({ onCategoryChange }) => {
               as={NavLink}
               to="/products"
               className="`btn mobile-cat-pill"
-            >All Categories</Nav.Link>
+            >{t("nav.allCategories")}</Nav.Link>
             {categories.map((category) => (
               <Nav.Link
                 key={category.id}
@@ -288,12 +290,12 @@ const TopNavbar = ({ onCategoryChange }) => {
         <div className="mobile-menu-header d-flex flex-column gap-3">
           <div className="d-flex justify-content-between gap-3">
             <BsPersonCircle className="mobile-avatar" />
-            <button type="button" className="btn-close ms-auto" onClick={handleClose} aria-label="Close"></button>
+            <button type="button" className="btn-close ms-auto" onClick={handleClose} aria-label={t("common.close")}></button>
           </div>
           <div className="mobile-auth-link">
-            <NavLink to={"/login"} className="text-decoration-none text-dark fw-medium">Login</NavLink>
+            <NavLink to={"/login"} className="text-decoration-none text-dark fw-medium">{t("common.login")}</NavLink>
             <span className="mx-1">|</span>
-            <NavLink to={"/register"} className="text-decoration-none text-dark fw-medium">Sign Up</NavLink>
+            <NavLink to={"/register"} className="text-decoration-none text-dark fw-medium">{t("nav.signUp")}</NavLink>
           </div>
         </div>
 
@@ -311,9 +313,9 @@ const TopNavbar = ({ onCategoryChange }) => {
             <hr className="my-2" />
 
             <div className="mobile-bottom-links">
-              <Nav.Link href="#agreement">User agreement</Nav.Link>
-              <Nav.Link href="#partnership">Partnership</Nav.Link>
-              <Nav.Link href="#privacy">Privacy policy</Nav.Link>
+              <Nav.Link href="#agreement">{t("nav.userAgreement")}</Nav.Link>
+              <Nav.Link href="#partnership">{t("nav.partnership")}</Nav.Link>
+              <Nav.Link href="#privacy">{t("nav.privacyPolicy")}</Nav.Link>
             </div>
           </Nav>
         </Offcanvas.Body>
@@ -327,8 +329,8 @@ const TopNavbar = ({ onCategoryChange }) => {
 
       <div className={`cart-modal-drawer ${showCart ? 'active' : ''} `}>
         <div className="cart-header">
-          <h5 className="cart-title">Your Shopping Bag</h5>
-          <button className="cart-close-btn" onClick={handleCartClose} aria-label="Close">
+          <h5 className="cart-title">{t("nav.yourShoppingBag")}</h5>
+          <button className="cart-close-btn" onClick={handleCartClose} aria-label={t("common.close")}>
             <BsX size={28} />
           </button>
         </div>
@@ -365,18 +367,18 @@ const TopNavbar = ({ onCategoryChange }) => {
 
           {cart.length === 0 && (
             <div className="text-center py-5 text-muted">
-              Your shopping bag is empty
+              {t("nav.yourShoppingBagIsEmpty")}
             </div>
           )}
         </div>
         <div className="cart-footer">
           <div className="cart-subtotal-container">
-            <span className="cart-subtotal-title">SubTotal :</span>
+            <span className="cart-subtotal-title">{t("nav.subTotal")}</span>
             <span className="cart-subtotal-amount">{cartCount} AED</span>
           </div>
           <NavLink to={"/payment"}>
             <button className="cart-checkout-action-btn">
-              Checkout
+              {t("common.checkout")}
             </button>
           </NavLink>
         </div>

@@ -1,6 +1,8 @@
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const SubscribeSection = () => {
+  const { t } = useTranslation();
   return (
     <div className="sub-bg body-bg py-5">
       <Container>
@@ -8,10 +10,10 @@ const SubscribeSection = () => {
           <Col xs={12} sm={10} md={8} lg={6} xl={5}>
             <div className="d-flex flex-column align-items-center text-center px-2">
               <h5 className="fw-bold mb-2 text-dark">
-                Subscribe on our newsletter
+                {t("home.subscribeOnOurNewsletter")}
               </h5>
               <p className="text-secondary small mb-4">
-                Get daily news on upcoming offers from many suppliers all over the world
+                {t("home.getDailyNewsOnUpcomingOffersFrom")}
               </p>
               
               <Form 
@@ -22,11 +24,11 @@ const SubscribeSection = () => {
                   <Form.Control
                     type="email"
                     id="email"
-                    placeholder="Email"
+                    placeholder={t("common.email")}
                     className="border bg-white px-3 py-2 text-dark"
                   />
                 </div>
-                <Button className="px-4 py-2 btn-cus">Subscribe</Button>
+                <Button className="px-4 py-2 btn-cus">{t("home.subscribe")}</Button>
               </Form>
             </div>
           </Col>

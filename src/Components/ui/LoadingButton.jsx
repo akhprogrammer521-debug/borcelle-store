@@ -1,4 +1,5 @@
 import { Spinner } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const LoadingButton = ({
   isLoading = false,
@@ -9,7 +10,8 @@ const LoadingButton = ({
   type = "button",
   ...props
 }) => {
-  const accessibleLabel = loadingLabel || props["aria-label"] || "Loading";
+  const { t } = useTranslation();
+  const accessibleLabel = loadingLabel || props["aria-label"] || t("common.loading");
 
   return (
     <button

@@ -13,12 +13,14 @@ import SavedForLater from "./components/SavedForLater";
 import ShopSection from '../../Components/shared/ShopSection';
 import { CartContentSkeleton } from "../../Components/ui/Skeleton";
 import { CartContext } from "../../Contexts/CartContext";
+import { useTranslation } from "react-i18next";
 
 const Cart = ({ onCheckout = false }) => {
+  const { t } = useTranslation();
 
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
   const { setCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -90,7 +92,7 @@ const Cart = ({ onCheckout = false }) => {
   return (
     <Layout>
       <Container className="my-3 my-md-4">
-        <h5 className="fw-bold mb-3 d-none d-md-block">My cart ({orders.length})</h5>
+        <h5 className="fw-bold mb-3 d-none d-md-block">{t("cart.itemsCount", { count: orders.length })}</h5>
 
         <Row className="g-4">
           <Col lg={9}>

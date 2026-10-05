@@ -6,8 +6,10 @@ import { AddressModal } from "../../../Components/ui/Modal";
 import { ProfileApi } from "../../../services/ProfileApi";
 import { MdLocationPin } from "react-icons/md";
 import { Col, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const Address = () => {
+  const { t } = useTranslation();
 
     const [address, setAddress] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(null);
@@ -93,7 +95,7 @@ const Address = () => {
                 headerProfile={
                     <div className="profile-title d-flex align-items-center gap-2">
                         <BsCaretLeftFill size={30} />
-                        <span>Address</span>
+                        <span>{t("common.address")}</span>
                     </div>
                 }
                 bodyProfile={
@@ -101,14 +103,14 @@ const Address = () => {
                         <div className="d-flex flex-column gap-3">
                             <div className="d-flex justify-content-end my-3">
                                 <Button
-                                    value="Add Address"
+                                    value={t("address.addAddress")}
                                     className="w-auto"
                                     onClick={handleOpenAddModal}
                                 />
                             </div>
                             {address.length === 0 ? (
                                 <div className="text-center text-muted m-auto p-5">
-                                    No addresses found.
+                                    {t("validation.noAddressesFound")}
                                 </div>
                             ) : (
                                 <div>
@@ -126,9 +128,9 @@ const Address = () => {
                                                         </div>
                                                     </div>
                                                     <div className="d-flex flex-column gap-2 ms-auto">
-                                                        <Button value={"Edit"} onClick={() => handleEditAddress(addr)} />
-                                                        <button className="btn-del border-0 p-2 rounded-3" value={"Delete"} onClick={() => handleDeleteAddress(addr.id)} >
-                                                            Delete
+                                                        <Button value={t("common.edit")} onClick={() => handleEditAddress(addr)} />
+                                                        <button className="btn-del border-0 p-2 rounded-3" value={t("common.delete")} onClick={() => handleDeleteAddress(addr.id)} >
+                                                            {t("common.delete")}
                                                         </button>
                                                     </div>
                                                 </div>

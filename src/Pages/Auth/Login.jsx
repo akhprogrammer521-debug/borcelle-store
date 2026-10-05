@@ -10,8 +10,10 @@ import "./Auth.css";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router";
 import LoadingButton from "../../Components/ui/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
 
     const [phone, setPhone] = useState('');
     const [errorMsg, setErrorMsg] = useState(null)
@@ -25,7 +27,7 @@ const Login = () => {
         const phoneRegex = /^09\d{8}$/;
 
         if (!phoneRegex.test(phone)) {
-            setErrorMsg("The phone number must be 10 digits. Please enter a valid phone number, for example: 09xxxxxxxx");
+            setErrorMsg(t("validation.thePhoneNumberMustBe10Digits"));
             setLoading(false)
             return;
         }
@@ -53,19 +55,19 @@ const Login = () => {
                     <div className="text-center d-flex flex-column align-items-center justify-content-center p-4">
                         <img
                             src={logo}
-                            alt="logo"
+                            alt={t("nav.logo")}
                             className="img-fluid mb-3"
                             width={245}
                         />
                         <h1 className="auth-main-title mb-3">
-                            Let’s get started
+                            {t("auth.letsGetStarted")}
                         </h1>
                         <p className="auth-description mb-0">
-                            Where opportunities meet simplicity!
+                            {t("auth.whereOpportunitiesMeetSimplicity")}
                             <br />
-                            Whether you’re here to fill out your cart
+                            {t("auth.whetherYoureHereToFillOutYour")}
                             <br />
-                            or to check irresistible offers.
+                            {t("auth.orToCheckIrresistibleOffers")}
                         </p>
                     </div>
                 </>
@@ -75,10 +77,10 @@ const Login = () => {
                     <div className="w-100 auth-form-content">
                         <div className="auth-heading">
                             <h2 className="fw-semibold fs-4 mb-2">
-                                Welcome!
+                                {t("auth.welcome")}
                             </h2>
                             <p className="text-secondary mb-0">
-                                Please Log in to continue
+                                {t("validation.pleaseLogInToContinue")}
                             </p>
                         </div>
                         <form
@@ -88,7 +90,7 @@ const Login = () => {
                             <div className="position-relative">
                                 <input
                                     type="tel"
-                                    placeholder="Add number"
+                                    placeholder={t("auth.addNumber")}
                                     className="form-control auth-phone-input pe-5"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
@@ -106,12 +108,12 @@ const Login = () => {
                                 type="submit"
                                 className="auth-primary-btn border-0 w-100 mt-4"
                                 isLoading={loading}
-                                loadingLabel="Logging in"
+                                loadingLabel={t("auth.loggingIn")}
                             >
-                                Log in
+                                {t("auth.logIn")}
                             </LoadingButton>
                             <div className="text-center mt-3 custom-nav-link">
-                                <Nav.Link as={NavLink} to={'/register'}>Sign up</Nav.Link>
+                                <Nav.Link as={NavLink} to={'/register'}>{t("auth.signUp")}</Nav.Link>
                             </div>
                         </form>
                     </div>

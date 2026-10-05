@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router";
 import { Container, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const ShopSection = () => {
+  const { t } = useTranslation();
     
     const navigateTo = useNavigate()
 
@@ -16,11 +18,11 @@ const ShopSection = () => {
                         <div className="cube-bg p-3 rounded-start-3">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="lh-1 cube-bg">
-                                    <p className="fw-bold text-white">Super discount on more than 100 USD</p>
-                                    <p className="text-light">Have you ever finally just write dummy info</p>
+                                    <p className="fw-bold text-white">{t("home.superDiscountOnMoreThan100USD")}</p>
+                                    <p className="text-light">{t("home.haveYouEverFinallyJustWriteDummy")}</p>
                                 </div>
                                 <div>
-                                    <button className="bg-orange p-2 border-0 rounded-2 text-light" onClick={handleButton}>Shop now</button>
+                                    <button className="bg-orange p-2 border-0 rounded-2 text-light" onClick={handleButton}>{t("home.shopNow")}</button>
                                 </div>
                             </div>
                         </div>

@@ -7,9 +7,11 @@ import { BsPersonCircle } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import { BiMessageDetail } from "react-icons/bi";
 import { BsCaretLeftFill } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 
 const ContactUs = ({ onSendMessage }) => {
+  const { t } = useTranslation();
     const [validated, setValidated] = useState(false);
     const [isSending, setIsSending] = useState(false);
 
@@ -39,7 +41,7 @@ const ContactUs = ({ onSendMessage }) => {
                 headerProfile={
                     <div className="profile-title d-flex align-items-center gap-2">
                             <BsCaretLeftFill size={30} />
-                            <span>Contact us page</span>
+                            <span>{t("profile.contactUsPage")}</span>
                     </div>
                 }
                 bodyProfile={
@@ -49,7 +51,7 @@ const ContactUs = ({ onSendMessage }) => {
                                 <InputGroup className="contact-input-group">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Name..."
+                                        placeholder={t("profile.name")}
                                         className="border-end-0"
                                     />
 
@@ -62,7 +64,7 @@ const ContactUs = ({ onSendMessage }) => {
                                 <InputGroup className="contact-input-group">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Email"
+                                        placeholder={t("common.email")}
                                         className="border-end-0"
                                     />
 
@@ -73,7 +75,7 @@ const ContactUs = ({ onSendMessage }) => {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                 <InputGroup className="contact-input-group">
-                                    <Form.Control as="textarea" rows={3} placeholder="Write message" className="p-3 border-end-0" />
+                                    <Form.Control as="textarea" rows={3} placeholder={t("profile.writeMessage")} className="p-3 border-end-0" />
                                     <InputGroup.Text className="contact-icon border bg-white d-flex align-items-start">
                                         <BiMessageDetail size={25} className="icon-cus" />
                                     </InputGroup.Text>
@@ -81,9 +83,9 @@ const ContactUs = ({ onSendMessage }) => {
                             </Form.Group>
                             <Button
                                 type="submit"
-                                value="Send"
+                                value={t("common.send")}
                                 isLoading={isSending}
-                                loadingLabel="Sending message"
+                                loadingLabel={t("profile.sendingMessage")}
                             />
                         </Form>
                     </div>

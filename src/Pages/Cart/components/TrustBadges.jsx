@@ -1,7 +1,9 @@
 import { Row, Col } from "react-bootstrap";
 import { FaLock, FaCommentDots, FaTruck } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const TrustBadges = () => {
+  const { t } = useTranslation();
   return (
     <Row className="g-3 my-4">
       <Col md={4} className="d-flex align-items-center gap-3">
@@ -9,8 +11,8 @@ const TrustBadges = () => {
           <FaLock className="text-secondary fs-5" />
         </div>
         <div>
-          <h6 className="mb-0 fw-semibold">Secure payment</h6>
-          <small className="text-muted">Have you ever finally just</small>
+          <h6 className="mb-0 fw-semibold">{t("cart.securePayment")}</h6>
+          <small className="text-muted">{t("cart.haveYouEverFinallyJust")}</small>
         </div>
       </Col>
       <Col md={4} className="d-flex align-items-center gap-3">
@@ -18,8 +20,8 @@ const TrustBadges = () => {
           <FaCommentDots className="text-secondary fs-5" />
         </div>
         <div>
-          <h6 className="mb-0 fw-semibold">Customer support</h6>
-          <small className="text-muted">Have you ever finally just</small>
+          <h6 className="mb-0 fw-semibold">{t("cart.customerSupport")}</h6>
+          <small className="text-muted">{t("cart.haveYouEverFinallyJust")}</small>
         </div>
       </Col>
       <Col md={4} className="d-flex align-items-center gap-3">
@@ -27,8 +29,8 @@ const TrustBadges = () => {
           <FaTruck className="text-secondary fs-5" />
         </div>
         <div>
-          <h6 className="mb-0 fw-semibold">Free delivery</h6>
-          <small className="text-muted">Have you ever finally just</small>
+          <h6 className="mb-0 fw-semibold">{t("cart.freeDelivery")}</h6>
+          <small className="text-muted">{t("cart.haveYouEverFinallyJust")}</small>
         </div>
       </Col>
     </Row>

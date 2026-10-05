@@ -2,7 +2,9 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import Button from "../../../Components/ui/Button"
 import { useState } from "react";
 import { ContactUsApi } from "../../../services/ContactUsApi";
+import { useTranslation } from "react-i18next";
 const RequestSendingSection = () => {
+  const { t } = useTranslation();
 
     const [contactUs, setContactUs] = useState({
         type: "EMAIL",
@@ -40,27 +42,27 @@ const RequestSendingSection = () => {
                 <div className="blur-color p-3 p-md-4 w-100 d-flex flex-column">
                     <div className="d-block d-md-none text-white py-5">
                         <h5 className="fw-bold mb-2">
-                            An easy way to send <br /> requests to all suppliers
+                            {t("home.anEasyWayToSend")} <br /> {t("home.requestsToAllSuppliers")}
                         </h5>
                     </div>
                     <div className="d-block">
                         <Row className="align-items-center">
                             <Col md={6} lg={7} className="d-none d-md-block text-white pe-lg-5 align-items-start">
                                 <h3 className="fw-bold mb-3">
-                                    An easy way to send requests to all suppliers
+                                    {t("home.anEasyWayToSendRequestsTo")}
                                 </h3>
                                 <p className="mb-0 opacity-75">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+                                    {t("home.loremIpsumDolorSitAmetConsecteturAdipisicing")}
                                 </p>
                             </Col>
                             <Col md={6} lg={5}>
                                 <div className="sending-card rounded-3 border p-4 bg-white text-dark shadow-sm">
                                     <Form onSubmit={handleContactUs} >
-                                        <h5 className="fw-bold mb-3 text-dark">Send quote to suppliers</h5>
+                                        <h5 className="fw-bold mb-3 text-dark">{t("home.sendQuoteToSuppliers")}</h5>
                                         <Form.Group className="mb-3" controlId="requestItem">
                                             <Form.Control
                                                 type="email"
-                                                placeholder="What item you need?"
+                                                placeholder={t("home.whatItemYouNeed")}
                                                 className="p-2"
                                                 value={contactUs.email}
                                                 onChange={(e) => {
@@ -75,7 +77,7 @@ const RequestSendingSection = () => {
                                             <Form.Control
                                                 as="textarea"
                                                 rows={3}
-                                                placeholder="Type more details"
+                                                placeholder={t("home.typeMoreDetails")}
                                                 className="p-2"
                                                 value={contactUs.message}
                                                 onChange={(e) => {
@@ -90,15 +92,15 @@ const RequestSendingSection = () => {
                                             <Col xs={7}>
                                                 <Form.Control
                                                     type="text"
-                                                    placeholder="Quantity"
+                                                    placeholder={t("home.quantity")}
                                                     className="p-2"
                                                 />
                                             </Col>
                                             <Col xs={5}>
                                                 <Form.Select defaultValue="Pcs" className="p-2">
-                                                    <option value="Pcs">Pcs</option>
-                                                    <option value="Kg">Kg</option>
-                                                    <option value="Liters">Liters</option>
+                                                    <option value="Pcs">{t("home.pcs")}</option>
+                                                    <option value="Kg">{t("home.kg")}</option>
+                                                    <option value="Liters">{t("home.liters")}</option>
                                                 </Form.Select>
                                             </Col>
                                         </Row>
@@ -106,9 +108,9 @@ const RequestSendingSection = () => {
                                             error && (<div className="alert alert-warning">{error}</div>)
                                         }
                                         {
-                                            isSaving && (<div className="alert alert-success">The message sent successfully</div>)
+                                            isSaving && (<div className="alert alert-success">{t("home.theMessageSentSuccessfully")}</div>)
                                         }
-                                        <Button value={"Send inquiry"} type="submit" className="w-auto" />
+                                        <Button value={t("productDetails.sendInquiry")} type="submit" className="w-auto" />
                                     </Form>
                                 </div>
                             </Col>

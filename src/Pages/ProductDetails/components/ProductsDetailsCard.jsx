@@ -25,6 +25,7 @@ import Button from "../../../Components/ui/Button";
 import SecondButton from "../../../Components/ui/SecondButton";
 import ProductLiked from "./ProductLiked";
 import RelatedProducts from "./RelatedProducts";
+import { useTranslation } from "react-i18next";
 
 const starValues = [1, 2, 3, 4, 5];
 
@@ -39,10 +40,31 @@ const supplierIcons = {
     shipping: TbWorld,
 };
 
+const detailLabelKeys = {
+    Price: "price",
+    Condition: "condition",
+    Material: "material",
+    Category: "category",
+    Customization: "customization",
+    Protection: "protection",
+    Warranty: "warranty",
+    Style: "style",
+    Certificate: "certificate",
+    Size: "size",
+    Memory: "memory",
+    Availability: "availability",
+    "Delivery time": "deliveryTime",
+    "Shipping cost": "shippingCost",
+    Supplier: "supplier",
+    Location: "location",
+    Status: "status",
+};
+
 const ProductsDetailsCard = ({
     product,
     staticProduct,
 }) => {
+  const { t } = useTranslation();
     const allImages = [product.image, ...(product.images || [])].filter(Boolean);
     const [selectedImage, setSelectedImage] = useState(allImages[0] || "");
     const [fancyboxRef] = useFancybox({});
@@ -74,7 +96,7 @@ const ProductsDetailsCard = ({
                                 </a>
                             ) : (
                                 <p className="text-secondary mb-0">
-                                    No image available
+                                    {t("productDetails.noImageAvailable")}
                                 </p>
                             )}
                         </div>
@@ -122,7 +144,7 @@ const ProductsDetailsCard = ({
                             {staticProduct.inStock && (
                                 <span className="small fw-semibold text-success">
                                     <BsCheckLg size={20} className="me-1" />
-                                    In stock
+                                    {t("productDetails.inStock")}
                                 </span>
                             )}
 
@@ -133,7 +155,7 @@ const ProductsDetailsCard = ({
                             <div className="d-flex flex-wrap align-items-center gap-2 small text-secondary">
                                 <span
                                     className="text-warning d-inline-flex gap-1"
-                                    aria-label={`${staticProduct.rating} out of 5 stars`}
+                                    aria-label={t("productDetails.ratingOutOfFive", { rating: staticProduct.rating })}
                                 >
                                     {starValues.map((star) => (
                                         <span key={star}>
@@ -164,7 +186,7 @@ const ProductsDetailsCard = ({
                                         >
                                             <span className="mx-1">•</span>
                                             <Icon />
-                                            {item.count} {item.label}
+                                            {t(item.id === "reviews" ? "productDetails.reviewCount" : "productDetails.soldCount", { count: item.count })}
                                         </span>
                                     );
                                 })}
@@ -179,21 +201,21 @@ const ProductsDetailsCard = ({
                             <div className="border-bottom py-2">
                                 <dl className="row g-2 small mb-0">
                                     <dt className="col-4 fw-normal text-secondary">
-                                        SKU
+                                        {t("productDetails.sKU")}
                                     </dt>
                                     <dd className="col-8 text-dark mb-0">
                                         {product.sku || "-"}
                                     </dd>
 
                                     <dt className="col-4 fw-normal text-secondary">
-                                        Category
+                                        {t("common.category")}
                                     </dt>
                                     <dd className="col-8 text-dark mb-0">
                                         {product.category?.name || "-"}
                                     </dd>
 
                                     <dt className="col-4 fw-normal text-secondary">
-                                        Color
+                                        {t("productDetails.color")}
                                     </dt>
                                     <dd className="col-8 text-dark mb-0">
                                         {colors.length > 0
@@ -231,7 +253,7 @@ const ProductsDetailsCard = ({
 
                                 <div className="lh-sm small">
                                     <span className="text-secondary d-block mb-1">
-                                        Supplier
+                                        {t("productDetails.supplier")}
                                     </span>
                                     <span className="text-dark">
                                         {staticProduct.supplier.name}
@@ -258,7 +280,7 @@ const ProductsDetailsCard = ({
                                                     <Icon size={17} />
                                                 )}
 
-                                                <span>{item.text}</span>
+                                                <span>{item.id === "location" ? item.text : t(`productDetails.supplierFeatures.${item.id}`)}</span>
                                             </div>
                                         );
                                     }
@@ -266,14 +288,14 @@ const ProductsDetailsCard = ({
                             </div>
                             <div className="d-flex gap-2">
                                 <Button
-                                    value="Send inquiry"
-                                    loadingLabel="Sending..."
+                                    value={t("productDetails.sendInquiry")}
+                                    loadingLabel={t("productDetails.sending")}
                                 />
 
                                 <button
                                     type="button"
                                     className="btn btn-outline-danger"
-                                    aria-label="Save product"
+                                    aria-label={t("productDetails.saveProduct")}
                                 >
                                     {product.is_favorite ? (
                                         <BsHeartFill />
@@ -282,7 +304,7 @@ const ProductsDetailsCard = ({
                                     )}
                                 </button>
                             </div>
-                            <SecondButton value="Seller’s profile" />
+                            <SecondButton value={t("productDetails.sellersProfile")} />
                         </div>
                     </Col>
                 </Row>
@@ -302,7 +324,7 @@ const ProductsDetailsCard = ({
                                 <Tab
                                     key={tab.id}
                                     eventKey={tab.id}
-                                    title={tab.title}
+                                    title={t(`productDetails.tabs.${tab.id}`)}
                                 >
                                     <div className="d-flex flex-column gap-3">
                                         {tab.paragraphs?.map(
@@ -311,7 +333,7 @@ const ProductsDetailsCard = ({
                                                     key={paragraph.id}
                                                     className="text-secondary mb-0"
                                                 >
-                                                    {paragraph.text}
+                                                    {paragraph.id === "review-info" ? t("productDetails.reviewsUnavailable") : paragraph.text}
                                                 </p>
                                             )
                                         )}
@@ -333,7 +355,7 @@ const ProductsDetailsCard = ({
                                                         ]) => (
                                                             <tr key={label}>
                                                                 <th className="bg-light fw-normal text-secondary p-2">
-                                                                    {label}
+                                                                    {detailLabelKeys[label] ? t(`productDetails.detailLabels.${detailLabelKeys[label]}`) : label}
                                                                 </th>
                                                                 <td className="text-secondary p-2">
                                                                     {value}
@@ -370,7 +392,7 @@ const ProductsDetailsCard = ({
                 <Col lg={3}>
                     <div className="border rounded-2 p-3 bg-white">
                         <h2 className="h6 fw-bold mb-3">
-                            You may like
+                            {t("productDetails.youMayLike")}
                         </h2>
 
                         <div className="d-flex flex-column gap-3">
@@ -387,7 +409,7 @@ const ProductsDetailsCard = ({
 
             <section className="my-3 p-3 border rounded-2 bg-white">
                 <h2 className="h5 fw-bold mb-3">
-                    Related products
+                    {t("productDetails.relatedProducts")}
                 </h2>
 
                 <Row xs={2} sm={3} lg={6} className="g-3">

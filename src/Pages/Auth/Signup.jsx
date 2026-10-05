@@ -16,8 +16,10 @@ import LoadingButton from "../../Components/ui/LoadingButton";
 import { AuthService } from "../../services/AuthService";
 
 import "./Auth.css";
+import { useTranslation } from "react-i18next";
 
 const Signup = () => {
+  const { t } = useTranslation();
   const [photo, setPhoto] = useState(null);
   const [registerData, setRegiserData] = useState({
     image: "",
@@ -78,20 +80,20 @@ const Signup = () => {
     <div className="text-center d-flex flex-column align-items-center justify-content-center p-4">
       <img
         src={logo}
-        alt="Borcelle logo"
+        alt={t("auth.borcelleLogo")}
         className="auth-logo img-fluid mb-3"
       />
 
       <h1 className="auth-main-title mb-3">
-        Let’s get started
+        {t("auth.letsGetStarted")}
       </h1>
 
       <p className="auth-description mb-0">
-        Where opportunities meet simplicity!
+        {t("auth.whereOpportunitiesMeetSimplicity")}
         <br />
-        Whether you’re here to fill out your cart
+        {t("auth.whetherYoureHereToFillOutYour")}
         <br />
-        or to check irresistible offers.
+        {t("auth.orToCheckIrresistibleOffers")}
       </p>
     </div>
   );
@@ -100,11 +102,11 @@ const Signup = () => {
     <div className="w-100 auth-form-content">
       <div className="auth-heading">
         <h2 className="fw-semibold fs-4 mb-3">
-          Fill your information
+          {t("auth.fillYourInformation")}
         </h2>
 
         <p className="text-secondary mb-0">
-          Enter your details
+          {t("auth.enterYourDetails")}
         </p>
       </div>
 
@@ -123,13 +125,13 @@ const Signup = () => {
             {photo ? (
               <img
                 src={photo}
-                alt="Profile preview"
+                alt={t("auth.profilePreview")}
                 className="w-100 h-100 object-fit-cover"
               />
             ) : (
               <>
                 <BsCamera className="profile-photo-icon mb-2" />
-                <span className="fs-5 text-secondary">Add photo</span>
+                <span className="fs-5 text-secondary">{t("auth.addPhoto")}</span>
               </>
             )}
           </label>
@@ -148,7 +150,7 @@ const Signup = () => {
           <div className="position-relative">
             <Form.Control
               type="text"
-              placeholder="Name..."
+              placeholder={t("auth.name")}
               className="auth-profile-input pe-5"
               required
               value={registerData.name}
@@ -164,7 +166,7 @@ const Signup = () => {
           </div>
 
           <Form.Control.Feedback type="invalid">
-            Please enter your name.
+            {t("validation.pleaseEnterYourName")}
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -173,7 +175,7 @@ const Signup = () => {
           <div className="position-relative mb-3">
             <Form.Control
               type="email"
-              placeholder="Email"
+              placeholder={t("common.email")}
               className="auth-profile-input pe-5"
               required
               value={registerData.email}
@@ -187,7 +189,7 @@ const Signup = () => {
             <BsEnvelope className="position-absolute top-50 end-0 translate-middle-y me-5 auth-field-icon" />
           </div>
           <Form.Control.Feedback type="invalid">
-            Please enter a valid email.
+            {t("validation.pleaseEnterAValidEmail")}
           </Form.Control.Feedback>
         </Form.Group>
         {/* Phone */}
@@ -196,7 +198,7 @@ const Signup = () => {
 
             <Form.Control
               type="tel"
-              placeholder="Add number"
+              placeholder={t("auth.addNumber")}
               className="auth-profile-input pe-5"
               required
               pattern="^09[0-9]{8}$"
@@ -211,7 +213,7 @@ const Signup = () => {
             <BsTelephone className="position-absolute top-50 end-0 translate-middle-y me-5 auth-field-icon" />
           </div>
           <Form.Control.Feedback type="invalid">
-            Enter a valid phone number: 09xxxxxxxx.
+            {t("validation.enterAValidPhoneNumber09xxxxxxxx")}
           </Form.Control.Feedback>
         </Form.Group>
         <div>
@@ -226,13 +228,13 @@ const Signup = () => {
           type="submit"
           className="auth-primary-btn w-100 border-0"
           isLoading={isSaving}
-          loadingLabel="Saving account details"
+          loadingLabel={t("auth.savingAccountDetails")}
         >
-          Save
+          {t("common.save")}
         </LoadingButton>
       </Form>
       <div className="text-center mt-3 custom-nav-link">
-        <Nav.Link as={NavLink} to={'/login'}>Login</Nav.Link>
+        <Nav.Link as={NavLink} to={'/login'}>{t("common.login")}</Nav.Link>
       </div>
     </div>
   );

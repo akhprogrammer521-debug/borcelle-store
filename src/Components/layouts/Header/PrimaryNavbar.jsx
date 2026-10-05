@@ -5,8 +5,10 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router";
 import { CategoriesApi } from "../../../services/CategoriesApi";
+import { useTranslation } from "react-i18next";
 
 const PrimaryNavbar = () => {
+  const { t, i18n } = useTranslation();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const PrimaryNavbar = () => {
                 to="/products"
                 className="custom-nav-link"
               >
-                All category
+                {t("nav.allCategory")}
               </Nav.Link>
 
               {displayedCategories.map((category) => (
@@ -50,12 +52,12 @@ const PrimaryNavbar = () => {
             </div>
 
             <NavDropdown
-              title="English, USD"
+              title={t("nav.languageCurrency", { language: t(i18n.resolvedLanguage === "ar" ? "nav.arabic" : "nav.english"), currency: "USD" })}
               id="basic-nav-dropdown"
               className="custom-nav-drop"
             >
               <NavDropdown.Item href="#action/3.1">
-                English
+                {t("nav.english")}
               </NavDropdown.Item>
 
               <NavDropdown.Item href="#action/3.2">

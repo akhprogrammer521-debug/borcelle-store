@@ -1,11 +1,13 @@
 import { useContext } from 'react';
 import { BsMoonStarsFill, BsSunFill } from 'react-icons/bs';
 import { ThemeContext } from './ThemeContext';
+import { useTranslation } from "react-i18next";
 
 export default function ThemeToggle({ compact = false }) {
+  const { t } = useTranslation();
   const { theme, toggleTheme } = useContext(ThemeContext);
   const isDark = theme === 'dark';
-  const label = `Switch to ${isDark ? 'light' : 'dark'} mode`;
+  const label = t(isDark ? "common.switchToLightMode" : "common.switchToDarkMode");
 
   return (
     <button

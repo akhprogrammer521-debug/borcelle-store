@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BsGlobe2 } from "react-icons/bs";
 
 const LanguageSwitcher = () => {
-    const { i18n } = useTranslation();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const currentLanguage = i18n.language?.startsWith("ar") ? "ar" : "en";
     const nextLanguage = currentLanguage === "en" ? "ar" : "en";
@@ -25,7 +24,7 @@ const LanguageSwitcher = () => {
             variant="outline-dark"
             onClick={changeLanguage}
             className="custom-nav-link border-0 d-flex flex-column gap-0 bg-transparent"
-            aria-label={`Change language to ${nextLanguage}`}
+            aria-label={t("nav.changeLanguageTo", { language: t(nextLanguage === "ar" ? "nav.arabic" : "nav.english") })}
         >
             <BsGlobe2 size={19} />
             <span className="mt-1">

@@ -4,8 +4,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { BsCheckLg } from "react-icons/bs";
 import { CategoriesApi } from "../../services/CategoriesApi";
+import { useTranslation } from "react-i18next";
 
 function SuccessModal({ show, onClose, onContinue, value }) {
+  const { t } = useTranslation();
   return (
     <Modal
       show={show}
@@ -29,7 +31,7 @@ function SuccessModal({ show, onClose, onContinue, value }) {
 
       <Modal.Footer className="success-modal-footer">
         <Button className="success-modal-button" onClick={onContinue}>
-          Continue
+          {t("common.continue")}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -44,6 +46,7 @@ export const AddressModal = ({ show,
   isSaving,
   initialData,
 }) => {
+  const { t } = useTranslation();
 
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState(() => ({
@@ -96,7 +99,7 @@ export const AddressModal = ({ show,
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          {initialData ? "Edit Address" : "Add Address"}
+          {initialData ? t("modal.editAddress") : t("modal.addAddress")}
         </Modal.Title>
       </Modal.Header>
 
@@ -104,22 +107,22 @@ export const AddressModal = ({ show,
         <Modal.Body>
           <div className="address-fields">
             <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>{t("common.name")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Enter your name"
+                placeholder={t("modal.enterYourName")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your name.
+                {t("validation.pleaseEnterYourName")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="phone">
-              <Form.Label>Phone</Form.Label>
+              <Form.Label>{t("common.phone")}</Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -132,72 +135,72 @@ export const AddressModal = ({ show,
                 maxLength={10}
               />
               <Form.Control.Feedback type="invalid">
-                Phone number must start with 09 and contain exactly 10 digits.
+                {t("validation.phoneNumberMustStartWith09And")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="city">
-              <Form.Label>City</Form.Label>
+              <Form.Label>{t("modal.city")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                placeholder="Enter your city"
+                placeholder={t("modal.enterYourCity")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your city.
+                {t("validation.pleaseEnterYourCity")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="neighborhood">
-              <Form.Label>Neighborhood</Form.Label>
+              <Form.Label>{t("modal.neighborhood")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="neighborhood"
                 value={formData.neighborhood}
                 onChange={handleChange}
-                placeholder="Enter your neighborhood"
+                placeholder={t("modal.enterYourNeighborhood")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your neighborhood.
+                {t("validation.pleaseEnterYourNeighborhood")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="street">
-              <Form.Label>Street</Form.Label>
+              <Form.Label>{t("modal.street")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="street"
                 value={formData.street}
                 onChange={handleChange}
-                placeholder="Enter your street"
+                placeholder={t("modal.enterYourStreet")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your street.
+                {t("validation.pleaseEnterYourStreet")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="building">
-              <Form.Label>Building</Form.Label>
+              <Form.Label>{t("modal.building")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="building"
                 value={formData.building}
                 onChange={handleChange}
-                placeholder="Enter your building"
+                placeholder={t("modal.enterYourBuilding")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your building.
+                {t("validation.pleaseEnterYourBuilding")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="zipCode">
-              <Form.Label>Zip code</Form.Label>
+              <Form.Label>{t("modal.zipCode")}</Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -210,12 +213,12 @@ export const AddressModal = ({ show,
                 maxLength={5}
               />
               <Form.Control.Feedback type="invalid">
-                Zip code must contain exactly 5 digits.
+                {t("validation.zipCodeMustContainExactly5Digits")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="lat">
-              <Form.Label>Latitude</Form.Label>
+              <Form.Label>{t("modal.latitude")}</Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -223,16 +226,16 @@ export const AddressModal = ({ show,
                 name="lat"
                 value={formData.lat}
                 onChange={handleChange}
-                placeholder="Example: 33.5138"
+                placeholder={t("modal.example335138")}
                 pattern="-?(?:90(?:\.0+)?|[1-8]?[0-9](?:\.[0-9]+)?)"
               />
               <Form.Control.Feedback type="invalid">
-                Latitude must be a number between -90 and 90.
+                {t("validation.latitudeMustBeANumberBetween90")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="lng">
-              <Form.Label>Longitude</Form.Label>
+              <Form.Label>{t("modal.longitude")}</Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -240,11 +243,11 @@ export const AddressModal = ({ show,
                 name="lng"
                 value={formData.lng}
                 onChange={handleChange}
-                placeholder="Example: 36.2765"
+                placeholder={t("modal.example362765")}
                 pattern="-?(?:180(?:\.0+)?|1[0-7][0-9](?:\.[0-9]+)?|[1-9]?[0-9](?:\.[0-9]+)?)"
               />
               <Form.Control.Feedback type="invalid">
-                Longitude must be a number between -180 and 180.
+                {t("validation.longitudeMustBeANumberBetween180")}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -253,7 +256,7 @@ export const AddressModal = ({ show,
               name="is_default"
               checked={formData.is_default}
               onChange={handleChange}
-              label="Set as default address"
+              label={t("modal.setAsDefaultAddress")}
               className="align-self-end"
             />
           </div>
@@ -261,15 +264,15 @@ export const AddressModal = ({ show,
 
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>
-            Close
+            {t("common.close")}
           </Button>
 
           <Button variant="primary" className="btn-cus" type="submit" disabled={isSaving}>
             {isSaving
-              ? "Saving..."
+              ? t("common.saving")
               : initialData
-                ? "Save Changes"
-                : "Save Address"}
+                ? t("common.saveChanges")
+                : t("modal.saveAddress")}
           </Button>
         </Modal.Footer>
       </Form>
@@ -283,6 +286,7 @@ export const CancelOrderModal = ({
   onConfirm,
   isDeleting,
 }) => {
+  const { t } = useTranslation();
   const [comment, setComment] = useState("");
 
   const handleSubmit = (e) => {
@@ -301,14 +305,14 @@ export const CancelOrderModal = ({
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Cancel Order</Modal.Title>
+        <Modal.Title>{t("modal.cancelOrder")}</Modal.Title>
       </Modal.Header>
 
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group controlId="cancelComment">
             <Form.Label>
-              Please enter the reason for cancelling this order
+              {t("validation.pleaseEnterTheReasonForCancellingThis")}
             </Form.Label>
 
             <Form.Control
@@ -317,7 +321,7 @@ export const CancelOrderModal = ({
               required
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Write your reason here..."
+              placeholder={t("modal.writeYourReasonHere")}
             />
           </Form.Group>
         </Modal.Body>
@@ -328,7 +332,7 @@ export const CancelOrderModal = ({
             onClick={handleClose}
             disabled={isDeleting}
           >
-            Close
+            {t("common.close")}
           </Button>
 
           <Button
@@ -336,7 +340,7 @@ export const CancelOrderModal = ({
             type="submit"
             disabled={isDeleting || !comment.trim()}
           >
-            {isDeleting ? "Cancelling..." : "Cancel Order"}
+            {isDeleting ? t("modal.cancelling") : t("modal.cancelOrder")}
           </Button>
         </Modal.Footer>
       </Form>
@@ -345,42 +349,43 @@ export const CancelOrderModal = ({
 };
 
 export const OrderDetailsModal = ({ show, onClose, order }) => {
+  const { t } = useTranslation();
   if (!order) return null;
 
   return (
     <Modal show={show} onHide={onClose} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Order #{order.id}</Modal.Title>
+        <Modal.Title>{t("orders.orderNumber", { id: order.id })}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <div className="d-flex flex-column gap-2">
           <p className="mb-0">
-            <strong>Total:</strong> {order.total} AED
+            <strong>{t("modal.total")}</strong> {order.total} AED
           </p>
 
           <p className="mb-0">
-            <strong>Payment type:</strong> {order.payment_type}
+            <strong>{t("modal.paymentType")}</strong> {order.payment_type}
           </p>
 
           <p className="mb-0">
-            <strong>Status:</strong> {order.status || "Pending"}
+            <strong>{t("modal.status")}</strong> {order.status || t("modal.pending")}
           </p>
 
           <p className="mb-0">
-            <strong>Created at:</strong> {order.created_at}
+            <strong>{t("modal.createdAt")}</strong> {order.created_at}
           </p>
 
           {order.note && (
             <p className="mb-0">
-              <strong>Note:</strong> {order.note}
+              <strong>{t("modal.note")}</strong> {order.note}
             </p>
           )}
 
           {Array.isArray(order.items) && order.items.length > 0 && (
             <>
               <hr />
-              <strong>Products:</strong>
+              <strong>{t("modal.products")}</strong>
 
               {order.items.map((item) => (
                 <div
@@ -400,7 +405,7 @@ export const OrderDetailsModal = ({ show, onClose, order }) => {
 
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
-          Close
+          {t("common.close")}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -413,6 +418,7 @@ export const ProductModal = ({ show,
   isSaving,
   initialData,
 }) => {
+  const { t } = useTranslation();
   const [categories, setCategories] = useState([]);
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState(() => ({
@@ -472,7 +478,7 @@ export const ProductModal = ({ show,
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          {initialData ? "Edit Product" : "Add Product"}
+          {initialData ? t("modal.editProduct") : t("modal.addProduct")}
         </Modal.Title>
       </Modal.Header>
 
@@ -480,60 +486,60 @@ export const ProductModal = ({ show,
         <Modal.Body>
           <div className="product-fields">
             <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>{t("common.name")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Enter your name"
+                placeholder={t("modal.enterYourName")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your name.
+                {t("validation.pleaseEnterYourName")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="description">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>{t("common.description")}</Form.Label>
               <Form.Control
                 required
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                placeholder="description..."
+                placeholder={t("modal.description")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter your description.
+                {t("validation.pleaseEnterYourDescription")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="price">
-              <Form.Label>Price</Form.Label>
+              <Form.Label>{t("common.price")}</Form.Label>
               <Form.Control
                 required
                 type="number"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                placeholder="Enter price"
+                placeholder={t("modal.enterPrice")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter price.
+                {t("validation.pleaseEnterPrice")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="categoryId">
-              <Form.Label>Category</Form.Label>
+              <Form.Label>{t("common.category")}</Form.Label>
               <Form.Select
-                aria-label="Default select example"
+                aria-label={t("modal.defaultSelectExample")}
                 value={formData.category_id}
                 onChange={handleChange}
                 required
                 name="category_id"
               >
-                Open this select menu
+                {t("modal.openThisSelectMenu")}
                 {
                   categories.map((cats) => (
                     <option key={cats.id} value={cats.id}>{cats.name}</option>
@@ -541,22 +547,22 @@ export const ProductModal = ({ show,
                 }
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                Please enter id of category.
+                {t("validation.pleaseEnterIdOfCategory")}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="image">
-              <Form.Label>Image</Form.Label>
+              <Form.Label>{t("common.image")}</Form.Label>
               <Form.Control
                 required={!initialData}
                 type="file"
                 name="image"
                 accept="image/*"
                 onChange={handleChange}
-                placeholder="Enter image of product"
+                placeholder={t("modal.enterImageOfProduct")}
               />
               <Form.Control.Feedback type="invalid">
-                Please enter image of product.
+                {t("validation.pleaseEnterImageOfProduct")}
               </Form.Control.Feedback>
             </Form.Group>
           </div>
@@ -564,15 +570,15 @@ export const ProductModal = ({ show,
 
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>
-            Close
+            {t("common.close")}
           </Button>
 
           <Button variant="primary" className="btn-cus" type="submit" disabled={isSaving}>
             {isSaving
-              ? "Saving..."
+              ? t("common.saving")
               : initialData
-                ? "Save Changes"
-                : "Save Product"}
+                ? t("common.saveChanges")
+                : t("modal.saveProduct")}
           </Button>
         </Modal.Footer>
       </Form>

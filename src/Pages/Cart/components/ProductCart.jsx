@@ -1,8 +1,10 @@
 import { Button } from "react-bootstrap";
 import { BsTrashFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const ProductCart = ({ item, onQuantityChange, onRemoveItem }) => {
+  const { t } = useTranslation();
 
   return (
     <div className="pb-3">
@@ -21,9 +23,9 @@ const ProductCart = ({ item, onQuantityChange, onRemoveItem }) => {
           <div className="d-flex flex-column">
             <h6 className="mb-1 fw-semibold"></h6>
             <p className="text-secondary small mb-1">
-              Size: {item.product.category}, Color: {item.product.color}
+              {t("cart.size")} {item.product.category}{t("cart.color")} {item.product.color}
             </p>
-            <p className="text-secondary small mb-2">Seller: </p>
+            <p className="text-secondary small mb-2">{t("cart.seller")} </p>
           </div>
         </div>
         <div className="cart-item-actions">
@@ -56,9 +58,9 @@ const ProductCart = ({ item, onQuantityChange, onRemoveItem }) => {
             <div>
               <h6 className="mb-1 fw-normal fs-6 text-dark"></h6>
               <p className="text-muted small mb-0">
-                Size: {item.product.category}, Color: {item.product.color}
+                {t("cart.size")} {item.product.category}{t("cart.color")} {item.product.color}
               </p>
-              <p className="text-muted small mb-0">Seller: </p>
+              <p className="text-muted small mb-0">{t("cart.seller")} </p>
             </div>
           </div>
 

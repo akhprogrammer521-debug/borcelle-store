@@ -11,8 +11,10 @@ import {
   BsGooglePlay
 } from "react-icons/bs";
 import logo from '../../../assets/logo/logo.png';
+import { useTranslation } from "react-i18next";
 
 const FooterLists = () => {
+  const { t } = useTranslation();
   const socialLinks = [
     { name: "Facebook", icon: <BsFacebook />, href: "#" },
     { name: "Twitter", icon: <BsTwitter />, href: "#" },
@@ -23,33 +25,33 @@ const FooterLists = () => {
 
   const footerSections = [
     {
-      title: "About",
-      items: ["About us", "Find Store", "Categories", "Blogs"]
+      title: t("footer.about"),
+      items: [t("footer.aboutUs"), t("footer.findStore"), t("footer.categories"), t("footer.blogs")]
     },
     {
-      title: "Partnership",
-      items: ["About us", "Find Store", "Categories", "Blogs"]
+      title: t("footer.partnership"),
+      items: [t("footer.aboutUs"), t("footer.findStore"), t("footer.categories"), t("footer.blogs")]
     },
     {
-      title: "Information",
-      items: ["Help Center", "Money Refound", "Shipping", "Contact us"]
+      title: t("footer.information"),
+      items: [t("footer.helpCenter"), t("footer.moneyRefound"), t("footer.shipping"), t("common.contactUs")]
     },
     {
-      title: "For users",
-      items: ["Login", "Register", "Settings", "My Orders"]
+      title: t("footer.forUsers"),
+      items: [t("common.login"), t("common.register"), t("footer.settings"), t("common.myOrders")]
     }
   ];
 
   const appLinks = [
     {
-      platform: "App Store",
-      subtitle: "Download on the",
+      platform: t("footer.appStore"),
+      subtitle: t("footer.downloadOnThe"),
       icon: <BsApple />,
       href: "#"
     },
     {
-      platform: "Google Play",
-      subtitle: "GET IT ON",
+      platform: t("footer.googlePlay"),
+      subtitle: t("footer.gETITON"),
       icon: <BsGooglePlay />,
       href: "#"
     }
@@ -59,9 +61,9 @@ const FooterLists = () => {
     <Container className="my-5">
       <Row>
         <Col lg={2} sm={12} className="d-flex flex-column p-sm-0">
-          <img src={logo} alt="Logo" width="60" height="40" className="brand-logo" />
+          <img src={logo} alt={t("footer.logo")} width="60" height="40" className="brand-logo" />
           <p className="w-100 fs-6 text-secondary">
-            Best information about the company gies here but now lorem ipsum is
+            {t("footer.bestInformationAboutTheCompanyGiesHere")}
           </p>
           <div className="d-flex gap-3">
             {socialLinks.map((social, index) => (
@@ -85,7 +87,7 @@ const FooterLists = () => {
 
         <Col lg={2} sm={12} className="p-sm-0">
           <ul className="ps-md-5 ps-0">
-            <p className="fw-bolder">Get app</p>
+            <p className="fw-bolder">{t("footer.getApp")}</p>
             <div className="d-lg-block d-flex gap-3">
               {appLinks.map((app, index) => (
                 <button

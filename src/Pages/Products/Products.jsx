@@ -10,13 +10,15 @@ import FilterContent from "./components/FilterContent";
 import MobileFilters from "./components/MobileFilters";
 import ProductsToolbar from "./components/ProductsToolbar";
 import ProductsList from "./components/ProductsList";
+import { useTranslation } from "react-i18next";
 
 const Products = ({ isLoading = false }) => {
+  const { t } = useTranslation();
 
     const [productItems, setProductItems] = useState([]);
     const [isProductsLoading, setIsProductsLoading] = useState(true);
 
-    const [error, setError] = useState(null);
+    const [, setError] = useState(null);
     const [view, setView] = useState("grid");
     const [showFilters, setShowFilters] = useState(false);
 
@@ -92,7 +94,7 @@ const Products = ({ isLoading = false }) => {
                             onClick={() => setShowFilters(true)}
                         >
                             <BsFilter size={20} />
-                            Filters
+                            {t("products.filters")}
                         </Button>
                     </div>
 
@@ -120,10 +122,10 @@ const Products = ({ isLoading = false }) => {
                                 <div className="d-flex justify-content-end align-items-start mt-4 gap-2">
                                     <form action="">
                                         <select name="" id="" className="p-2 border rounded-1 pe-2">
-                                            <option value="" className="me-1">Show 10</option>
-                                            <option value="" className="me-1">Show 20</option>
-                                            <option value="" className="me-1">Show 30</option>
-                                            <option value="" className="me-1">Show 40</option>
+                                            <option value="" className="me-1">{t("products.show10")}</option>
+                                            <option value="" className="me-1">{t("products.show20")}</option>
+                                            <option value="" className="me-1">{t("products.show30")}</option>
+                                            <option value="" className="me-1">{t("products.show40")}</option>
                                         </select>
                                     </form>
                                     <Pagination size="">

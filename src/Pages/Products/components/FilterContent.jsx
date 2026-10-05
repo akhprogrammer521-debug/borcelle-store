@@ -1,6 +1,7 @@
 import { Accordion, Button, Col, Form, Row } from "react-bootstrap";
 import { BsStarFill } from "react-icons/bs";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const brands = [
     "Samsung",
@@ -35,6 +36,7 @@ const FilterContent = ({
     selectedCategoryId,
     onCategoryChange,
 }) => {
+  const { t } = useTranslation();
     const [showAllCategories, setShowAllCategories] = useState(false);
     const displayedCategories = showAllCategories ? categories : categories.slice(0, 4);
     return (
@@ -46,7 +48,7 @@ const FilterContent = ({
             <Accordion.Item eventKey="0">
                 <Accordion.Header>
                     <span className="fw-semibold">
-                        Category
+                        {t("common.category")}
                     </span>
                 </Accordion.Header>
                 <Accordion.Body className="pt-2">
@@ -71,7 +73,7 @@ const FilterContent = ({
                                 onClick={() => setShowAllCategories(!showAllCategories)}
                                 className="btn p-0 border-0 text-start text-danger"
                             >
-                                {showAllCategories ? "Show less" : "See all"}
+                                {showAllCategories ? t("common.showLess") : t("common.seeAll")}
                             </button>
                         )}
                     </div>
@@ -81,7 +83,7 @@ const FilterContent = ({
             <Accordion.Item eventKey="1">
                 <Accordion.Header>
                     <span className="fw-semibold">
-                        Brands
+                        {t("products.brands")}
                     </span>
                 </Accordion.Header>
                 <Accordion.Body className="pt-2">
@@ -99,7 +101,7 @@ const FilterContent = ({
                             type="button"
                             className="btn p-0 border-0 text-start text-danger mt-1"
                         >
-                            See all
+                            {t("common.seeAll")}
                         </button>
                     </div>
                 </Accordion.Body>
@@ -108,7 +110,7 @@ const FilterContent = ({
             <Accordion.Item eventKey="2">
                 <Accordion.Header>
                     <span className="fw-semibold">
-                        Features
+                        {t("products.features")}
                     </span>
                 </Accordion.Header>
                 <Accordion.Body className="pt-2">
@@ -118,14 +120,14 @@ const FilterContent = ({
                                 key={index}
                                 type="checkbox"
                                 id={`${idPrefix}-feature-${index}`}
-                                label={feature}
+                                label={t(`products.featureOptions.${index}`, { defaultValue: feature })}
                             />
                         ))}
                         <button
                             type="button"
                             className="btn p-0 border-0 text-start text-danger mt-1"
                         >
-                            See all
+                            {t("common.seeAll")}
                         </button>
                     </div>
                 </Accordion.Body>
@@ -135,7 +137,7 @@ const FilterContent = ({
             <Accordion.Item eventKey="3">
                 <Accordion.Header>
                     <span className="fw-semibold">
-                        Price range
+                        {t("products.priceRange")}
                     </span>
                 </Accordion.Header>
                 <Accordion.Body>
@@ -144,7 +146,7 @@ const FilterContent = ({
                         <Col xs={6}>
                             <Form.Group>
                                 <Form.Label className="small">
-                                    Min
+                                    {t("products.min")}
                                 </Form.Label>
 
                                 <Form.Control
@@ -160,7 +162,7 @@ const FilterContent = ({
                         <Col xs={6}>
                             <Form.Group>
                                 <Form.Label className="small">
-                                    Max
+                                    {t("products.max")}
                                 </Form.Label>
 
                                 <Form.Control
@@ -178,7 +180,7 @@ const FilterContent = ({
                         variant="outline-danger"
                         className="w-100"
                     >
-                        Apply
+                        {t("common.apply")}
                     </Button>
                 </Accordion.Body>
             </Accordion.Item>
@@ -186,7 +188,7 @@ const FilterContent = ({
             <Accordion.Item eventKey="4">
                 <Accordion.Header>
                     <span className="fw-semibold">
-                        Condition
+                        {t("products.condition")}
                     </span>
                 </Accordion.Header>
                 <Accordion.Body>
@@ -197,7 +199,7 @@ const FilterContent = ({
                                 type="radio"
                                 name={`${idPrefix}-condition`}
                                 id={`${idPrefix}-condition-${index}`}
-                                label={condition}
+                                label={t(`products.conditionOptions.${index}`, { defaultValue: condition })}
                                 defaultChecked={index === 0}
                             />
                         ))}
@@ -208,7 +210,7 @@ const FilterContent = ({
             <Accordion.Item eventKey="5">
                 <Accordion.Header>
                     <span className="fw-semibold">
-                        Ratings
+                        {t("products.ratings")}
                     </span>
                 </Accordion.Header>
                 <Accordion.Body>

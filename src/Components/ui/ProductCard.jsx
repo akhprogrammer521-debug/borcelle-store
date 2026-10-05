@@ -13,8 +13,10 @@ import { BsFillHeartFill } from "react-icons/bs";
 
 import SecondButton from "./SecondButton";
 import Button from "./Button"
+import { useTranslation } from "react-i18next";
 
 const ProductCard = ({ product, view, showDetails = true }) => {
+  const { t } = useTranslation();
 
     const { user } = useContext(AuthContext);
     const token = localStorage.getItem("token");
@@ -28,7 +30,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
         setError(null);
 
         if (!isLoggedIn) {
-            setError("Please log in before adding products to the cart.");
+            setError(t("validation.pleaseLogInBeforeAddingProductsTo"));
             return;
         }
         setIsSaving(true);
@@ -122,7 +124,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                 >
                     <img
                         src={product.image || null}
-                        alt={product.name || "Product"}
+                        alt={product.name || t("common.product")}
                         className="img-fluid h-100 object-fit-contain"
                     />
                 </div>
@@ -165,7 +167,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
 
                     <p className="text-secondary mt-2 mb-0">{product.name}</p>
                     <Button
-                        value={isSaving ? "Added" : "Add to cart"}
+                        value={isSaving ? t("common.added") : t("common.addToCart")}
                         className="mt-3 my-2"
                         onClick={handleAddingCart}
                     />
@@ -177,7 +179,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                             to={`/products/${product.id}`}
                             className="text-danger text-decoration-none fw-semibold d-lg-flex"
                         >
-                            View details
+                            {t("common.viewDetails")}
                         </NavLink>
                     )}
                 </div>
@@ -201,7 +203,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
             <div className="flex-shrink-0">
                 <img
                     src={product.image || null}
-                    alt={product.name || "Product"}
+                    alt={product.name || t("common.product")}
                     width={150}
                     height={150}
                     className="object-fit-contain"
@@ -228,7 +230,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                     <span className="text-warning">{product.rating}</span>
                     <span className="text-secondary">•</span>
                     <span className="text-secondary">
-                        {product.orders} orders
+                        {t("products.ordersCount", { count: product.orders })}
                     </span>
                     <span className="text-secondary">•</span>
                     <span className="text-success">{product.shipping}</span>
@@ -242,11 +244,11 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                             to={`/products/${product.id}`}
                             className="text-danger text-decoration-none fw-semibold d-lg-flex"
                         >
-                            View details
+                            {t("common.viewDetails")}
                         </NavLink>
                     )}
                     <Button
-                        value={isSaving ? "Added" : "Add to cart"}
+                        value={isSaving ? t("common.added") : t("common.addToCart")}
                         className="mt-3 my-2 w-auto"
                         onClick={handleAddingCart}
                     />

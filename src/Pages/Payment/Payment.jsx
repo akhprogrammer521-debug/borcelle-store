@@ -14,9 +14,11 @@ import LoadingButton from "../../Components/ui/LoadingButton";
 import { CartContentSkeleton } from "../../Components/ui/Skeleton";
 import SuccessModal from '../../Components/ui/Modal';
 import { CartContext } from '../../Contexts/CartContext';
+import { useTranslation } from "react-i18next";
 
 
 const Payment = () => {
+  const { t } = useTranslation();
 
     const { cart, setCart } = useContext(CartContext);
     const [orders, setOrders] = useState([]);
@@ -61,7 +63,7 @@ const Payment = () => {
         setError(null);
 
         if (!selectedAddressId) {
-            setError("Please select a delivery address");
+            setError(t("validation.pleaseSelectADeliveryAddress"));
             return;
         }
 
@@ -75,7 +77,7 @@ const Payment = () => {
         };
 
         if (cart.length === 0) {
-            setError("Your cart is empty. Please add items to your cart before confirming payment.");
+            setError(t("validation.yourCartIsEmptyPleaseAddItems"));
             setIsVerifying(false);
             return;
         }
@@ -114,13 +116,13 @@ const Payment = () => {
                 leftContent={
                     <div className="text-start d-flex flex-column gap-4 text-light p-5">
                         <div className="title-payment">
-                            <p className="">Payment Method</p>
-                            <small >Pick your payment method </small>
+                            <p className="">{t("payment.paymentMethod")}</p>
+                            <small >{t("payment.pickYourPaymentMethod")} </small>
                         </div>
                         <div>
                             <form className="d-flex flex-column gap-3">
                                 <div className="d-flex justify-content-between">
-                                    <label htmlFor="cash">Cash</label>
+                                    <label htmlFor="cash">{t("payment.cash")}</label>
                                     <input type="radio"
                                         name="payment"
                                         id="cash"
@@ -150,7 +152,7 @@ const Payment = () => {
                                     {
                                         address.length > 0 && (
                                             <div className="d-flex flex-column gap-2">
-                                                <label htmlFor="address">Delivery Address</label>
+                                                <label htmlFor="address">{t("payment.deliveryAddress")}</label>
                                                 <select className="form-control rounded-2 border-0" id="address"
                                                     value={selectedAddressId}
                                                     onChange={(e) => setSelectedAddressId(e.target.value)}>
@@ -165,14 +167,14 @@ const Payment = () => {
                                     }
                                 </div>
                                 <div className="d-flex flex-column gap-2">
-                                    <label htmlFor="">Discount Code</label>
+                                    <label htmlFor="">{t("payment.discountCode")}</label>
                                     <div className="d-flex justify-content-between gap-4">
                                         <input
                                             type="text"
                                             className="rounded-2 border-0 form-control"
                                             value={couponCode}
                                             onChange={(e) => setCouponCode(e.target.value)}
-                                        />                                        <SecondButton className="w-auto rounded-2 border-0" value={<div className="d-flex align-items-center gap-2"><VscRefresh />Check</div>}> </SecondButton>
+                                        />                                        <SecondButton className="w-auto rounded-2 border-0" value={<div className="d-flex align-items-center gap-2"><VscRefresh />{t("payment.check")}</div>}> </SecondButton>
                                     </div>
                                 </div>
                             </form>
@@ -207,20 +209,20 @@ const Payment = () => {
                                     </>
                             }
                             <div className="d-flex justify-content-between align-items-center text-secondary fs-5">
-                                <p>Total</p>
+                                <p>{t("common.total")}</p>
                                 <p>{cartCount.toFixed(3)} AED</p>
                             </div>
                             <div className="d-flex justify-content-between align-items-center text-secondary fs-5">
-                                <p>Discount</p>
+                                <p>{t("common.discount")}</p>
                                 <p>0</p>
                             </div>
                             <div className="d-flex justify-content-between align-items-center text-secondary fs-5">
-                                <p>Tax</p>
+                                <p>{t("common.tax")}</p>
                                 <p>4.000</p>
                             </div>
                             <div className="border-bottom" />
                             <div className="d-flex justify-content-between align-items-center text-secondary fs-5">
-                                <p>Net Total</p>
+                                <p>{t("payment.netTotal")}</p>
                                 <p>{(cartCount + 4.000).toFixed(3)} AED</p>
                             </div>
 
@@ -229,15 +231,15 @@ const Payment = () => {
                                 onClick={handlePaymentConfirmation}
                                 className="auth-primary-btn border-0 w-100 mt-4"
                                 isLoading={isVerifying}
-                                loadingLabel="Confirming payment..."
+                                loadingLabel={t("payment.confirmingPayment")}
                             >
-                                Confirm Payment
+                                {t("payment.confirmPayment")}
                             </LoadingButton>
                             {error && <p className="text-danger mb-0">{error}</p>}
 
                             {showSuccess && (
                                 <SuccessModal
-                                value={"You have successfully Payment"}
+                                value={t("payment.success")}
                                     show={showSuccess}
                                     onClose={handleCloseSuccess}
                                     onContinue={handleContinue}

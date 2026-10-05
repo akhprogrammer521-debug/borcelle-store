@@ -1,11 +1,13 @@
 import { Button, Col, Offcanvas, Row } from "react-bootstrap";
 import FilterContent from "./FilterContent";
+import { useTranslation } from "react-i18next";
 
 const MobileFilters = ({ show, onHide, priceFilterProps }) => {
+  const { t } = useTranslation();
     return (
         <Offcanvas show={show} onHide={onHide} placement="start">
             <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Filters</Offcanvas.Title>
+                <Offcanvas.Title>{t("products.filters")}</Offcanvas.Title>
             </Offcanvas.Header>
 
             <Offcanvas.Body className="p-0">
@@ -22,7 +24,7 @@ const MobileFilters = ({ show, onHide, priceFilterProps }) => {
                             variant="outline-secondary"
                             className="w-100"
                         >
-                            Clear
+                            {t("common.clear")}
                         </Button>
                     </Col>
 
@@ -32,7 +34,7 @@ const MobileFilters = ({ show, onHide, priceFilterProps }) => {
                             className="w-100"
                             onClick={onHide}
                         >
-                            Apply
+                            {t("common.apply")}
                         </Button>
                     </Col>
                 </Row>

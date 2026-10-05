@@ -3,8 +3,10 @@ import Layout from "../../../Layouts/ProfileLayout/Layout";
 import { Col, Row } from "react-bootstrap";
 import { FavContext } from "../../../Contexts/FavouriteContext";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 const Favorite = () => {
+  const { t } = useTranslation();
 
     const { favourite } = useContext(FavContext);
 
@@ -19,7 +21,7 @@ const Favorite = () => {
             headerProfile={
                 <div className="profile-title d-flex align-items-center gap-2">
                     <BsCaretLeftFill size={30} />
-                    <span>Favorites</span>
+                    <span>{t("common.favorites")}</span>
                 </div>
             }
             bodyProfile={
@@ -28,7 +30,7 @@ const Favorite = () => {
                         <Col>
                             {favoriteProducts.length === 0 ? (
                                 <div className="text-center">
-                                    <p>No favorite products found.</p>
+                                    <p>{t("favorite.empty")}</p>
                                 </div>
                             ) : (
                                 <Row>

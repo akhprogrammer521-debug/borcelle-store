@@ -9,8 +9,10 @@ import { productDetails } from "../../Data/ProductDetails";
 import { ProductsApi } from "../../services/ProductsApi";
 
 import ProductsDetailsCard from "./components/ProductsDetailsCard";
+import { useTranslation } from "react-i18next";
 
 const ProductsDetails = ({ onInquiry }) => {
+  const { t } = useTranslation();
     const [details, setDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const { pID } = useParams();
@@ -36,7 +38,7 @@ const ProductsDetails = ({ onInquiry }) => {
                     fluid="md"
                     className="px-2 px-md-3 py-3"
                     aria-busy="true"
-                    aria-label="Loading product details"
+                    aria-label={t("productDetails.loadingProductDetails")}
                 >
                     <ProductDetailsSkeleton />
                 </Container>
@@ -49,7 +51,7 @@ const ProductsDetails = ({ onInquiry }) => {
                 />
             ) : (
                 <p className="text-center py-5">
-                    Product not found.
+                    {t("validation.productNotFound")}
                 </p>
             )}
 

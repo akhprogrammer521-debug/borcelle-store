@@ -10,7 +10,9 @@ import "./Auth.css";
 import LoadingButton from "../../Components/ui/LoadingButton";
 import { AuthService } from "../../services/AuthService";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 const Verification = () => {
+  const { t } = useTranslation();
 
   const { setUser } = useContext(AuthContext);
   const [code, setCode] = useState(["", "", "", "", ""]);
@@ -53,12 +55,12 @@ const Verification = () => {
   const handleVerify = (e) => {
     e.preventDefault()
     if (!phone) {
-      setError("Phone number not found. Return to login.");
+      setError(t("auth.phoneNumberNotFoundReturnToLogin"));
       return;
     }
 
     if (otp.length !== 5) {
-      setError("Enter the OTP completly");
+      setError(t("auth.enterTheOTPCompletly"));
       return;
     }
 
@@ -146,18 +148,18 @@ const Verification = () => {
           <div className="text-center d-flex flex-column align-items-center justify-content-center p-4">
             <img
               src={logo}
-              alt="logo"
+              alt={t("nav.logo")}
               className="auth-logo img-fluid mb-3"
             />
             <h1 className="auth-main-title mb-3">
-              Let’s get started
+              {t("auth.letsGetStarted")}
             </h1>
             <p className="auth-description mb-0">
-              Where opportunities meet simplicity!
+              {t("auth.whereOpportunitiesMeetSimplicity")}
               <br />
-              Whether you’re here to fill out your cart
+              {t("auth.whetherYoureHereToFillOutYour")}
               <br />
-              or to check irresistible offers.
+              {t("auth.orToCheckIrresistibleOffers")}
             </p>
           </div>
         </>
@@ -167,10 +169,10 @@ const Verification = () => {
           <div className="w-100 auth-form-content">
             <div className="auth-heading">
               <h2 className="fw-semibold fs-4 mb-2">
-                Verification
+                {t("auth.verification")}
               </h2>
               <p className="text-secondary mb-0 verification-subtitle">
-                Enter the code we send to : 0923423414
+                {t("auth.codeSentTo", { phone })}
               </p>
             </div>
             <form onSubmit={handleVerify}>
@@ -213,7 +215,7 @@ const Verification = () => {
                 )}
               <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
                 <span className="text-secondary">
-                  Didn’t receive code ?
+                  {t("auth.didntReceiveCode")}
                 </span>
                 <span className="auth-pink">
                   {minutes}:{seconds}
@@ -225,26 +227,26 @@ const Verification = () => {
                 disabled={timeLeft > 0}
                 onClick={handleReset}
               >
-                Resend Code
+                {t("auth.resendCode")}
               </button>
               <LoadingButton
                 type="submit"
                 className="auth-primary-btn border-0 w-100 mt-4"
                 isLoading={isVerifying}
-                loadingLabel="Verifying code"
+                loadingLabel={t("auth.verifyingCode")}
               >
-                Verify
+                {t("auth.verify")}
               </LoadingButton>
             </form>
             <div className="d-flex justify-content-center align-items-center gap-3 my-4">
-              OR
+              {t("auth.oR")}
             </div>
             <button
               type="button"
               className="btn auth-outline-btn w-100"
               onClick={() => window.history.back()}
             >
-              Go back
+              {t("auth.goBack")}
             </button>
           </div>
         </>

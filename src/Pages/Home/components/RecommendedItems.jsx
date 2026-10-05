@@ -7,8 +7,10 @@ import { CartApi } from "../../../services/CartApi";
 import { CartContext } from "../../../Contexts/CartContext";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import Button from "../../../Components/ui/Button";
+import { useTranslation } from "react-i18next";
 
 const RecommendedItems = () => {
+  const { t } = useTranslation();
 
   const { user } = useContext(AuthContext);
   const [recItems, setRecItems] = useState([]);
@@ -27,9 +29,9 @@ const RecommendedItems = () => {
       })
       .catch((err) => {
         console.error(err);
-        setError("Could not load recommended products.");
+        setError(t("validation.couldNotLoadRecommendedProducts"));
       });
-  }, []);
+  }, [t]);
 
   const handleAddingCart = (e, item) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ const RecommendedItems = () => {
     setError(null);
 
     if (!isLoggedIn) {
-      setError("Please log in before adding products to the cart.");
+      setError(t("validation.pleaseLogInBeforeAddingProductsTo"));
       return;
     }
 
@@ -58,7 +60,7 @@ const RecommendedItems = () => {
       })
       .catch((err) => {
         console.error(err);
-        setError(err.message || "Could not add product to cart.");
+        setError(err.message || t("validation.couldNotAddProductToCart"));
       })
       .finally(() => {
         setIsSaving(null);
@@ -71,7 +73,7 @@ const RecommendedItems = () => {
 
   return (
     <Container className="p-2 p-md-3 my-3">
-      <h5 className="fw-bold mb-3 text-dark">Recommended items</h5>
+      <h5 className="fw-bold mb-3 text-dark">{t("home.recommendedItems")}</h5>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
@@ -100,7 +102,7 @@ const RecommendedItems = () => {
                   </div>
 
                   <Button
-                    value={isSaving === item.id ? "Adding..." : "Add to cart"}
+                    value={isSaving === item.id ? t("common.adding") : t("common.addToCart")}
                     className="mt-3"
                     disabled={isSaving === item.id}
                     onClick={(e) => handleAddingCart(e, item)}
@@ -138,7 +140,7 @@ const RecommendedItems = () => {
                   </div>
 
                   <Button
-                    value={isSaving === item.id ? "Adding..." : "Add to cart"}
+                    value={isSaving === item.id ? t("common.adding") : t("common.addToCart")}
                     className="mt-2"
                     disabled={isSaving === item.id}
                     onClick={(e) => handleAddingCart(e, item)}
@@ -151,7 +153,7 @@ const RecommendedItems = () => {
 
         {visibleCount < recItems.length && (
           <Button
-            value="See more"
+            value={t("common.seeMore")}
             className="w-100 mt-3"
             onClick={handleSeeMore}
           />

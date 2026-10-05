@@ -1,12 +1,14 @@
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const SavedForLater = ({ items }) => {
+  const { t } = useTranslation();
   return (
     <div className="my-4">
       {/* Desktop Grid Layout */}
       <Row className="g-3 d-none d-md-flex bg-white border rounded-2 p-2">
-        <h5 className="fw-bold mb-3">Saved for later</h5>
+        <h5 className="fw-bold mb-3">{t("cart.savedForLater")}</h5>
         {items.map((item) => (
           <Col key={item.id} md={3}>
             <Card className="ui-card h-100 border-0 p-2">
@@ -19,7 +21,7 @@ const SavedForLater = ({ items }) => {
                   <Card.Text className="text-muted small mb-3">{item.title}</Card.Text>
                 </div>
                 <Button size="sm" className="d-flex align-items-center justify-content-center gap-2 fw-semibold w-100 btn-cus-secondary border">
-                  <FaShoppingCart /> Move to cart
+                  <FaShoppingCart /> {t("cart.moveToCart")}
                 </Button>
               </Card.Body>
             </Card>
@@ -40,10 +42,10 @@ const SavedForLater = ({ items }) => {
                 <p className="fw-bold mb-2">${item.price}</p>
                 <div className="d-flex gap-2">
                   <Button size="sm" className="px-2 py-1 text-danger small btn-cus-secondary">
-                    Move to cart
+                    {t("cart.moveToCart")}
                   </Button>
                   <Button variant="outline-secondary" size="sm" className="px-2 py-1 text-danger small">
-                    Remove
+                    {t("cart.remove")}
                   </Button>
                 </div>
               </div>

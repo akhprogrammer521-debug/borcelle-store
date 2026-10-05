@@ -5,30 +5,32 @@ import Service3 from '../../../assets/services/image 107.png';
 import Service4 from '../../../assets/services/image 108.png';
 
 import { BsSearch, BsBoxSeam, BsSend, BsShieldCheck } from 'react-icons/bs';
+import { useTranslation } from "react-i18next";
 
 const ServiceSection = () => {
+  const { t } = useTranslation();
   const extraServices = [
     {
       id: 1,
-      title: "Source from Industry Hubs",
+      title: t("home.sourceFromIndustryHubs"),
       image: Service1,
       icon: BsSearch,
     },
     {
       id: 2,
-      title: "Customize Your Products",
+      title: t("home.customizeYourProducts"),
       image: Service2,
       icon: BsBoxSeam,
     },
     {
       id: 3,
-      title: "Fast, reliable shipping by ocean or air",
+      title: t("home.fastReliableShippingByOceanOrAir"),
       image: Service3,
       icon: BsSend,
     },
     {
       id: 4,
-      title: "Product monitoring and inspection",
+      title: t("home.productMonitoringAndInspection"),
       image: Service4,
       icon: BsShieldCheck,
     },
@@ -36,7 +38,7 @@ const ServiceSection = () => {
 
   return (
     <Container className="p-2 p-md-3 my-4">
-      <h5 className="fw-bold mb-3 text-dark">Our extra services</h5>
+      <h5 className="fw-bold mb-3 text-dark">{t("home.ourExtraServices")}</h5>
       <Row className="g-3">
         {extraServices.map((item) => {
           const IconComponent = item.icon;

@@ -1,7 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useTranslation } from "react-i18next";
 
 function StaticExample() {
+  const { t } = useTranslation();
   return (
     <div
       className="modal show"
@@ -9,16 +11,16 @@ function StaticExample() {
     >
       <Modal.Dialog>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>{t("modal.modalTitle")}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>Modal body text goes here.</p>
+          <p>{t("modal.modalBodyTextGoesHere")}</p>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
+          <Button variant="secondary">{t("common.close")}</Button>
+          <Button variant="primary">{t("modal.saveChanges")}</Button>
         </Modal.Footer>
       </Modal.Dialog>
     </div>

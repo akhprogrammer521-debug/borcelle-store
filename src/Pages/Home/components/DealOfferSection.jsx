@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ProductsApi } from "../../../services/ProductsApi";
 import { Container } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 
 const DealOfferSection = () => {
+  const { t } = useTranslation();
 
   const [offers, setOffers] = useState([]);
 
@@ -24,21 +26,21 @@ const DealOfferSection = () => {
         <div className="d-block d-md-none bg-white">
           <div className="d-flex justify-content-between align-items-center px-3 py-2 border-top border-bottom">
             <div>
-              <h6 className="fw-bold mb-0 text-dark">Deals and offers</h6>
-              <small className="text-muted" style={{ fontSize: '12px' }}>Electronic equipments</small>
+              <h6 className="fw-bold mb-0 text-dark">{t("home.dealsAndOffers")}</h6>
+              <small className="text-muted" style={{ fontSize: '12px' }}>{t("home.electronicEquipments")}</small>
             </div>
             <div className="d-flex gap-1 text-center">
               <div className="bg-light px-2 py-1 rounded">
                 <span className="fw-bold text-secondary d-block" style={{ fontSize: '13px' }}>13</span>
-                <small className="text-muted d-block" style={{ fontSize: '9px' }}>Hour</small>
+                <small className="text-muted d-block" style={{ fontSize: '9px' }}>{t("home.hour")}</small>
               </div>
               <div className="bg-light px-2 py-1 rounded">
                 <span className="fw-bold text-secondary d-block" style={{ fontSize: '13px' }}>34</span>
-                <small className="text-muted d-block" style={{ fontSize: '9px' }}>Min</small>
+                <small className="text-muted d-block" style={{ fontSize: '9px' }}>{t("home.min")}</small>
               </div>
               <div className="bg-light px-2 py-1 rounded">
                 <span className="fw-bold text-secondary d-block" style={{ fontSize: '13px' }}>56</span>
-                <small className="text-muted d-block" style={{ fontSize: '9px' }}>Sec</small>
+                <small className="text-muted d-block" style={{ fontSize: '9px' }}>{t("home.sec")}</small>
               </div>
             </div>
           </div>
@@ -65,26 +67,26 @@ const DealOfferSection = () => {
         <div className="d-none d-md-flex align-items-stretch">
           <div className="p-3 border-end d-flex flex-column justify-content-between" style={{ width: '230px', flexShrink: 0 }}>
             <div>
-              <h5 className="fw-bold mb-0 text-dark">Deals and offers</h5>
-              <p className="text-muted small">Hygiene equipments</p>
+              <h5 className="fw-bold mb-0 text-dark">{t("home.dealsAndOffers")}</h5>
+              <p className="text-muted small">{t("home.hygieneEquipments")}</p>
             </div>
 
             <div className="d-flex gap-2 text-center">
               <div className="p-2 rounded bg-secondary text-white flex-fill">
                 <span className="fw-bold d-block">04</span>
-                <small style={{ fontSize: '10px' }}>Days</small>
+                <small style={{ fontSize: '10px' }}>{t("home.days")}</small>
               </div>
               <div className="p-2 rounded bg-secondary text-white flex-fill">
                 <span className="fw-bold d-block">13</span>
-                <small style={{ fontSize: '10px' }}>Hour</small>
+                <small style={{ fontSize: '10px' }}>{t("home.hour")}</small>
               </div>
               <div className="p-2 rounded bg-secondary text-white flex-fill">
                 <span className="fw-bold d-block">34</span>
-                <small style={{ fontSize: '10px' }}>Min</small>
+                <small style={{ fontSize: '10px' }}>{t("home.min")}</small>
               </div>
               <div className="p-2 rounded bg-secondary text-white flex-fill">
                 <span className="fw-bold d-block">56</span>
-                <small style={{ fontSize: '10px' }}>Sec</small>
+                <small style={{ fontSize: '10px' }}>{t("home.sec")}</small>
               </div>
             </div>
           </div>

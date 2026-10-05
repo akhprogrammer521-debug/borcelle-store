@@ -8,8 +8,10 @@ import {
     CancelOrderModal,
     OrderDetailsModal,
 } from "../../../Components/ui/Modal";
+import { useTranslation } from "react-i18next";
 
 const Orders = () => {
+  const { t } = useTranslation();
 
     const [orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
@@ -60,7 +62,7 @@ const Orders = () => {
                 headerProfile={
                     <div className="profile-title d-flex align-items-center gap-2">
                         <BsCaretLeftFill size={30} />
-                        <span>Orders</span>
+                        <span>{t("common.orders")}</span>
                     </div>
                 }
 
@@ -71,7 +73,7 @@ const Orders = () => {
 
                                 {pendingOrders.length === 0 ? (
                                     <div className="text-center text-muted m-auto p-5">
-                                        No orders found.
+                                        {t("validation.noOrdersFound")}
                                     </div>
                                 ) : (
                                     <div>
@@ -82,14 +84,14 @@ const Orders = () => {
                                                         <div className="d-flex align-items-center">
 
                                                             <div className="mt-2">
-                                                                <strong className="lh-sm">Order #{order.id}</strong>
+                                                                <strong className="lh-sm">{t("orders.orderNumber", { id: order.id })}</strong>
                                                                 <p className="lh-sm">{order.total} AED</p>
-                                                                <p className="lh-sm">Payment Type: {order.payment_type}</p>
+                                                                <p className="lh-sm">{t("orders.paymentType")} {order.payment_type}</p>
                                                             </div>
                                                         </div>
                                                         <div className="d-flex flex-column gap-2 ms-auto">
                                                             <Button
-                                                                value="Details"
+                                                                value={t("common.details")}
                                                                 onClick={() => {
                                                                     setSelectedOrder(order);
                                                                     setShowDetails(true);
@@ -103,7 +105,7 @@ const Orders = () => {
                                                                     setShowCancelModal(true);
                                                                 }}
                                                             >
-                                                                Delete
+                                                                {t("common.delete")}
                                                             </button>
                                                         </div>
                                                     </div>
