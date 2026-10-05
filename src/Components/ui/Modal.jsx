@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { BsCheckLg } from "react-icons/bs";
+import { CategoriesApi } from "../../services/CategoriesApi";
 
 function SuccessModal({ show, onClose, onContinue, value }) {
   return (
@@ -96,7 +97,8 @@ export const AddressModal = ({ show,
       <Modal.Header closeButton>
         <Modal.Title>
           {initialData ? "Edit Address" : "Add Address"}
-        </Modal.Title>      </Modal.Header>
+        </Modal.Title>
+      </Modal.Header>
 
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Modal.Body>
@@ -276,131 +278,304 @@ export const AddressModal = ({ show,
 };
 
 export const CancelOrderModal = ({
-    show,
-    onClose,
-    onConfirm,
-    isDeleting,
+  show,
+  onClose,
+  onConfirm,
+  isDeleting,
 }) => {
-    const [comment, setComment] = useState("");
+  const [comment, setComment] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        if (!comment.trim()) return;
+    if (!comment.trim()) return;
 
-        onConfirm(comment.trim());
-    };
+    onConfirm(comment.trim());
+  };
 
-    const handleClose = () => {
-        setComment("");
-        onClose();
-    };
+  const handleClose = () => {
+    setComment("");
+    onClose();
+  };
 
-    return (
-        <Modal show={show} onHide={handleClose} centered>
-            <Modal.Header closeButton>
-                <Modal.Title>Cancel Order</Modal.Title>
-            </Modal.Header>
+  return (
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Cancel Order</Modal.Title>
+      </Modal.Header>
 
-            <Form onSubmit={handleSubmit}>
-                <Modal.Body>
-                    <Form.Group controlId="cancelComment">
-                        <Form.Label>
-                            Please enter the reason for cancelling this order
-                        </Form.Label>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body>
+          <Form.Group controlId="cancelComment">
+            <Form.Label>
+              Please enter the reason for cancelling this order
+            </Form.Label>
 
-                        <Form.Control
-                            as="textarea"
-                            rows={4}
-                            required
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            placeholder="Write your reason here..."
-                        />
-                    </Form.Group>
-                </Modal.Body>
+            <Form.Control
+              as="textarea"
+              rows={4}
+              required
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Write your reason here..."
+            />
+          </Form.Group>
+        </Modal.Body>
 
-                <Modal.Footer>
-                    <Button
-                        variant="secondary"
-                        onClick={handleClose}
-                        disabled={isDeleting}
-                    >
-                        Close
-                    </Button>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            disabled={isDeleting}
+          >
+            Close
+          </Button>
 
-                    <Button
-                        variant="danger"
-                        type="submit"
-                        disabled={isDeleting || !comment.trim()}
-                    >
-                        {isDeleting ? "Cancelling..." : "Cancel Order"}
-                    </Button>
-                </Modal.Footer>
-            </Form>
-        </Modal>
-    );
+          <Button
+            variant="danger"
+            type="submit"
+            disabled={isDeleting || !comment.trim()}
+          >
+            {isDeleting ? "Cancelling..." : "Cancel Order"}
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
+  );
 };
 
 export const OrderDetailsModal = ({ show, onClose, order }) => {
-    if (!order) return null;
+  if (!order) return null;
 
-    return (
-        <Modal show={show} onHide={onClose} centered size="lg">
-            <Modal.Header closeButton>
-                <Modal.Title>Order #{order.id}</Modal.Title>
-            </Modal.Header>
+  return (
+    <Modal show={show} onHide={onClose} centered size="lg">
+      <Modal.Header closeButton>
+        <Modal.Title>Order #{order.id}</Modal.Title>
+      </Modal.Header>
 
-            <Modal.Body>
-                <div className="d-flex flex-column gap-2">
-                    <p className="mb-0">
-                        <strong>Total:</strong> {order.total} AED
-                    </p>
+      <Modal.Body>
+        <div className="d-flex flex-column gap-2">
+          <p className="mb-0">
+            <strong>Total:</strong> {order.total} AED
+          </p>
 
-                    <p className="mb-0">
-                        <strong>Payment type:</strong> {order.payment_type}
-                    </p>
+          <p className="mb-0">
+            <strong>Payment type:</strong> {order.payment_type}
+          </p>
 
-                    <p className="mb-0">
-                        <strong>Status:</strong> {order.status || "Pending"}
-                    </p>
+          <p className="mb-0">
+            <strong>Status:</strong> {order.status || "Pending"}
+          </p>
 
-                    <p className="mb-0">
-                        <strong>Created at:</strong> {order.created_at}
-                    </p>
+          <p className="mb-0">
+            <strong>Created at:</strong> {order.created_at}
+          </p>
 
-                    {order.note && (
-                        <p className="mb-0">
-                            <strong>Note:</strong> {order.note}
-                        </p>
-                    )}
+          {order.note && (
+            <p className="mb-0">
+              <strong>Note:</strong> {order.note}
+            </p>
+          )}
 
-                    {Array.isArray(order.items) && order.items.length > 0 && (
-                        <>
-                            <hr />
-                            <strong>Products:</strong>
+          {Array.isArray(order.items) && order.items.length > 0 && (
+            <>
+              <hr />
+              <strong>Products:</strong>
 
-                            {order.items.map((item) => (
-                                <div
-                                    key={item.id}
-                                    className="d-flex justify-content-between border-bottom py-2"
-                                >
-                                    <span>{item.product?.name}</span>
-                                    <span>
-                                        {item.quantity} × {item.price} AED
-                                    </span>
-                                </div>
-                            ))}
-                        </>
-                    )}
+              {order.items.map((item) => (
+                <div
+                  key={item.id}
+                  className="d-flex justify-content-between border-bottom py-2"
+                >
+                  <span>{item.product?.name}</span>
+                  <span>
+                    {item.quantity} × {item.price} AED
+                  </span>
                 </div>
-            </Modal.Body>
+              ))}
+            </>
+          )}
+        </div>
+      </Modal.Body>
 
-            <Modal.Footer>
-                <Button variant="secondary" onClick={onClose}>
-                    Close
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    );
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 };
+
+export const ProductModal = ({ show,
+  onClose,
+  onSave,
+  isSaving,
+  initialData,
+}) => {
+  const [categories, setCategories] = useState([]);
+  const [validated, setValidated] = useState(false);
+  const [formData, setFormData] = useState(() => ({
+  name: initialData?.name || "",
+  description: initialData?.description || "",
+  price: initialData?.price || "",
+  category_id: initialData?.category_id || initialData?.category?.id || "",
+  image: null,
+}));
+
+  useEffect(() => {
+    CategoriesApi.GetAllCatsService()
+      .then((data) => {
+        console.log(data);
+        setCategories(data.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [setCategories]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "file"
+          ? files?.[0] || null
+          : type === "checkbox"
+            ? checked
+            : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+    onSave(formData);
+  };
+
+  return (
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered
+      dialogClassName="product-modal"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>
+          {initialData ? "Edit Product" : "Add Product"}
+        </Modal.Title>
+      </Modal.Header>
+
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Modal.Body>
+          <div className="product-fields">
+            <Form.Group controlId="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter your name.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="description">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="description..."
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter your description.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="price">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                required
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                placeholder="Enter price"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter price.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="categoryId">
+              <Form.Label>Category</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={formData.category_id}
+                onChange={handleChange}
+                required
+                name="category_id"
+              >
+                Open this select menu
+                {
+                  categories.map((cats) => (
+                    <option key={cats.id} value={cats.id}>{cats.name}</option>
+                  ))
+                }
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Please enter id of category.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="image">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                required={!initialData}
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleChange}
+                placeholder="Enter image of product"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter image of product.
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Close
+          </Button>
+
+          <Button variant="primary" className="btn-cus" type="submit" disabled={isSaving}>
+            {isSaving
+              ? "Saving..."
+              : initialData
+                ? "Save Changes"
+                : "Save Product"}
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
+  )
+}

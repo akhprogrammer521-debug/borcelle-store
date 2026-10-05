@@ -13,6 +13,7 @@ import PrivacyPolicy from './Pages/Proflie/components/PrivacyPolicy';
 import Address from './Pages/Proflie/components/Address';
 import Favorite from './Pages/Proflie/components/Favorite';
 import Orders from './Pages/Proflie/components/Orders';
+import MyProducts from './Pages/Proflie/components/MyProducts';
 
 import Products from './Pages/Products/Products';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
@@ -38,7 +39,8 @@ const App = () => {
                 <Route path='/profile/address' element={<Address />} />
                 <Route path='/profile/favorite' element={<Favorite />} />
                 <Route path='/profile/orders' element={<Orders />} />
-                
+                <Route path='/profile/myProducts' element={<MyProducts />} />
+
                 <Route path='/products' element={<Products />} />
                 <Route path="/products/:pID" element={<ProductDetails />} />
                 <Route path="/cart" element={<Cart />} />

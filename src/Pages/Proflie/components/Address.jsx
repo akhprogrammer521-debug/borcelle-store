@@ -25,21 +25,21 @@ const Address = () => {
             : ProfileApi.AddAddressService(formData);
 
         request
-            .then((response) => {
+            .then((data) => {
                 if (selectedAddress) {
                     setAddress((prev) =>
                         prev.map((addr) =>
                             addr.id === selectedAddress.id
                                 ? {
                                     ...addr,
-                                    ...(response.data || {}),
+                                    ...(data.data || {}),
                                     ...formData,
                                 }
                                 : addr
                         )
                     );
                 } else {
-                    setAddress((prev) => [...prev, response.data]);
+                    setAddress((prev) => [...prev, data.data]);
                 }
 
                 handleCloseModal();

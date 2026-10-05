@@ -131,7 +131,7 @@ const Profile = () => {
     };
 
     const settingLinks = [
-        { id: 1, href: "", value: "My Products" },
+        { id: 1, href: "/profile/myProducts", value: "My Products" },
         { id: 2, href: "/profile/orders", value: "My Orders" },
         { id: 3, href: "/profile/favorite", value: "My Favorites" },
         { id: 4, href: "/profile/privacy-policy", value: "Privacy & Policy" },
