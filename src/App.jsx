@@ -27,7 +27,7 @@ import './App.css';
 const App = () => {
   const { i18n } = useTranslation();
 
-  const direction = i18n.language?.startsWith("ar") ? "rtl" : "ltr";
+  const direction = i18n.language?.startsWith("en") ? "ltr" : "rtl";
 
   return (
     <div dir={direction} className={direction}>
