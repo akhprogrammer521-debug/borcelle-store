@@ -33,6 +33,7 @@ import {
   BsTrashFill
 } from "react-icons/bs";
 import { LuUserPlus } from "react-icons/lu";
+import LanguageSwitcher from "../../ui/LanguageSwitcher";
 
 import logo from '../../../assets/logo/logo.png';
 
@@ -133,11 +134,16 @@ const TopNavbar = ({ onCategoryChange }) => {
   };
 
   const links = [
-    { name: "Profile", to: "/profile", icon: <BsFillPersonFill size={20} /> },
-    { name: "Message", to: "/profile/term&condition", icon: <BsChatLeftTextFill size={18} /> },
-    { name: "Orders", to: "/cart", icon: <BsFillHeartFill size={18} /> },
-    { name: "My Cart", to: "/", icon: <BsFillCartFill size={18} />, action: handleCartShow }
-  ];
+  { name: "Profile", to: "/profile", icon: <BsFillPersonFill size={20} /> },
+  { name: "Message", to: "/profile/term&condition", icon: <BsChatLeftTextFill size={18} /> },
+  { name: "Orders", to: "/cart", icon: <BsFillHeartFill size={18} /> },
+  { name: "My Cart", to: "/", icon: <BsFillCartFill size={18} />, action: handleCartShow },
+
+  {
+    name: "",
+    icon: <LanguageSwitcher />
+  }
+];
 
   const canvasLinks = [
     { name: "Home", to: "/", icon: <BsHouseDoor /> },
@@ -219,6 +225,7 @@ const TopNavbar = ({ onCategoryChange }) => {
                 );
               })}
               <ThemeToggle />
+              {/* <LanguageSwitcher /> */}
             </Nav>
           </div>
         </Navbar>

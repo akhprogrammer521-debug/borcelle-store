@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 import HomePage from './Pages/Home/HomePage';
 import Verification from './Pages/Auth/Verification'
@@ -23,30 +24,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => {
-    return (
-        <>
-            <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path='login' element={<Login />} />
-                <Route path='/verification' element={<Verification />} />
-                <Route path='/payment' element={<Payment />} />
-                <Route path='/register' element={<Signup />} />
+  const { i18n } = useTranslation();
 
-                <Route path='profile' element={<Profile />} />
-                <Route path='/profile/term&condition' element={<TermCondition />} />
-                <Route path='/profile/contact-us' element={<ContactUs />} />
-                <Route path='/profile/privacy-policy' element={<PrivacyPolicy />} />
-                <Route path='/profile/address' element={<Address />} />
-                <Route path='/profile/favorite' element={<Favorite />} />
-                <Route path='/profile/orders' element={<Orders />} />
-                <Route path='/profile/myProducts' element={<MyProducts />} />
+  const direction = i18n.language?.startsWith("ar") ? "rtl" : "ltr";
 
-                <Route path='/products' element={<Products />} />
-                <Route path="/products/:pID" element={<ProductDetails />} />
-                <Route path="/cart" element={<Cart />} />
-            </Routes>
-        </>
-    )
-}
+  return (
+    <div dir={direction} className={direction}>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='login' element={<Login />} />
+        <Route path='/verification' element={<Verification />} />
+        <Route path='/payment' element={<Payment />} />
+        <Route path='/register' element={<Signup />} />
+
+        <Route path='profile' element={<Profile />} />
+        <Route path='/profile/term&condition' element={<TermCondition />} />
+        <Route path='/profile/contact-us' element={<ContactUs />} />
+        <Route path='/profile/privacy-policy' element={<PrivacyPolicy />} />
+        <Route path='/profile/address' element={<Address />} />
+        <Route path='/profile/favorite' element={<Favorite />} />
+        <Route path='/profile/orders' element={<Orders />} />
+        <Route path='/profile/myProducts' element={<MyProducts />} />
+
+        <Route path='/products' element={<Products />} />
+        <Route path="/products/:pID" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+    </div>
+  );
+};
 
 export default App

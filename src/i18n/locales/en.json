@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "profile": "Profile",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+
+  "common": {
+    "search": "Search",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "back": "Back",
+    "loading": "Loading...",
+    "noData": "No data available"
+  },
+
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continueShopping": "Continue shopping"
+  },
+
+  "auth": {
+    "loginTitle": "Welcome back",
+    "registerTitle": "Create an account",
+    "phone": "Phone number",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "verificationCode": "Verification code",
+    "sendCode": "Send code",
+    "verify": "Verify"
+  },
+
+  "profile": {
+    "title": "My Profile",
+    "address": "Addresses",
+    "favorites": "Favorites",
+    "orders": "Orders",
+    "myProducts": "My Products",
+    "contactUs": "Contact us",
+    "privacyPolicy": "Privacy policy",
+    "termsConditions": "Terms & Conditions"
+  }
+}
