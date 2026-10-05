@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 const Layout = ({ leftContent, rightContent }) => {
     return (
         <Container fluid className="p-0">
-            <Row className="g-0 d-lg-flex">
+            <Row className="g-0 min-vh-100 d-none d-lg-flex">
                 <Col lg={6}>
                     <div className="auth-left-bg min-vh-100">
                         <div className="auth-left-overlay  min-vh-100 d-flex align-items-center justify-content-center">
