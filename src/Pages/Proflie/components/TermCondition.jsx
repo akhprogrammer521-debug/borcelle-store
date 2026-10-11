@@ -1,29 +1,18 @@
 import Layout from "../../../Layouts/ProfileLayout/Layout";
 import { BsCaretLeftFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
-import { SettingService } from "../../../services/SettingService";
 import { useTranslation } from "react-i18next";
 
 const TermCondition = () => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 
-    const [termsConds, setTermsConds] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const termsConds = [
+        { id: 1, title: "Acceptance of Terms", desc: "By using this application, you acknowledge that you have read, understood, and agree to fully comply with these terms. If you do not agree with these terms, please do not use the application. The application management reserves the right to modify these terms at any time, and you will be notified of updates when necessary." },
+        { id: 2, title: "Account Creation and Use", desc: "By using this application, you acknowledge that you have read, understood, and agree to fully comply with these terms. If you do not agree with these terms, please do not use the application. The application management reserves the right to modify these terms at any time, and you will be notified of updates when necessary." },
+        { id: 3, title: "Acceptance of Terms", desc: "By using this application, you acknowledge that you have read, understood, and agree to fully comply with these terms. If you do not agree with these terms, please do not use the application. The application management reserves the right to modify these terms at any time, and you will be notified of updates when necessary." },
+        { id: 4, title: "Intellectual Property Rights", desc: "By using this application, you acknowledge that you have read, understood, and agree to fully comply with these terms. If you do not agree with these terms, please do not use the application. The application management reserves the right to modify these terms at any time, and you will be notified of updates when necessary." },
+        { id: 5, title: "Acceptance of Terms", desc: "By using this application, you acknowledge that you have read, understood, and agree to fully comply with these terms. If you do not agree with these terms, please do not use the application. The application management reserves the right to modify these terms at any time, and you will be notified of updates when necessary." },
+    ]
 
-    useEffect(() => {
-        SettingService.GEtTermsCondsApi()
-            .then((data) => {
-                setTermsConds(Array.isArray(data.data) ? data.data : []);
-            })
-            .catch((err) => {
-                setError(err.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, []);
-    
     return (
         <>
             <Layout
@@ -39,7 +28,6 @@ const TermCondition = () => {
                         className="overflow-hidden"
                         style={{ maxHeight: "650px" }}
                     >
-                        {loading && <p>{t("common.loading")}</p>}
                         <div
                             className="overflow-y-auto px-4"
                             style={{ maxHeight: "650px" }}
@@ -58,11 +46,7 @@ const TermCondition = () => {
                                     </p>
                                 </div>
                             ))}
-                            {error && (
-                                <div className="alert alert-danger">
-                                    {error}
-                                </div>
-                            )}
+
                         </div>
                     </div>
                 }
