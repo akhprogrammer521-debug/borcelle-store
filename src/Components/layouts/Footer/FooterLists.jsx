@@ -46,13 +46,13 @@ const FooterLists = () => {
     {
       platform: t("footer.appStore"),
       subtitle: t("footer.downloadOnThe"),
-      icon: <BsApple />,
+      icon: <BsApple size={30}/>,
       href: "#"
     },
     {
       platform: t("footer.googlePlay"),
       subtitle: t("footer.gETITON"),
-      icon: <BsGooglePlay />,
+      icon: <BsGooglePlay size={30}/>,
       href: "#"
     }
   ];
@@ -92,12 +92,12 @@ const FooterLists = () => {
               {appLinks.map((app, index) => (
                 <button
                   key={index}
-                  className="btn-cus-app d-flex align-items-center gap-2 my-2 border-0 rounded-2 p-1"
+                  className="btn-cus-app w-100 d-flex align-items-center gap-2 my-2 border-0 rounded-2 p-1"
                 >
                   <div>{app.icon}</div>
-                  <div className="d-flex flex-column fs-6 text-start">
+                  <div className="d-flex flex-column fs-6 text-start lh-sm">
                     <small>{app.subtitle}</small>
-                    <p className="m-0">{app.platform}</p>
+                    <small className="m-0">{app.platform}</small>
                   </div>
                 </button>
               ))}
