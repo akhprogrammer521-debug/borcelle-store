@@ -1,39 +1,53 @@
 import { API_Config } from "../Config/ApiConfig";
 
 export const ProductsService = {
-    GetProductsApi: (categoryId, page = 1, minPrice = "",
-        maxPrice = "",) => {
+    GetProductsApi: (
+        categoryId,
+        page = 1,
+        minPrice = "",
+        maxPrice = "",
+        orderBy = "created_at",
+        order = "desc",
+        search = ""
+    ) => {
         const params = new URLSearchParams();
 
+        params.set("page", page);
+        params.set("order_by", orderBy);
+        params.set("order", order);
+
         if (categoryId) {
-            params.append("category_id", categoryId);
+            params.set("category_id", categoryId);
         }
 
-        params.append("page", page);
-
         if (minPrice !== "") {
-            params.set("min_price", minPrice);
+            params.set("price_from", minPrice);
         }
 
         if (maxPrice !== "") {
-            params.set("max_price", maxPrice);
+            params.set("price_to", maxPrice);
         }
 
-        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.INDEX}?${params}`;
+        if (search.trim()) {
+            params.set("search", search.trim());
+        }
+
+        const url =
+            `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.INDEX}?${params}`;
 
         return fetch(url, {
             method: "GET",
             headers: {
                 Accept: "application/json",
             },
-        }).then((res) => {
+        }).then(async (res) => {
+            const data = await res.json();
+
             if (!res.ok) {
-                return res.json().then((serverError) => {
-                    throw new Error(serverError.message || "No products");
-                });
+                throw new Error(data.message || "Failed to load Products");
             }
 
-            return res.json();
+            return data;
         });
     },
 

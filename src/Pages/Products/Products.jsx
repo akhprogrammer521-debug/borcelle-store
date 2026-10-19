@@ -25,6 +25,9 @@ const Products = ({ isLoading = false }) => {
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
 
+    const [orderBy, setOrderBy] = useState("created_at");
+    const [order, setOrder] = useState("desc");
+
     const [categories, setCategories] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -46,21 +49,20 @@ const Products = ({ isLoading = false }) => {
         setSelectedCategoryId(categoryId);
     };
 
-    const handleMinPriceChange = (value) => {
-        setMinPrice(value);
-        setCurrentPage(1);
-    };
-
-    const handleMaxPriceChange = (value) => {
-        setMaxPrice(value);
-        setCurrentPage(1);
-    };
-
     const priceFilterProps = {
         minPrice,
         maxPrice,
-        setMinPrice: handleMinPriceChange,
-        setMaxPrice: handleMaxPriceChange,
+
+        setMinPrice: (value) => {
+            setMinPrice(value);
+            setCurrentPage(1);
+        },
+
+        setMaxPrice: (value) => {
+            setMaxPrice(value);
+            setCurrentPage(1);
+        },
+
         categories,
         selectedCategoryId: activeCategoryId,
         onCategoryChange: handleCategoryChange,
@@ -77,23 +79,50 @@ const Products = ({ isLoading = false }) => {
     }, []);
 
     useEffect(() => {
-        ProductsService.GetProductsApi(activeCategoryId, currentPage, minPrice, maxPrice)
-            .then((data) => {
-                setProductItems(data.data || []);
-                setPaginationMeta(data.meta || null);
-            })
-            .catch((err) => {
-                console.error(err.message);
-                setError(err.message)
-            })
-            .finally(() => {
-                setIsProductsLoading(false)
-            });
-    }, [activeCategoryId, currentPage, minPrice, maxPrice]);
+        const timer = setTimeout(() => {
+            if (
+                minPrice !== "" &&
+                maxPrice !== "" &&
+                Number(minPrice) > Number(maxPrice)
+            ) {
+                setError("السعر الأدنى يجب ألا يتجاوز السعر الأعلى");
+                return;
+            }
 
-    const filteredProducts = productItems.filter((product) =>
-        (product.name || "").toLowerCase().includes(searchText)
-    );
+            setIsProductsLoading(true);
+            setError(null);
+
+            ProductsService.GetProductsApi(
+                activeCategoryId,
+                currentPage,
+                minPrice,
+                maxPrice,
+                orderBy,
+                order,
+                searchText
+            )
+                .then((data) => {
+                    setProductItems(data.data || []);
+                    setPaginationMeta(data.meta || null);
+                })
+                .catch((err) => {
+                    setError(err.message);
+                })
+                .finally(() => {
+                    setIsProductsLoading(false);
+                });
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [
+        activeCategoryId,
+        currentPage,
+        minPrice,
+        maxPrice,
+        orderBy,
+        order,
+        searchText,
+    ]);
 
     return (
         <>
@@ -120,10 +149,16 @@ const Products = ({ isLoading = false }) => {
 
                         <Col xs={12} lg={9}>
                             <ProductsToolbar
-                                products={productItems}
-                                totalProducts={paginationMeta?.total || 0}
+                                totalProducts={paginationMeta?.total ?? 0}
                                 view={view}
                                 onViewChange={setView}
+                                orderBy={orderBy}
+                                order={order}
+                                onSortChange={(field, direction) => {
+                                    setOrderBy(field);
+                                    setOrder(direction);
+                                    setCurrentPage(1);
+                                }}
                             />
                             {error && (
                                 <div className="alert alert-danger" role="alert">
@@ -131,7 +166,7 @@ const Products = ({ isLoading = false }) => {
                                 </div>
                             )}
                             <ProductsList
-                                products={filteredProducts}
+                                products={productItems}
                                 view={view}
                                 isLoading={isLoading || isProductsLoading}
                             />
