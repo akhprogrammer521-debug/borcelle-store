@@ -1,7 +1,8 @@
 import { API_Config } from "../Config/ApiConfig";
 
 export const ProductsService = {
-    GetProductsApi: (categoryId, page = 1) => {
+    GetProductsApi: (categoryId, page = 1, minPrice = "",
+        maxPrice = "",) => {
         const params = new URLSearchParams();
 
         if (categoryId) {
@@ -9,6 +10,14 @@ export const ProductsService = {
         }
 
         params.append("page", page);
+
+        if (minPrice !== "") {
+            params.set("min_price", minPrice);
+        }
+
+        if (maxPrice !== "") {
+            params.set("max_price", maxPrice);
+        }
 
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS.INDEX}?${params}`;
 

@@ -13,12 +13,12 @@ import ProductsList from "./components/ProductsList";
 import { useTranslation } from "react-i18next";
 
 const Products = ({ isLoading = false }) => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 
     const [productItems, setProductItems] = useState([]);
     const [isProductsLoading, setIsProductsLoading] = useState(true);
 
-    const [, setError] = useState(null);
+    const [error, setError] = useState(null);
     const [view, setView] = useState("grid");
     const [showFilters, setShowFilters] = useState(false);
 
@@ -33,6 +33,8 @@ const Products = ({ isLoading = false }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationMeta, setPaginationMeta] = useState(null);
 
+
+
     const categoryIdFromNavbar =
         Number(searchParams.get("category")) || null;
 
@@ -44,11 +46,21 @@ const Products = ({ isLoading = false }) => {
         setSelectedCategoryId(categoryId);
     };
 
+    const handleMinPriceChange = (value) => {
+        setMinPrice(value);
+        setCurrentPage(1);
+    };
+
+    const handleMaxPriceChange = (value) => {
+        setMaxPrice(value);
+        setCurrentPage(1);
+    };
+
     const priceFilterProps = {
         minPrice,
         maxPrice,
-        setMinPrice,
-        setMaxPrice,
+        setMinPrice: handleMinPriceChange,
+        setMaxPrice: handleMaxPriceChange,
         categories,
         selectedCategoryId: activeCategoryId,
         onCategoryChange: handleCategoryChange,
@@ -65,10 +77,10 @@ const Products = ({ isLoading = false }) => {
     }, []);
 
     useEffect(() => {
-        ProductsService.GetProductsApi(activeCategoryId, currentPage)
+        ProductsService.GetProductsApi(activeCategoryId, currentPage, minPrice, maxPrice)
             .then((data) => {
-                setProductItems(data.data);
-                setPaginationMeta(data.meta);
+                setProductItems(data.data || []);
+                setPaginationMeta(data.meta || null);
             })
             .catch((err) => {
                 console.error(err.message);
@@ -77,7 +89,7 @@ const Products = ({ isLoading = false }) => {
             .finally(() => {
                 setIsProductsLoading(false)
             });
-    }, [activeCategoryId, currentPage]);
+    }, [activeCategoryId, currentPage, minPrice, maxPrice]);
 
     const filteredProducts = productItems.filter((product) =>
         (product.name || "").toLowerCase().includes(searchText)
@@ -113,6 +125,11 @@ const Products = ({ isLoading = false }) => {
                                 view={view}
                                 onViewChange={setView}
                             />
+                            {error && (
+                                <div className="alert alert-danger" role="alert">
+                                    {error}
+                                </div>
+                            )}
                             <ProductsList
                                 products={filteredProducts}
                                 view={view}

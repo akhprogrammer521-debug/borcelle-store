@@ -62,8 +62,6 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                                 : item
                         )
                         : [...previousCart, updatedCartItem];
-
-                    // sessionStorage.setItem("userCart", JSON.stringify(updatedCart));
                     return updatedCart;
                 });
             })

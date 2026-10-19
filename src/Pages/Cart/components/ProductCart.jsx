@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const ProductCart = ({ item, onQuantityChange, onRemoveItem }) => {
   const { t } = useTranslation();
+  if (!item?.product) return null;
 
   return (
     <div className="pb-3">
@@ -21,7 +22,7 @@ const ProductCart = ({ item, onQuantityChange, onRemoveItem }) => {
           </div>
 
           <div className="d-flex flex-column">
-            <h6 className="mb-1 fw-semibold"></h6>
+            <h6 className="mb-1 fw-semibold">{item.product.name}</h6>
             <p className="text-secondary small mb-1">
               {t("cart.size")} {item.product.category}{t("cart.color")} {item.product.color}
             </p>

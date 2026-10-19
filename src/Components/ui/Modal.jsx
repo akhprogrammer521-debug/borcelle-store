@@ -540,6 +540,7 @@ export const ProductModal = ({ show,
                 name="category_id"
               >
                 {t("modal.openThisSelectMenu")}
+                <option value="">categories</option>
                 {
                   categories.map((cats) => (
                     <option key={cats.id} value={cats.id}>{cats.name}</option>

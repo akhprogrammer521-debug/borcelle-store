@@ -33,13 +33,13 @@ const Favorite = () => {
                                     <p>{t("favorite.empty")}</p>
                                 </div>
                             ) : (
-                                <Row>
+                                <Row className="">
                                     {favoriteProducts.map((favorite) => {
                                         const product = favorite.product;
 
                                         return (
-                                            <Col md={4}>
-                                                <div key={favorite.id} className="card">
+                                            <Col md={3} className="my-3">
+                                                <div key={favorite.id} className="card h-100 d-flex flex-column align-items-between">
                                                     {product.image && (
                                                         <img
                                                             src={product.image}

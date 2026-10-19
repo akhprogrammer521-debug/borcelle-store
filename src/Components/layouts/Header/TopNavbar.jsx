@@ -118,11 +118,11 @@ const TopNavbar = ({ onCategoryChange }) => {
       });
   };
 
-  const cartCount = cart.reduce(
-    (total, item) => total + item.product.price * item.quantity,
+  const cartCount = (cart ?? []).reduce(
+    (total, item) =>
+      total + (item?.product?.price ?? 0) * (item?.quantity ?? 0),
     0
   );
-
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -168,11 +168,13 @@ const TopNavbar = ({ onCategoryChange }) => {
           </div>
           <div className="desktop-search">
             <Form
+              dir="ltr"
               className="d-flex gap-3 align-items-center customem-nav-form"
               onSubmit={handleSearch}
             >
               <Form.Control
                 type="search"
+                dir="auto"
                 placeholder={t("common.search")}
                 className="custom-nav-search"
                 aria-label={t("common.search")}
@@ -286,7 +288,6 @@ const TopNavbar = ({ onCategoryChange }) => {
         </div>
       </Container>
 
-      {/* MOBILE OFFCANVAS MENU */}
       <Offcanvas show={showSidebar} onHide={handleClose} className="mobile-offcanvas">
         <div className="mobile-menu-header d-flex flex-column gap-3">
           <div className="d-flex justify-content-between gap-3">
@@ -338,10 +339,10 @@ const TopNavbar = ({ onCategoryChange }) => {
 
         <div className="cart-body">
 
-          {cart.map((item) => (
+          {(cart ?? []).filter((item) => item?.product).map((item) => (
             <div className="cart-item-row" key={item.id}>
               <div className="cart-item-image-container">
-                <img src={item.product.image} alt={item.title} className="cart-item-image" />
+                <img src={item.product.image} alt={item.product.title} className="cart-item-image" />
                 <span className="cart-item-qty-badge">{item.quantity}</span>
               </div>
 

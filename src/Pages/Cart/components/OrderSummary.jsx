@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 const OrderSummary = ({ isLoading = false }) => {
   const { t } = useTranslation();
 
-  const {cart} = useContext(CartContext);
+  const { cart } = useContext(CartContext);
   const navigateTo = useNavigate();
 
   if (isLoading) {
@@ -26,17 +26,19 @@ const OrderSummary = ({ isLoading = false }) => {
 
   };
 
-  const cartCount = cart.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
+  const subtotal = (cart ?? [])
+    .filter((item) => item?.product)
+    .reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0
+    );
 
   return (
     <Card className="border shadow-sm p-2">
       <Card.Body>
         <div className="d-flex justify-content-between mb-2">
           <span className="text-muted">{t("cart.subtotal")}</span>
-          <span className="fw-semibold">$1403.97</span>
+          <span className="fw-semibold">${subtotal.toFixed(2)}</span>
         </div>
         <div className="d-flex justify-content-between mb-2">
           <span className="text-muted">{t("cart.discount")}</span>
@@ -51,7 +53,9 @@ const OrderSummary = ({ isLoading = false }) => {
 
         <div className="d-flex justify-content-between align-items-baseline mb-3">
           <span className="fw-bold">{t("cart.total2")}</span>
-          <span className="fs-5 fw-bold text-dark">${cartCount.toFixed(2)}</span>
+          <span className="fs-5 fw-bold text-dark">
+            ${subtotal.toFixed(2)}
+          </span>
         </div>
 
         <LoadingButton

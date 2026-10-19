@@ -15,6 +15,7 @@ import { CartContentSkeleton } from "../../Components/ui/Skeleton";
 import SuccessModal from '../../Components/ui/Modal';
 import { CartContext } from '../../Contexts/CartContext';
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router';
 
 
 const Payment = () => {
@@ -30,7 +31,9 @@ const Payment = () => {
     const [selectedAddressId, setSelectedAddressId] = useState("");
     const [couponCode, setCouponCode] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
-  
+
+    const navigateTo = useNavigate();
+
     useEffect(() => {
         CartService.GetCartApi()
             .then((data) => {
@@ -54,7 +57,9 @@ const Payment = () => {
             });
     }, []);
 
-    const cartCount = orders.reduce(
+    const validOrders = orders.filter((item) => item?.product);
+
+    const cartCount = validOrders.reduce(
         (total, item) => total + item.product.price * item.quantity,
         0
     );
@@ -62,12 +67,24 @@ const Payment = () => {
     const handlePaymentConfirmation = () => {
         setError(null);
 
+        if (isLoading || isVerifying) return;
+
+        if (validOrders.length !== orders.length) {
+            setError("بعض المنتجات لم تعد متاحة. ارجع للسلة واحذفها قبل تأكيد الطلب.");
+            return;
+        }
+
+        if (validOrders.length === 0) {
+            setError(t("validation.yourCartIsEmptyPleaseAddItems"));
+            return;
+        }
+
         if (!selectedAddressId) {
             setError(t("validation.pleaseSelectADeliveryAddress"));
             return;
         }
 
-        if(!couponCode) {
+        if (!couponCode) {
             setError("Enter your Coupon")
             return
         }
@@ -91,7 +108,7 @@ const Payment = () => {
             OrderService.AddOrdersApi(orderData)
                 .then((data) => {
                     console.log("Order added successfully:", data);
-                    setShowSuccess(true);
+                    setShowSuccess(true)
                     setCart([]);
                 })
                 .catch((err) => {
@@ -112,6 +129,7 @@ const Payment = () => {
     const handleContinue = () => {
         setShowSuccess(false);
         sessionStorage.removeItem("show_success_modal");
+        navigateTo("/profile/orders")
     };
 
     return (
@@ -161,6 +179,7 @@ const Payment = () => {
                                                 <select className="form-control rounded-2 border-0" id="address"
                                                     value={selectedAddressId}
                                                     onChange={(e) => setSelectedAddressId(e.target.value)}>
+                                                        <option value="">Select Address</option>
                                                     {address.map((addr) => (
                                                         <option key={addr.id} value={addr.id} className="text-dark form-control">
                                                             {addr.street}, {addr.city}
@@ -195,7 +214,7 @@ const Payment = () => {
                                     ? <CartContentSkeleton />
                                     : <>
                                         {
-                                            orders.map((item) => (
+                                            validOrders.map((item) => (
                                                 <div className="product-card-item d-flex justify-content-between align-items-center" key={item.id}>
                                                     <div className="product-info d-flex gap-3 align-items-center">
                                                         <div>

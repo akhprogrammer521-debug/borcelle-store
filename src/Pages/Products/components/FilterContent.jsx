@@ -36,7 +36,7 @@ const FilterContent = ({
     selectedCategoryId,
     onCategoryChange,
 }) => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
     const [showAllCategories, setShowAllCategories] = useState(false);
     const displayedCategories = showAllCategories ? categories : categories.slice(0, 4);
     return (
@@ -151,11 +151,10 @@ const FilterContent = ({
 
                                 <Form.Control
                                     type="number"
-                                    placeholder="0"
+                                    min="0"
+                                    placeholder="min"
                                     value={minPrice}
-                                    onChange={(e) =>
-                                        setMinPrice(e.target.value)
-                                    }
+                                    onChange={(event) => setMinPrice(event.target.value)}
                                 />
                             </Form.Group>
                         </Col>
@@ -166,12 +165,11 @@ const FilterContent = ({
                                 </Form.Label>
 
                                 <Form.Control
+                                    min="0"
                                     type="number"
-                                    placeholder="999999"
+                                    placeholder="max"
                                     value={maxPrice}
-                                    onChange={(e) =>
-                                        setMaxPrice(e.target.value)
-                                    }
+                                    onChange={(event) => setMaxPrice(event.target.value)}
                                 />
                             </Form.Group>
                         </Col>

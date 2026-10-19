@@ -86,3 +86,18 @@ export const API_Config = {
     }
   },
 };
+
+
+export const ADMIN_API_Config = {
+  BASE_URL: API_Config.BASE_URL,
+
+  ENDPOINTS: {
+    AUTH: {
+      LOGIN: "admin/login",
+      LOGOUT: "admin/logout",
+    },
+    PRODUCTS: "admin/product",
+    CATEGORIES: "admin/category",
+    ORDERS: "admin/order",
+  },
+};

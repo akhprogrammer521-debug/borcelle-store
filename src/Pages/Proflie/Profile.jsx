@@ -6,9 +6,11 @@ import Form from "react-bootstrap/Form";
 import { Col, Row, Button } from "react-bootstrap";
 import Link from "../../Components/ui/Link";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { LuCircleUserRound } from "react-icons/lu";
 
 const Profile = () => {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
     const { user, setUser } = useContext(AuthContext);
 
     const [profileData, setProfileData] = useState({
@@ -22,6 +24,8 @@ const Profile = () => {
     const [photo, setPhoto] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState(null);
+
+    const navigateTo = useNavigate()
 
     const fileInputRef = useRef(null);
 
@@ -132,6 +136,21 @@ const Profile = () => {
         }));
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userInfo");
+        sessionStorage.removeItem("userCart");
+        navigateTo("/")
+    }
+
+    const handleSignup = () => {
+        navigateTo('/register')
+    }
+
+    const handleLogin = () => {
+        navigateTo('/login')
+    }
+
     const settingLinks = [
         { id: 1, href: "/profile/myProducts", value: t("common.myProducts") },
         { id: 2, href: "/profile/orders", value: t("common.myOrders") },
@@ -146,107 +165,131 @@ const Profile = () => {
         <Layout
             bodyProfile={
                 <div className="p-3">
-                    <div className="d-flex gap-2 justify-content-between align-items-center my-3">
-                        <div className="d-flex gap-2 justify-content-between align-items-center my-3">
-                            <button
-                                type="button"
-                                className="border-0 bg-white p-0 position-relative"
-                                onClick={handlePhotoClick}
-                                aria-label={t("profile.changeProfilePhoto")}
-                            >
-                                <img
-                                    src={photo || user?.data?.image}
-                                    alt={t("profile.profile")}
-                                    className="user_image"
-                                />
-                            </button>
 
-                            <input
-                                ref={fileInputRef}
-                                type="file"
-                                accept="image/*"
-                                className="d-none"
-                                onChange={handlePhotoChange}
-                            />
+                    {
+                        user
+                            ? <>
+                                <div className="d-flex gap-2 justify-content-between align-items-center my-3">
+                                    <div className="d-flex align-items-center gap-3 justify-content-center">
+                                        <button
+                                            type="button"
+                                            className="border-0 bg-white p-0 position-relative"
+                                            onClick={handlePhotoClick}
+                                            aria-label={t("profile.changeProfilePhoto")}
+                                        >
+                                            {
+                                                photo
+                                                    ?
+                                                    <img
+                                                        src={photo || user?.data?.image}
+                                                        alt={t("profile.profile")}
+                                                        className="user_image"
+                                                    />
+                                                    : <LuCircleUserRound size={50} className="text-secondary" />
+                                            }
+                                        </button>
 
-                            <div className="person-info">
-                                <p className="lh-sm mb-0">{profileData.name}</p>
-                                <p className="lh-sm mt-0 text-secondary">
-                                    {profileData.email}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            className="d-none"
+                                            onChange={handlePhotoChange}
+                                        />
 
-                    <Form className="d-flex flex-column">
-                        <div className="d-flex flex-column flex-md-row gap-4">
-                            <Form.Group className="mb-3 w-100" controlId="profileName">
-                                <Form.Label>{t("profile.fullName")}</Form.Label>
+                                        <div className="person-info">
+                                            <p className="lh-sm mb-0">{profileData.name}</p>
+                                            <p className="lh-sm mt-0 text-secondary">
+                                                {profileData.email}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <Button className="btn-cus" onClick={handleLogout}>Logout</Button>
+                                    </div>
+                                </div>
 
-                                <Form.Control
-                                    type="text"
-                                    placeholder={t("profile.yourFullName")}
-                                    className="bg-light"
-                                    value={profileData.name}
-                                    onChange={(e) =>
-                                        setProfileData((prev) => ({
-                                            ...prev,
-                                            name: e.target.value,
-                                        }))
-                                    }
-                                />
-                            </Form.Group>
+                                <Form className="d-flex flex-column">
+                                    <div className="d-flex flex-column flex-md-row gap-4">
+                                        <Form.Group className="mb-3 w-100" controlId="profileName">
+                                            <Form.Label>{t("profile.fullName")}</Form.Label>
 
-                            <Form.Group className="mb-3 w-100" controlId="profileEmail">
-                                <Form.Label>{t("common.email")}</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder={t("profile.yourFullName")}
+                                                className="bg-light"
+                                                value={profileData.name}
+                                                onChange={(e) =>
+                                                    setProfileData((prev) => ({
+                                                        ...prev,
+                                                        name: e.target.value,
+                                                    }))
+                                                }
+                                            />
+                                        </Form.Group>
 
-                                <Form.Control
-                                    type="email"
-                                    placeholder={t("profile.yourEmail")}
-                                    className="bg-light"
-                                    value={profileData.email}
-                                    onChange={(e) =>
-                                        setProfileData((prev) => ({
-                                            ...prev,
-                                            email: e.target.value,
-                                        }))
-                                    }
-                                />
-                            </Form.Group>
+                                        <Form.Group className="mb-3 w-100" controlId="profileEmail">
+                                            <Form.Label>{t("common.email")}</Form.Label>
 
-                            <Form.Group className="mb-3 w-100" controlId="profilePhone">
-                                <Form.Label>{t("common.phone")}</Form.Label>
+                                            <Form.Control
+                                                type="email"
+                                                placeholder={t("profile.yourEmail")}
+                                                className="bg-light"
+                                                value={profileData.email}
+                                                onChange={(e) =>
+                                                    setProfileData((prev) => ({
+                                                        ...prev,
+                                                        email: e.target.value,
+                                                    }))
+                                                }
+                                            />
+                                        </Form.Group>
 
-                                <Form.Control
-                                    type="tel"
-                                    placeholder={t("profile.yourNumber")}
-                                    className="bg-light"
-                                    value={profileData.phone}
-                                    onChange={(e) =>
-                                        setProfileData((prev) => ({
-                                            ...prev,
-                                            phone: e.target.value,
-                                        }))
-                                    }
-                                />
-                            </Form.Group>
-                        </div>
+                                        <Form.Group className="mb-3 w-100" controlId="profilePhone">
+                                            <Form.Label>{t("common.phone")}</Form.Label>
 
-                        {error && (
-                            <p className="text-danger small text-end mb-0">{error}</p>
-                        )}
+                                            <Form.Control
+                                                type="tel"
+                                                placeholder={t("profile.yourNumber")}
+                                                className="bg-light"
+                                                value={profileData.phone}
+                                                onChange={(e) =>
+                                                    setProfileData((prev) => ({
+                                                        ...prev,
+                                                        phone: e.target.value,
+                                                    }))
+                                                }
+                                            />
+                                        </Form.Group>
+                                    </div>
 
-                        <Button
-                            type="button"
-                            className="btn-cus w-auto align-self-end my-3 px-2"
-                            onClick={handleUpdateProfile}
-                            disabled={isSaving || !originalProfile}
-                        >
-                            {isSaving ? t("common.saving") : t("common.save")}
-                        </Button>
-                    </Form>
+                                    {error && (
+                                        <p className="text-danger small text-end mb-0">{error}</p>
+                                    )}
 
-                    <p className="fw-bold">{t("profile.setting")}</p>
+                                    <Button
+                                        type="button"
+                                        className="btn-cus w-auto align-self-end my-3 px-2"
+                                        onClick={handleUpdateProfile}
+                                        disabled={isSaving || !originalProfile}
+                                    >
+                                        {isSaving ? t("common.saving") : t("common.save")}
+                                    </Button>
+                                </Form>
+                            </>
+
+                            : <>
+                                <div className="d-flex flex-column align-items-start">
+                                    <p className="fw-bolder">You should to create an Account or Login</p>
+                                    <div className="d-flex gap-2">
+                                        <Button className="btn-cus" onClick={handleSignup}>Signup</Button>
+                                        <Button className="btn-cus" onClick={handleLogin}>Login</Button>
+                                    </div>
+                                </div>
+                            </>
+                    }
+
+                    <p className="fw-bold my-4">{t("profile.setting")}</p>
 
                     <Row className="g-3">
                         {settingLinks.map((item) => (
