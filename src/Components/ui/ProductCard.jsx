@@ -170,7 +170,7 @@ const ProductCard = ({ product, view, showDetails = true }) => {
                         onClick={handleAddingCart}
                     />
                     {error && (
-                        <div className="alert alert-danger">{error}</div>
+                        <div className="alert alert-warning">{error}</div>
                     )}
                     {showDetails && (
                         <NavLink

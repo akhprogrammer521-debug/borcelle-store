@@ -100,12 +100,16 @@ const RecommendedItems = () => {
                     </p>
                   </div>
 
-                  <Button
-                    value={isSaving === item.id ? t("common.adding") : t("common.addToCart")}
-                    className="mt-3"
-                    disabled={isSaving === item.id}
-                    onClick={(e) => handleAddingCart(e, item)}
-                  />
+                  {
+                    user && (
+                      <Button
+                        value={isSaving === item.id ? t("common.adding") : t("common.addToCart")}
+                        className="mt-3"
+                        disabled={isSaving === item.id}
+                        onClick={(e) => handleAddingCart(e, item)}
+                      />
+                    )
+                  }
                 </div>
               </NavLink>
             </Col>

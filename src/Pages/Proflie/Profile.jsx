@@ -276,6 +276,15 @@ const Profile = () => {
                                         {isSaving ? t("common.saving") : t("common.save")}
                                     </Button>
                                 </Form>
+                                <p className="fw-bold my-4">{t("profile.setting")}</p>
+
+                                <Row className="g-3">
+                                    {settingLinks.map((item) => (
+                                        <Col lg={4} sm={6} key={item.id}>
+                                            <Link href={item.href} value={item.value} />
+                                        </Col>
+                                    ))}
+                                </Row>  
                             </>
 
                             : <>
@@ -289,15 +298,7 @@ const Profile = () => {
                             </>
                     }
 
-                    <p className="fw-bold my-4">{t("profile.setting")}</p>
 
-                    <Row className="g-3">
-                        {settingLinks.map((item) => (
-                            <Col lg={4} sm={6} key={item.id}>
-                                <Link href={item.href} value={item.value} />
-                            </Col>
-                        ))}
-                    </Row>
                 </div>
             }
         />
