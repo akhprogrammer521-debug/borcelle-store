@@ -2,13 +2,13 @@ import { Routes, Route, Link } from "react-router";
 import { MotionConfig } from "framer-motion";
 import AdminAuthProvider from "../Providers/AdminAuthProvider";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
-import AdminLayout from "../Layouts/AdminLayout";
-import Login from "../Pages/Login";
-import Dashboard from "../Pages/Dashboard";
-import Products from "../Pages/Products";
-import Categories from "../Pages/Categories";
-import Orders from "../Pages/Orders";
-import Terms from "../Pages/Terms";
+import AdminLayout from "../layouts/AdminLayout";
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
+import Products from "../pages/Products";
+import Categories from "../pages/Categories";
+import Orders from "../pages/Orders";
+import Terms from "../pages/Terms";
 import "../assets/css/admin.css";
 
 export default function AdminRoutes() {
