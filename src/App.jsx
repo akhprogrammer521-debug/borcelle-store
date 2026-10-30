@@ -20,7 +20,7 @@ import Products from './Pages/Products/Products';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import Cart from './Pages/Cart/Cart';
 
-import AdminRoutes from "./admin/Routes/AdminRoutes";
+import AdminRoutes from "./admin/routes/AdminRoutes";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
